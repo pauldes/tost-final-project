@@ -53,6 +53,7 @@ google-services.json
 freeline.py
 freeline/
 freeline_project_description.json
+<<<<<<< HEAD
 
 # Compiled source #
 ###################
@@ -63,6 +64,18 @@ freeline_project_description.json
 *.o
 *.so
 
+=======
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+>>>>>>> origin/master
 # Packages #
 ############
 # it's better to unpack these files and commit the raw source
@@ -411,6 +424,7 @@ __pycache__/
 [Pp]lugins/wp8.json
 [Pp]lugins/remote_ios.json
 /[Pp]latforms/
+<<<<<<< HEAD
 
 # Mac
 .DS_Store
@@ -449,3 +463,5 @@ resources/signing
 platforms/
 plugins/
 res/
+=======
+>>>>>>> origin/master
