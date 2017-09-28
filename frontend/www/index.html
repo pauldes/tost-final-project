@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <!--
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">  
+        -->
+
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" href="_onsenUI/css/onsenui.css">
+        <link rel="stylesheet" href="_onsenUI/css/onsen-css-components.min.css">
+        <title>Innnovative Project</title>
+    </head>
+    <body>
+
+        <div class="app">
+            <div id="deviceready" class="blink">
+                <div class="event listening">Connexion à l'appareil</div>
+                <div class="event received">L'appareil est prêt</div>
+            </div>
+
+            
+            <ons-page id="mainapp">
+                <ons-toolbar>
+                    <div class="left">
+                        <ons-toolbar-button>
+                            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+                        </ons-toolbar-button>
+                    </div>
+                    <div class="center">
+                        Tchin!
+                    </div>
+                    <div class="right">
+                        <ons-toolbar-button>
+                            <ons-icon icon="ion-search, material:md-search"></ons-icon>
+                        </ons-toolbar-button>
+                        <ons-toolbar-button>
+                            <ons-icon icon="ion-heart, material:md-favorite"></ons-icon>
+                        </ons-toolbar-button>
+                    </div>
+                </ons-toolbar>
+
+                <ons-tabbar swipeable position="auto">
+                    <ons-tab page="tab1.html" label="Accueil"  active>
+                    </ons-tab>
+                    <ons-tab page="tab2.html" label="Bars">
+                    </ons-tab>
+                </ons-tabbar>
+
+            </ons-page>
+            
+        </div>
+
+        <!-- PAGES -->
+
+
+        <template id="tab1.html">
+            <ons-page id="Tab1">
+                <p style="text-align: center;">
+                    This is the first page.
+                </p>
+
+                <ons-alert-dialog>
+                    <div class="alert-dialog-content">
+                        An error has occurred!
+                    </div>
+                    <div class="alert-dialog-footer">
+                        <alert-dialog-button onclick="app.close()">Cancel</alert-dialog-button>
+                    </div>
+                </ons-alert-dialog>
+
+            </ons-page>
+        </template>
+
+
+        <template id="tab2.html">
+            <ons-page id="Tab2">
+                <p style="text-align: center;">
+                    This is the second page.
+                </p>
+                <ons-button onclick="alert('Hello page 2!')">Click Me</ons-button>
+            </ons-page>
+        </template>
+
+        <!--       -->
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+        <script type="text/javascript" src="scripts/index.js"></script>
+        <script src="_onsenUI/js/onsenui.min.js"></script>
+    </body>
+</html>
