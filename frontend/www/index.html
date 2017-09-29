@@ -12,87 +12,62 @@
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" href="_onsenUI/css/onsenui.css">
         <link rel="stylesheet" href="_onsenUI/css/onsen-css-components.min.css">
+        <script src="_onsenUI/js/onsenui.min.js"></script>
         <title>Innnovative Project</title>
     </head>
+
     <body>
 
-        <div class="app">
-
-            <div id="deviceready" class="blink">
-                <div class="event listening">Connexion à l'appareil</div>
-            </div>
-
-            
-            <ons-page id="mainapp">
-                <ons-toolbar>
-                    <div class="left">
-                        <ons-toolbar-button>
-                            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
-                        </ons-toolbar-button>
-                    </div>
-                    <div class="center">
-                        Tchin!
-                    </div>
-                    <div class="right">
-                        <ons-toolbar-button>
-                            <ons-icon icon="ion-search, material:md-search"></ons-icon>
-                        </ons-toolbar-button>
-                        <ons-toolbar-button>
-                            <ons-icon icon="ion-heart, material:md-favorite"></ons-icon>
-                        </ons-toolbar-button>
-                    </div>
-                </ons-toolbar>
-
-                <ons-tabbar swipeable position="auto">
-                    <ons-tab page="tab1.html" label="Accueil"  active>
-                    </ons-tab>
-                    <ons-tab page="tab2.html" label="Bars">
-                    </ons-tab>
-                </ons-tabbar>
-
-            </ons-page>
-            
+        <div id="deviceready" class="blink">
+            <div class="event listening">Connexion à l'appareil</div>
         </div>
 
-        <!-- PAGES -->
+            
+        <ons-page id="mainapp"> 
+
+            <ons-toolbar>
+                <div class="left">
+                    <ons-toolbar-button>
+                        <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+                <div class="center">
+                    Tchin!
+                </div>
+                <div class="right">
+                    <ons-toolbar-button onclick="ons.notification.alert('Search not working !')">
+                        <ons-icon icon="ion-search, material:md-search"></ons-icon>
+                    </ons-toolbar-button>
+                    <ons-toolbar-button>
+                        <ons-icon icon="ion-heart, material:md-favorite"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+            </ons-toolbar>
+
+            <ons-tabbar swipeable position="auto"> <!-- position="auto" la met en haut sur certains modèles-->
+                <ons-tab page="./html/accueil.html" label="Accueil"  active>
+                </ons-tab>
+                <ons-tab page="tab2.html" label="Bars">
+                </ons-tab>
+            </ons-tabbar>
 
 
-        <template id="tab1.html">
-            <ons-page id="Tab1">
-
-                <ons-alert-dialog>
-                    <div class="alert-dialog-content">
-                        An error has occurred!
-                    </div>
-                    <div class="alert-dialog-footer">
-                        <alert-dialog-button onclick="app.close()">Cancel</alert-dialog-button>
-                    </div>
-                </ons-alert-dialog>
-
-                <p style="text-align: center;">
-                    This is the first page.
-                </p>
-
-                
-
-            </ons-page>
-        </template>
-
+        </ons-page>
+            
 
         <template id="tab2.html">
             <ons-page id="Tab2">
                 <p style="text-align: center;">
+
                     This is the second page.
+                    <ons-button onclick="ons.notification.alert('Hello World 2!')">Click Me</ons-button>
+                    
                 </p>
-                <ons-button onclick="alert('Hello page 2!')">Click Me</ons-button>
             </ons-page>
         </template>
 
-        <!--       -->
-
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-        <script type="text/javascript" src="scripts/index.js"></script>
-        <script src="_onsenUI/js/onsenui.min.js"></script>
+        <script type="text/javascript" src="scripts/index.js"></script> 
     </body>
 </html>
