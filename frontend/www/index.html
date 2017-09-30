@@ -10,20 +10,25 @@
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
-        <link rel="stylesheet" href="_onsenUI/css/onsenui.css">
-        <link rel="stylesheet" href="_onsenUI/css/onsen-css-components.min.css">
-        <script src="_onsenUI/js/onsenui.min.js"></script>
+        <link rel="stylesheet" href="onsen/css/onsenui.css">
+        <link rel="stylesheet" href="onsen/css/onsen-css-components.min.css">
+        <script src="onsen/js/onsenui.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+        <script type="text/javascript" src="scripts/index.js"></script>
+
         <title>Innnovative Project</title>
     </head>
 
     <body>
 
-        <div id="deviceready" class="blink">
+       <!-- <div id="deviceready" class="blink">
             <div class="event listening">Connexion à l'appareil</div>
-        </div>
+        </div> -->
 
             
-        <ons-page id="mainapp"> 
+        <ons-page> 
+
 
             <ons-toolbar>
                 <div class="left">
@@ -45,29 +50,14 @@
             </ons-toolbar>
 
             <ons-tabbar swipeable position="auto"> <!-- position="auto" la met en haut sur certains modèles-->
-                <ons-tab page="./html/accueil.html" label="Accueil"  active>
+                <ons-tab page="html/accueil.html" label="Accueil"  active>
                 </ons-tab>
-                <ons-tab page="tab2.html" label="Bars">
+                <ons-tab page="html/bars.html" label="Bars">
                 </ons-tab>
             </ons-tabbar>
 
 
         </ons-page>
-            
 
-        <template id="tab2.html">
-            <ons-page id="Tab2">
-                <p style="text-align: center;">
-
-                    This is the second page.
-                    <ons-button onclick="ons.notification.alert('Hello World 2!')">Click Me</ons-button>
-                    
-                </p>
-            </ons-page>
-        </template>
-
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-        <script type="text/javascript" src="scripts/index.js"></script> 
     </body>
 </html>
