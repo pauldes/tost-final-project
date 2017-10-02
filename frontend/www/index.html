@@ -21,18 +21,37 @@
     </head>
 
     <body>
-
-       <!-- <div id="deviceready" class="blink">
-            <div class="event listening">Connexion à l'appareil</div>
-        </div> -->
-
             
-        <ons-page> 
+        <ons-page>
 
+            <ons-splitter>
+                <ons-splitter-side id="menu" side="left" width="180px" collapse swipeable>
+                    <ons-page>
+                        <ons-list>
+                            <ons-list-item onclick="//TODO" tappable>
+                                Accueil
+                            </ons-list-item>
+                            <ons-list-item onclick="//TODO" tappable>
+                                Mon profil
+                            </ons-list-item>
+                            <ons-list-item onclick="//TODO" tappable>
+                                Evènements
+                            </ons-list-item>
+                        </ons-list>
+                    </ons-page>
+                </ons-splitter-side>
+                <ons-splitter-content id="content" page="home.html">
+                </ons-splitter-content>
+            </ons-splitter>
+
+        </ons-page>
+
+    <template id="home.html">
+        <ons-page>
 
             <ons-toolbar>
                 <div class="left">
-                    <ons-toolbar-button>
+                    <ons-toolbar-button onclick="document.getElementById('menu').open()">
                         <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
                     </ons-toolbar-button>
                 </div>
@@ -49,15 +68,16 @@
                 </div>
             </ons-toolbar>
 
-            <ons-tabbar swipeable position="auto"> <!-- position="auto" la met en haut sur certains modèles-->
-                <ons-tab page="html/accueil.html" label="Accueil"  active>
+            <ons-tabbar swipeable position="auto">
+                <!-- position="auto" la met en haut sur certains modèles-->
+                <ons-tab page="html/accueil.html" label="Accueil" active>
                 </ons-tab>
                 <ons-tab page="html/bars.html" label="Bars">
                 </ons-tab>
             </ons-tabbar>
 
-
         </ons-page>
+    </template>
 
-    </body>
+</body>
 </html>
