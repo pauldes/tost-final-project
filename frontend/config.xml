@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.cordova.myappa8d743" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="fr-FR">
-  <name>innovative-project</name>
-  <description>Projet vide qui utilise Apache Cordova pour vous aider à générer une application ciblant plusieurs plateformes mobiles : Android, iOS et la plateforme Windows universelle.</description>
-  <author href="http://cordova.io" email="dev@cordova.apache.org">Votre nom ici</author>
+  <name>Tøst!</name>
+  <description>Tøst! vous fait découvrir de noueaux bars, cafés et brunchs autour de vous.</description>
+  <author href="http://cordova.io" email="dev@cordova.apache.org">Désigaud/Soafara/Lebreton</author>
   <vs:template-name>BlankJS</vs:template-name>
   <vs:toolsetVersion>6.3.1</vs:toolsetVersion>
   <engine name="android" spec="5.2.1" />
