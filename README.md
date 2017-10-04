@@ -2,9 +2,7 @@
 Projet Innovant - 5TC
 Application mobile construite avec apache Cordoba à partir de Javascript/CSS/HTML/Onsen UI.
 
-#frontend:
-Ouvrir avec Microsoft Visual Studio le fichier frontend/innovative-project.sln
+#frontend: JS, OnsenUI, for Cordoba
 
-#backend:
-(à venir)
+#backend: Java Servlet
 
