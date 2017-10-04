@@ -460,6 +460,8 @@ platforms/wp8/*.csproj.user
 resources/signing
 
 #Temp ...
-platforms/
+merges/
 plugins/
+platforms/
 simulation/
+
