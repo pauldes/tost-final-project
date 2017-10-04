@@ -462,5 +462,8 @@ resources/signing
 #Temp ...
 platforms/
 plugins/
+<<<<<<< HEAD
 merges/
+=======
+>>>>>>> origin/master
 simulation/
