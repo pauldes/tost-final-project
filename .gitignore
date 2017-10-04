@@ -462,5 +462,5 @@ resources/signing
 #Temp ...
 platforms/
 plugins/
-=======
->>>>>>> origin/master
+merges/
+simulation/
