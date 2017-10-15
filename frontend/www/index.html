@@ -9,80 +9,49 @@
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
+
         <link rel="stylesheet" href="onsen/css/onsenui.css">
         <link rel="stylesheet" href="onsen/css/onsen-css-components.min.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/app.css">
+
         <script src="onsen/js/onsenui.min.js"></script>
-        <script type="text/javascript" src="cordova.js"></script>
+        <!--script type="text/javascript" src="cordova.js"></script-->
         <script type="text/javascript" src="scripts/platformOverrides.js"></script>
         <script type="text/javascript" src="scripts/index.js"></script>
         <script type="text/javascript" src="scripts/communications.js"></script>
 
         <title>Tøst!</title>
-        <link rel="icon" type="image/png" href="images/cordova.png" />
+        <link rel="icon" type="image/png" href="assets/img/TostLogo.jpg" />
 
     </head>
 
     <body>
             
         <ons-page>
-
-            <ons-splitter>
-                <ons-splitter-side id="menu" side="left" width="180px" collapse swipeable>
-                    <ons-page>
-                        <ons-list>
-                            <ons-list-item onclick="//TODO" tappable>
-                                Accueil
-                            </ons-list-item>
-                            <ons-list-item onclick="//TODO" tappable>
-                                Mon profil
-                            </ons-list-item>
-                            <ons-list-item onclick="//TODO" tappable>
-                                Evènements
-                            </ons-list-item>
-                        </ons-list>
-                    </ons-page>
-                </ons-splitter-side>
-                <ons-splitter-content id="content" page="home.html">
-                </ons-splitter-content>
-            </ons-splitter>
-
+            <ons-navigator swipeable id="myapp" page="home.html"></ons-navigator>
         </ons-page>
 
     <template id="home.html">
-        <ons-page>
+        <ons-page id="homepage">
 
             <ons-toolbar>
                 <div class="left">
-                    <ons-toolbar-button onclick="document.getElementById('menu').open()">
-                        <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+                    <ons-toolbar-button onclick="ons.notification.alert('Search not working !')">
+                        <ons-icon icon="ion-search, material:md-search"></ons-icon>
                     </ons-toolbar-button>
                 </div>
                 <div class="center">
                     Tøst!
                 </div>
                 <div class="right">
-                    <ons-toolbar-button onclick="ons.notification.alert('Search not working !')">
-                        <ons-icon icon="ion-search, material:md-search"></ons-icon>
-                    </ons-toolbar-button>
                     <ons-toolbar-button>
                         <ons-icon icon="ion-heart, material:md-favorite"></ons-icon>
                     </ons-toolbar-button>
                 </div>
             </ons-toolbar>
 
-            <ons-tabbar swipeable position="auto">
-                <!-- position="auto" la met en haut sur certains modèles-->
-                <ons-tab page="html/accueil.html" label="Accueil" active>
-                </ons-tab>
-                <ons-tab page="html/bars.html" label="Bars">
-                </ons-tab>
-                <ons-tab page="html/tests.html" label="Testing">
-                </ons-tab>
-            </ons-tabbar>
-
+            <ons-navigator page="html/footer.html"></ons-navigator>
         </ons-page>
     </template>
-
 </body>
 </html>
