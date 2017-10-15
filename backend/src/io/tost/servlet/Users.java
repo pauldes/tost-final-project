@@ -7,21 +7,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(
-		asyncSupported = true, 
-		name = "Greetings", 
-		urlPatterns = "/")
+import io.tost.service.Operations;
 
-public class Greetings extends HttpServlet {
+@WebServlet(asyncSupported = true, urlPatterns = { "/users" })
+public class Users extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public Greetings() {
+    public Users() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		response.getWriter().print("Hello world");
+		
+		String username = "";
+		String usernameParam = request.getParameter("username");
+		if(usernameParam!=null)
+			username = usernameParam;
+		//response.getWriter().print("Users request. Hello "+username+" !");
+		response.getWriter().print("Users are: "+Operations.getAllUsers());
+		
 	}
 
 	/*
