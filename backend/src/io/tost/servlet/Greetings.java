@@ -21,7 +21,11 @@ public class Greetings extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+<<<<<<< HEAD
 		response.getWriter().print("Hello world");
+=======
+		response.getWriter().print("Hey. You are on the Tøst server.");
+>>>>>>> al-homepage
 	}
 
 	/*
