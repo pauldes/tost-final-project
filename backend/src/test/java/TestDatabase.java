@@ -1,5 +1,6 @@
+import com.tost.models.User;
 import org.javalite.activejdbc.Base;
-import com.mysql.jdbc.Driver;
+
 import java.util.List;
 
 public class TestDatabase {

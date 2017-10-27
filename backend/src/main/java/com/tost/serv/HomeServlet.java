@@ -1,29 +1,35 @@
 package com.tost.serv;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import java.io.IOException;
 
 
-@Path("/home")
+@Path("/")
 public class HomeServlet extends HttpServlet {
+
     @GET
-    public String yesyes(){
+    public String yesyes()
+    {
         return "I'm Paul. This is my API rest.";
     }
 
-    @GET
-    @Path("/nono")
-    public String nono(){
-        return "I'm Paul. This is my API rest.";
+    @POST
+    @Path("/signin")
+    public boolean signIn(HttpServletRequest req)
+    {
+        String mail = req.getParameter("mail");
+        String cryptedPassword = req.getParameter("cryptedPassword");
+        if(mail!=null && cryptedPassword!=null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
-    @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().write("Momomo");
-    }
 }
