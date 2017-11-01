@@ -1,10 +1,8 @@
 package com.tost.serv;
 
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 
 @Path("/")
@@ -16,20 +14,19 @@ public class HomeServlet extends HttpServlet {
         return "I'm Paul. This is my API rest.";
     }
 
-    @POST
     @Path("/signin")
-    public boolean signIn(HttpServletRequest req)
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String signIn(@FormParam("username") String username, @FormParam("password") String password)
     {
-        String mail = req.getParameter("mail");
-        String cryptedPassword = req.getParameter("cryptedPassword");
-        if(mail!=null && cryptedPassword!=null)
+        if(username!=null && password!=null)
         {
-            return true;
+            return "Hello "+username;
         }
         else
         {
-            return false;
+            return "false";
         }
     }
-
 }

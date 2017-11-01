@@ -1,7 +1,26 @@
 <ons-page id="signup">
-    <p style="text-align: center;">
+    <p style="text-align:center;position:relative;top:50%;transform:translateY(-50%);">
 
-        Here you can sign up.
+        <ons-toolbar>
+            <div class="left">
+                    <ons-back-button onclick="">
+                    </ons-back-button>
+            </div>
+            <div class="center">Tøst!</div>
+        </ons-toolbar>
+
+        Inscrivez-vous
+        <br><br><br><br>
+        <ons-input id="username" modifier="underbar" placeholder="Pseudo" float></ons-input>
+        <br><br>
+        <ons-input id="mail" modifier="underbar" placeholder="Mail" float></ons-input>
+        <br><br>
+        <ons-input id="password" modifier="underbar" placeholder="Mot de passe" float></ons-input>
+        <br><br>
+        <ons-button onclick="signup()" modifier="material">Créer mon compte</ons-button>
 
     </p>
+
+
+
 </ons-page>
