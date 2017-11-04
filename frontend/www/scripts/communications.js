@@ -14,7 +14,7 @@ function theAxios() {
 }
 
 function getHome(){
-    theAxios().get('http://localhost:8080/api/')
+    theAxios().get('/')
         .then(function (response) {
             console.log(response);
             ons.notification.toast({message: response.data, timeout: 2000})
@@ -26,13 +26,21 @@ function getHome(){
 
 function signin(){
 
-    theAxios().post('http://localhost:8080/api/signin', {
+    theAxios().post('/signin', {
         username: 'Fred',
         password: 'Flintstone'
     })
         .then(function (response) {
             console.log(response);
-            ons.notification.toast({message: response.data, timeout: 2000})
+            if(response.data==='INVALID_CREDENTIALS'){
+                ons.notification.toast({message: 'Requête invalide', timeout: 2000})
+            } else if(response.data==='BAD_CREDENTIALS'){
+                ons.notification.toast({message: 'Mauvaise combinaison', timeout: 2000})
+            } else {
+                ons.notification.toast({message: 'Connecté avec succès!', timeout: 2000})
+                pushThePage("homepage.html");
+            }
+
         })
         .catch(function (error) {
             console.log(error);
@@ -40,14 +48,19 @@ function signin(){
 }
 
 function signup(){
-    theAxios().post('http://localhost:8080/api/signup', {
+    theAxios().post('/signup', {
         mail: 'fred@flintstone.com',
         username: 'Fred',
         password: 'Flintstone'
     })
         .then(function (response) {
             console.log(response);
-            ons.notification.toast({message: response.data, timeout: 2000})
+            if(response.data==='EXISTING_PSEUDO') {
+                ons.notification.toast({message: 'Ce pseudo est déja pris!', timeout: 2000})
+            } else {
+                ons.notification.toast({message: 'Compte créé avec succès!', timeout: 2000})
+                pushThePage(signin.html);
+            }
         })
         .catch(function (error) {
             console.log(error);

@@ -1,5 +1,7 @@
 package com.tost.serv;
 
+import com.tost.services.ConnectionServices;
+
 import javax.servlet.http.HttpServlet;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -20,13 +22,29 @@ public class HomeServlet extends HttpServlet {
     @Produces(MediaType.TEXT_PLAIN)
     public String signIn(@FormParam("username") String username, @FormParam("password") String password)
     {
-        if(username!=null && password!=null)
+        if(username==null || password==null || username.equals("") || password.equals(""))
         {
-            return "Hello "+username;
+            return "INVALID_CREDENTIALS";
         }
         else
         {
-            return "false";
+            return ""+ ConnectionServices.checkCredentials(username,password);
+        }
+    }
+
+    @Path("/signup")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String signUp(@FormParam("username") String username, @FormParam("mail") String mail, @FormParam("password") String password)
+    {
+        if(username==null || password==null || mail==null || username.equals("") || password.equals("") || mail.equals(""))
+        {
+            return "INVALID_CREDENTIALS";
+        }
+        else
+        {
+            return ""+ ConnectionServices.createUser(mail,username,password);
         }
     }
 }
