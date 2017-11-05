@@ -16,14 +16,14 @@ public class ConnectionServices {
         Base.close();
     }
 
-    public static boolean createUser(String mail, String username, String password){
+    public static String createUser(String mail, String username, String password){
 
         openDB();
 
         //Check if already exist
         User myMan = User.findFirst("user_pseudo=?",username);
         if(myMan!=null){
-            return false;
+            return "EXISTING_PSEUDO";
         }
 
         User u = new User();
@@ -45,16 +45,16 @@ public class ConnectionServices {
 
         closeDB();
 
-        return true;
+        return "Ok";
     }
 
-    public static boolean checkCredentials(String username, String password){
+    public static String checkCredentials(String username, String password){
 
         openDB();
 
         User myMan = User.findFirst("user_pseudo=?",username);
         if(myMan==null){
-            return false;
+            return "BAD_CREDENTIALS";
         }
         String salt = myMan.get("user_salt").toString();
 
@@ -67,12 +67,12 @@ public class ConnectionServices {
 
         if(hashDouble.equals( myMan.get("user_pwd"))) {
             closeDB();
-            return true;
+            return "Ok";
         }
         else
         {
             closeDB();
-            return false;
+            return "BAD_CREDENTIALS";
         }
     }
 

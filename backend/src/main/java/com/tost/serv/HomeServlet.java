@@ -1,50 +1,57 @@
 package com.tost.serv;
 
 import com.tost.services.ConnectionServices;
-
+import org.json.JSONObject;
 import javax.servlet.http.HttpServlet;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-
 @Path("/")
+@Produces(MediaType.TEXT_PLAIN)
 public class HomeServlet extends HttpServlet {
 
     @GET
     public String yesyes()
     {
-        return "I'm Paul. This is my API rest.";
+        return "Welcome to the Tost API home !";
     }
 
     @Path("/signin")
     @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String signIn(@FormParam("username") String username, @FormParam("password") String password)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String signIn(String data)
     {
-        if(username==null || password==null || username.equals("") || password.equals(""))
+        JSONObject jsonData = new JSONObject(data);
+
+        if( !jsonData.has("username") || !jsonData.has("password"))
         {
-            return "INVALID_CREDENTIALS";
+            return "INVALID_POST";
         }
         else
         {
-            return ""+ ConnectionServices.checkCredentials(username,password);
+            String username = jsonData.getString("username");
+            String password = jsonData.getString("password");
+            return ConnectionServices.checkCredentials(username,password);
         }
     }
 
     @Path("/signup")
     @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String signUp(@FormParam("username") String username, @FormParam("mail") String mail, @FormParam("password") String password)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String signUp(String data)
     {
-        if(username==null || password==null || mail==null || username.equals("") || password.equals("") || mail.equals(""))
+        JSONObject jsonData = new JSONObject(data);
+
+        if(!jsonData.has("username") || !jsonData.has("password") || !jsonData.has("mail"))
         {
-            return "INVALID_CREDENTIALS";
+            return "INVALID_POST";
         }
         else
         {
-            return ""+ ConnectionServices.createUser(mail,username,password);
+            String username = jsonData.getString("username");
+            String password = jsonData.getString("password");
+            String mail = jsonData.getString("mail");
+            return ConnectionServices.createUser(mail,username,password);
         }
     }
 }

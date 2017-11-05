@@ -3,7 +3,33 @@
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
+
     <display-name>OKLM Rest API</display-name>
+
+    <!-- Filtre pour les CORS -->
+
+    <filter>
+        <filter-name>CORS</filter-name>
+        <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+        <init-param>
+            <param-name>cors.allowGenericHttpRequests</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.allowOrigin</param-name>
+            <param-value>*</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.allowSubdomains</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CORS</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <servlet>
         <servlet-name>Tost servlet</servlet-name>
 
@@ -21,8 +47,6 @@
             <param-value>com.tost.serv</param-value>
         </init-param>
 
-
-
         <init-param>
             <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
             <param-value>true</param-value>
@@ -35,4 +59,9 @@
         <servlet-name>Tost servlet</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
+
+
+
+
+
 </web-app>
