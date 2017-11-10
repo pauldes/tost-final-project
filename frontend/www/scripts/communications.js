@@ -13,24 +13,35 @@ function theAxios() {
     return instance;
 }
 
-function getHome(){
+function serverResponds(){
+
+    var connects = false;
+
     theAxios().get('/')
         .then(function (response) {
-            console.log(response);
-            ons.notification.toast({message: response.data, timeout: 2000})
+            console.log(response.data);
+            connects = true;
+            connects = navigator.onLine;
+            console.log(connects);
         })
-        .catch(function (error) {
-            console.log(error);
+        .then(function(){
+            if(connects===false){
+                ons.notification.alert('Impossible de contacter le serveur! Internet est-il activé?')
+            }
+            return connects;
         });
 }
 
 function signin(){
 
-    console.log($('#username').value +' HEYY')
+    console.log({
+        username: $("#signin_usr").value,
+        password: $("#signin_pwd").value
+    });
 
     theAxios().post('/signin', {
-        username: $("#username").value,
-        password: $("#password").value
+        username: $("#signin_usr").value,
+        password: $("#signin_pwd").value
     })
         .then(function (response) {
             console.log(response);
@@ -51,16 +62,13 @@ function signin(){
 
 function signup(){
 
-    if($("#password").value==$("#password2").value){
+    if($("#signup_pwd").value != $("#signup_pwd2").value){
         ons.notification.toast('Les mots de passe sont différents!')
     } else {
-
         theAxios().post('/signup', {
-            mail:     $("#mail").value,
-            username: $("#username").value,
-            password: $("#password").value
-        }, {
-            "mail": "fred@flintstone.com", "username": "john", "password": "Flintstone"
+            mail:     $("#signup_mail").value,
+            username: $("#signup_usr").value,
+            password: $("#signup_pwd").value
         })
             .then(function (response) {
                 console.log(response);
@@ -68,6 +76,8 @@ function signup(){
                     ons.notification.toast({message: 'Requête invalide', timeout: 2000})
                 } else if (response.data === 'EXISTING_PSEUDO') {
                     ons.notification.toast({message: 'Ce pseudo est déja pris!', timeout: 2000})
+                } else if (response.data === 'EXISTING_MAIL') {
+                    ons.notification.toast({message: 'Un compte a déjà été créé avec cette adresse mail!', timeout: 2000})
                 } else {
                     ons.notification.toast({message: 'Compte créé avec succès!', timeout: 2000})
                     pushThePage("signin.html");

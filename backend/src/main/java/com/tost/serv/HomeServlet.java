@@ -11,9 +11,9 @@ import javax.ws.rs.core.MediaType;
 public class HomeServlet extends HttpServlet {
 
     @GET
-    public String yesyes()
+    public String testConnection()
     {
-        return "Welcome to the Tost API home !";
+        return "Hey :)";
     }
 
     @Path("/signin")

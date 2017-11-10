@@ -9,7 +9,9 @@ import org.javalite.activejdbc.Base;
 public class ConnectionServices {
 
     public static void openDB(){
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/tost_db?serverTimezone=UTC&nullNamePatternMatchesAll=true", "root", "root");
+        if(!Base.hasConnection()) {
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/tost_db?serverTimezone=UTC&nullNamePatternMatchesAll=true&useSSL=false", "root", "root");
+        }
     }
 
     public static void closeDB(){
@@ -24,6 +26,11 @@ public class ConnectionServices {
         User myMan = User.findFirst("user_pseudo=?",username);
         if(myMan!=null){
             return "EXISTING_PSEUDO";
+        }
+
+        myMan = User.findFirst("user_mail=?",mail);
+        if(myMan!=null){
+            return "EXISTING_MAIL";
         }
 
         User u = new User();

@@ -39,7 +39,27 @@
 
     <body>
 
+    <div id="loadingscreen" style="background-color: black">
+    </div>
+
+    <div id="checkingconnection" style="text-align:center;position:relative;top:50%;transform:translateY(-60%);">
+        <h1>Tøst!</h1>
+        <br><br>
+        Loading...
+        <br><br>
+        <ons-progress-circular indeterminate></ons-progress-circular>
+    </div>
+
+    <div id="mainapp">
         <ons-navigator swipeable id="globalNavigator" page="html/signin.html"></ons-navigator>
+    </div>
+
+    <script>
+        if(serverResponds()===false) {
+            document.getElementById('checkingconnection').setAttribute('style', 'display:none;');
+            document.getElementById('mainapp').setAttribute('style', 'display:block;');
+        }
+    </script>
 
     </body>
 </html>
