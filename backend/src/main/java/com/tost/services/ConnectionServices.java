@@ -52,7 +52,7 @@ public class ConnectionServices {
 
         closeDB();
 
-        return "Ok";
+        return "OK";
     }
 
     public static String checkCredentials(String username, String password){
@@ -74,7 +74,7 @@ public class ConnectionServices {
 
         if(hashDouble.equals( myMan.get("user_pwd"))) {
             closeDB();
-            return "Ok";
+            return "OK";
         }
         else
         {

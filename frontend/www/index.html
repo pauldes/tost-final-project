@@ -48,18 +48,14 @@
         Loading...
         <br><br>
         <ons-progress-circular indeterminate></ons-progress-circular>
+
     </div>
 
     <div id="mainapp">
         <ons-navigator swipeable id="globalNavigator" page="html/signin.html"></ons-navigator>
     </div>
 
-    <script>
-        if(serverResponds()===false) {
-            document.getElementById('checkingconnection').setAttribute('style', 'display:none;');
-            document.getElementById('mainapp').setAttribute('style', 'display:block;');
-        }
-    </script>
+    <script>contactServerAndUnlockApp()</script>
 
     </body>
 </html>

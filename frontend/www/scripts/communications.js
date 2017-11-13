@@ -1,7 +1,11 @@
-﻿function checkConnection() {
-    // Besoin de cordova-plugin-network-information pour ça
-    var networkState = navigator.connection.type;
-    return ('Connection type: ' + navigator.connection.type);
+﻿
+var serverMessages ={
+    'OK'                : 'OK',
+    ''                  : 'Warning: unexpected',
+    'INVALID_POST'      : 'Requête invalide',
+    'BAD_CREDENTIALS'   : 'Mauvaise combinaison',
+    'EXISTING_PSEUDO'   : 'Ce pseudo est déja pris!',
+    'EXISTING_MAIL'     : 'Un compte a déjà été créé avec cette adresse mail!'
 }
 
 function theAxios() {
@@ -13,31 +17,23 @@ function theAxios() {
     return instance;
 }
 
-function serverResponds(){
-
-    var connects = false;
-
+function contactServerAndUnlockApp(){
     theAxios().get('/')
         .then(function (response) {
-            console.log(response.data);
-            connects = true;
+            var connects = true;
             connects = navigator.onLine;
             console.log(connects);
-        })
-        .then(function(){
-            if(connects===false){
-                ons.notification.alert('Impossible de contacter le serveur! Internet est-il activé?')
+            if (connects) {
+                document.getElementById('checkingconnection').setAttribute('style', 'display:none;');
+                document.getElementById('mainapp').setAttribute('style', 'display:block;');
             }
-            return connects;
+        })
+        .catch(function (error) {
+            ons.notification.alert('Impossible de contacter le serveur! Internet est-il activé?')
         });
 }
 
 function signin(){
-
-    console.log({
-        username: $("#signin_usr").value,
-        password: $("#signin_pwd").value
-    });
 
     theAxios().post('/signin', {
         username: $("#signin_usr").value,
@@ -45,15 +41,12 @@ function signin(){
     })
         .then(function (response) {
             console.log(response);
-            if(response.data==='INVALID_POST'){
-                ons.notification.toast({message: 'Requête invalide', timeout: 2000})
-            } else if(response.data==='BAD_CREDENTIALS'){
-                ons.notification.toast({message: 'Mauvaise combinaison', timeout: 2000})
+            if(response.data===serverMessages['OK']){
+                ons.notification.toast({message: 'Connecté avec succès!', timeout: 500});
+                pushThePage("main.html");
             } else {
-                ons.notification.toast({message: 'Connecté avec succès!', timeout: 2000})
-                pushThePage("home.html");
+                ons.notification.toast({message:serverMessages[response.data],timeout:2000});
             }
-
         })
         .catch(function (error) {
             console.log(error);
@@ -63,7 +56,7 @@ function signin(){
 function signup(){
 
     if($("#signup_pwd").value != $("#signup_pwd2").value){
-        ons.notification.toast('Les mots de passe sont différents!')
+        ons.notification.toast({message:'Les mots de passe sont différents!',timeout:2000})
     } else {
         theAxios().post('/signup', {
             mail:     $("#signup_mail").value,
@@ -72,15 +65,11 @@ function signup(){
         })
             .then(function (response) {
                 console.log(response);
-                if (response.data === 'INVALID_POST') {
-                    ons.notification.toast({message: 'Requête invalide', timeout: 2000})
-                } else if (response.data === 'EXISTING_PSEUDO') {
-                    ons.notification.toast({message: 'Ce pseudo est déja pris!', timeout: 2000})
-                } else if (response.data === 'EXISTING_MAIL') {
-                    ons.notification.toast({message: 'Un compte a déjà été créé avec cette adresse mail!', timeout: 2000})
-                } else {
+                if (response.data === serverMessages['OK']) {
                     ons.notification.toast({message: 'Compte créé avec succès!', timeout: 2000})
                     pushThePage("signin.html");
+                } else {
+                    ons.notification.toast({message:serverMessages[response.data],timeout:2000});
                 }
             })
             .catch(function (error) {
@@ -88,20 +77,3 @@ function signup(){
             });
     }
 }
-
-/*
-var http = new XMLHttpRequest();
-var url = "get_data.php";
-var params = "lorem=ipsum&name=binny";
-http.open("POST", url, true);
-
-//Send the proper header information along with the request
-http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-http.onreadystatechange = function() {//Call a function when the state changes.
-    if(http.readyState == 4 && http.status == 200) {
-        alert(http.responseText);
-    }
-}
-http.send(params);
- */
