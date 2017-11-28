@@ -4,23 +4,12 @@ import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 import com.tost.models.User;
 import org.apache.commons.lang.RandomStringUtils;
-import org.javalite.activejdbc.Base;
 
 public class ConnectionServices {
 
-    public static void openDB(){
-        if(!Base.hasConnection()) {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/tost_db?serverTimezone=UTC&nullNamePatternMatchesAll=true&useSSL=false", "root", "root");
-        }
-    }
-
-    public static void closeDB(){
-        Base.close();
-    }
-
     public static String createUser(String mail, String username, String password){
 
-        openDB();
+        DatabaseServices.openDB();
 
         //Check if already exist
         User myMan = User.findFirst("user_pseudo=?",username);
@@ -50,14 +39,14 @@ public class ConnectionServices {
 
         u.saveIt();
 
-        closeDB();
+        DatabaseServices.closeDB();
 
         return "OK";
     }
 
     public static String checkCredentials(String username, String password){
 
-        openDB();
+        DatabaseServices.openDB();
 
         User myMan = User.findFirst("user_pseudo=?",username);
         if(myMan==null){
@@ -73,12 +62,13 @@ public class ConnectionServices {
                 .toString();
 
         if(hashDouble.equals( myMan.get("user_pwd"))) {
-            closeDB();
-            return "OK";
+            String id = myMan.get("user_id").toString();
+            DatabaseServices.closeDB();
+            return "OK__"+id;
         }
         else
         {
-            closeDB();
+            DatabaseServices.closeDB();
             return "BAD_CREDENTIALS";
         }
     }
