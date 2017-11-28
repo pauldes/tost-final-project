@@ -39,7 +39,7 @@ Run Cordova (frontend) with
 *executable:         your_path_to\npm\cordova.cmd
 *working directory:  frontend
 
-### Using
+### Use
 
 *http://localhost:8080/api/ should show a welcome message from the server
 *http://localhost:8000      should show the mobile app
@@ -53,8 +53,8 @@ And we used IntelliJ Idea to work faster.
 
 ## Authors
 
-* **Paul D.** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-* **Soafara Z.** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-* **Alicia L.** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Paul D.** 
+* **Soafara Z.** 
+* **Alicia L.**
 
 
