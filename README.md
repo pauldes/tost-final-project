@@ -29,20 +29,20 @@ org.javalite:activejdbc-instrumentation:1.4.13:instrument
 ```
 
 Run Jetty (backend) with 
-path:           /api
-port:           8080
-classes folder: backend\target\classes
-webApp folder : backend\src\webapp
+*path:           /api
+*port:           8080
+*classes folder: backend\target\classes
+*webApp folder : backend\src\webapp
 
 Run Cordova (frontend) with
-command:            run
-executable:         your_path_to\npm\cordova.cmd
-working directory:  frontend
+*command:            run
+*executable:         your_path_to\npm\cordova.cmd
+*working directory:  frontend
 
 ### Using
 
-http://localhost:8080/api/ should show a welcome message from the server
-http://localhost:8000      should show the mobile app
+*http://localhost:8080/api/ should show a welcome message from the server
+*http://localhost:8000      should show the mobile app
 
 ### Built With
 
@@ -56,9 +56,5 @@ And we used IntelliJ Idea to work faster.
 * **Paul D.** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
 * **Soafara Z.** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
 * **Alicia L.** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 
