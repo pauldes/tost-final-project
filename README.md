@@ -29,27 +29,27 @@ org.javalite:activejdbc-instrumentation:1.4.13:instrument
 ```
 
 Run Jetty (backend) with 
-*path:           /api
-*port:           8080
-*classes folder: backend\target\classes
-*webApp folder : backend\src\webapp
+* path:           /api
+* port:           8080
+* classes folder: backend\target\classes
+* webApp folder : backend\src\webapp
 
 Run Cordova (frontend) with
-*command:            run
-*executable:         your_path_to\npm\cordova.cmd
-*working directory:  frontend
+* command:            run
+* executable:         your_path_to\npm\cordova.cmd
+* working directory:  frontend
 
 ### Use
 
-*http://localhost:8080/api/ should show a welcome message from the server
-*http://localhost:8000      should show the mobile app
+* http://localhost:8080/api/ should show a welcome message from the server
+* http://localhost:8000      should show the mobile app
 
 ### Built With
 
 * [Onsen UI 2](https://onsen.io/) - UI framework and components for HTML5 hybrid mobile app
 * [ActiveJDBC](http://javalite.io/activejdbc) - Fast Java ORM
 * [Maven](https://maven.apache.org/) - Dependency Management
-And we used IntelliJ Idea to work faster.
+* IntelliJ Idea
 
 ## Authors
 
