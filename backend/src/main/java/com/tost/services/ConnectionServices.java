@@ -62,7 +62,7 @@ public class ConnectionServices {
                 .toString();
 
         if(hashDouble.equals( myMan.get("user_pwd"))) {
-            String id = myMan.get("user_id").toString();
+            String id = myMan.get("id_user").toString();
             DatabaseServices.closeDB();
             return "OK__"+id;
         }
