@@ -31,7 +31,7 @@ function fillMyFavs(category){
             currentfavdiv.className = 'row';
             currentfavdiv.innerHTML = "" +
                 "<ons-card> " +
-                "<img src='https://monaca.io/img/logos/download_image_onsenui_01.png' alt='Onsen UI' style='width: 100%'> " +
+                "<img src='http://www.gqmagazine.fr/uploads/images/thumbs/201512/57/hipster_sait_faire_un_bon_caf___5108.jpeg_north_640x425_transparent.jpg' alt='Onsen UI' style='width: 100%'> " +
                 "<div class='title'> " +
                 name +
                 "</div> " +
@@ -52,4 +52,48 @@ function getFromGoogleImages(query){
     $newhtml =file_get_html("https://www.google.com/search?q=".$search_keyword."&tbm=isch");
     $result_image_source = $newhtml->find('img', 0)->src;
     */
+}
+
+var placeSearch, autocomplete, geocoder;
+
+function initAutocomplete() {
+
+    //TODO: use Places instead of Maps
+
+    navigator.geolocation.getCurrentPosition(function(position){
+
+        var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+
+
+    }, onError);
+
+
+    geocoder = new google.maps.Geocoder();
+    var input = document.getElementById('autocomplete');
+    //var options = {types:['cafe','bar','bakery','restaurant']};
+    var options = {types:['establishment']};
+    autocomplete = new google.maps.places.Autocomplete(input,options);
+    autocomplete.addListener('place_changed', fillInAddress);
+
+
+}
+
+function fillInAddress() {
+    var place = autocomplete.getPlace();
+    alert(place.place_id);
+    codeAddress(document.getElementById('autocomplete').value);
+}
+function codeAddress(address) {
+    geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == 'OK') {
+            alert(results[0].geometry.location);
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+}
+
+function onError(error) {
+    alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 }

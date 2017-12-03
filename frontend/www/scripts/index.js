@@ -1,8 +1,4 @@
-﻿// Pour obtenir une présentation du modèle Vide, consultez la documentation suivante :
-// http://go.microsoft.com/fwlink/?LinkID=397704
-// Pour déboguer du code durant le chargement d'une page dans cordova-simulate ou sur les appareils/émulateurs Android, lancez votre application, définissez des points d'arrêt, 
-// puis exécutez "window.location.reload()" dans la console JavaScript.
-(function () {
+﻿(function () {
     "use strict";
 
     document.addEventListener('deviceready', onDeviceReady.bind(this), false);

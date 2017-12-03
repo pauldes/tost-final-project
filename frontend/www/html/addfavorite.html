@@ -9,16 +9,14 @@
         <div class="center">Tøst!</div>
     </ons-toolbar>
 
-    <p style="text-align: center;">
+    <input style="text-align: center;">
 
-        <ons-search-input
-                material float transparent
+        <ons-search-input style="width:100%"
+                material float transparent input-id="autocomplete"
                 placeholder="Bar, brunch ou café">
         </ons-search-input>
 
-        <br><br>
-
-        <ons-button tappable onclick="ons.notification.alert('Added!')">Add!</ons-button>
+        <script>initAutocomplete()</script>
 
     </p>
 </ons-page>
