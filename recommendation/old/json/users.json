@@ -1,0 +1,29 @@
+{
+  "name" : "Users_table",
+  "values" : [
+    {
+      "user_id" : 1,
+      "name" : "Alicia",
+      "surname" : "Lebreton",
+      "mail" : "alicia.lebreton44@insa-lyon.fr",
+      "main_city" : "Lyon",
+      "avatar" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png"
+    },
+    {
+      "user_id" : 2,
+      "name" : "Soafara",
+      "surname" : "Zoentsoa",
+      "mail" : "soafara.zoentsoa@insa-lyon.fr",
+      "main_city" : "Lyon",
+      "avatar" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png"
+    },
+    {
+      "user_id" : 3,
+      "name" : "Paul",
+      "surname" : "Desigaud",
+      "mail" : "paul.desigaud@insa-lypn.fr",
+      "main_city" : "Lyon",
+      "avatar" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+   "name": "User_likes_place_table", 
+   "values": [
+      {
+         "place_id": "ChIJ3b1dHUHq9EcRYeUmmGUrtIk", 
+         "user_id": "1", 
+         "value": 1
+      }, 
+      {
+         "place_id": "ChIJI8m063rr9EcRvlmi01gEO2g", 
+         "user_id": "1", 
+         "value": 1
+      }, 
+      {
+         "place_id": "ChIJw-RAxUrq9EcRoBzzk9Nloe0", 
+         "user_id": "1", 
+         "value": -1
+      }, 
+      {
+         "place_id": "ChIJ3b1dHUHq9EcRYeUmmGUrtIk", 
+         "user_id": "2", 
+         "value": 1
+      }, 
+      {
+         "place_id": "ChIJgydz0v7q9EcRMYrQn-degRE", 
+         "user_id": "2", 
+         "value": 1
+      }
+   ]
+}
