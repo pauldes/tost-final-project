@@ -27,6 +27,8 @@ print("> OK\n")
 
 print("Predictions :")
 #get a prediction for a specific user and item
-uid = str(1)
-iid = str(4)
-pred = algo.predict(uid, iid, r_ui=0, verbose=True)
+uid = str(4)
+
+for i in range(9):
+    iid=str(i+1)
+    pred = algo.predict(uid, iid, verbose=True)
