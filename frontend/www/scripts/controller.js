@@ -52,22 +52,18 @@ function getFromGoogleImages(query){
     $newhtml =file_get_html("https://www.google.com/search?q=".$search_keyword."&tbm=isch");
     $result_image_source = $newhtml->find('img', 0)->src;
     */
+
 }
 
 var placeSearch, autocomplete, geocoder;
 
 function initAutocomplete() {
 
-    //TODO: use Places instead of Maps
+    // What about using Places instead of Maps?
 
     navigator.geolocation.getCurrentPosition(function(position){
-
         var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-
-
     }, onError);
-
 
     geocoder = new google.maps.Geocoder();
     var input = document.getElementById('autocomplete');
@@ -75,15 +71,16 @@ function initAutocomplete() {
     var options = {types:['establishment']};
     autocomplete = new google.maps.places.Autocomplete(input,options);
     autocomplete.addListener('place_changed', fillInAddress);
-
-
 }
 
 function fillInAddress() {
     var place = autocomplete.getPlace();
     alert(place.place_id);
+    console.log(place);
+    window.open(place.photos[0].getUrl({'maxWidth': 640, 'maxHeight': 640}));
     codeAddress(document.getElementById('autocomplete').value);
 }
+
 function codeAddress(address) {
     geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == 'OK') {

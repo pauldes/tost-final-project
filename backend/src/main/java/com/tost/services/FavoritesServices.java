@@ -7,12 +7,18 @@ import java.util.List;
 
 public class FavoritesServices {
 
-    public static String addToFavorites(){
+    public static String addToFavorites(String place_name,String google_place_id){
+
+        //1. Check if exists in db
+        //2. Add to db if necessary
+        //3. Add a link between u and p
+
         return "";
     }
     public static String removeFromFavorites(){
         return "";
     }
+
     public static JSONObject getFavorites(){
 
         //Get user
