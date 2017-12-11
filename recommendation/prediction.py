@@ -27,8 +27,14 @@ print("> OK\n")
 
 print("Predictions :")
 #get a prediction for a specific user and item
-uid = str(4)
+uid = str(1)
+
+ratings = vars(data).get('raw_ratings')
 
 for i in range(9):
     iid=str(i+1)
-    pred = algo.predict(uid, iid, verbose=True)
+    rating = 0
+    for tup in ratings:
+        if (tup[0]==uid and tup[1]==iid):
+            rating = tup[2]
+    pred = algo.predict(uid, iid, rating, verbose=True)
