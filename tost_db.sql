@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 12, 2017 at 05:33 PM
--- Server version: 5.7.14
--- PHP Version: 7.0.10
+-- Host: localhost
+-- Generation Time: Dec 12, 2017 at 08:16 PM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -92,7 +94,14 @@ INSERT INTO `places` (`id_place`, `place_name`, `google_place_id`, `place_catego
 (2, 'Oslow', 'ChIJAQCwF17q9EcRN817GaJoojg', 'Café,Brunch'),
 (8, 'Aloha', 'ChIJ6_hMo__q9EcRhJhSxH47Y64', 'Bar'),
 (9, 'Brasserie Georges', 'ChIJ9_SKPUvq9EcRsvhxDZsc158', 'Café'),
-(14, 'Athina', 'ChIJgzfjCPzq9EcRO1sx6eTW3U4', 'Café,Brunch,');
+(14, 'Athina', 'ChIJgzfjCPzq9EcRO1sx6eTW3U4', 'Café,Brunch,'),
+(15, 'Mademoiselle Rêve', 'ChIJgyqsLVzq9EcR3BSQelHZ0m8', 'Bar,'),
+(16, 'Le MoMa', 'ChIJfc4loP_q9EcR-a496XWLZ90', 'Bar,'),
+(17, 'Café J\'adore', 'ChIJacwKnf3q9EcR3ey_K-pyAWs', 'Café,'),
+(18, 'Slake Coffee House', 'ChIJzTyCSFTq9EcRvLMegp9RRFA', 'Café,'),
+(19, 'The GentleCat - Bar cats', 'ChIJW7u1RrPr9EcRLgkNWC-LFYI', 'Café,'),
+(20, 'Le Bieristan', 'ChIJKaAdPS7A9EcRfPHngQl7wNo', 'Bar,'),
+(21, 'Candy Cookie Boulevard', 'ChIJAcvZsf_q9EcRXrSoUV0bPAQ', 'Café,');
 
 -- --------------------------------------------------------
 
@@ -151,7 +160,15 @@ CREATE TABLE `userx` (
 --
 
 INSERT INTO `userx` (`id_user`, `user_pseudo`, `user_mail`, `user_avatar`, `user_pwd`, `user_salt`) VALUES
-(6, 'maria', 'lola@lola.fr', NULL, '471b146b6d998b4266aadec8ee257a323ac216a6558a75c16b8dcd8920083da0', 'MQW8ta43');
+(6, 'maria', 'lola@lola.fr', NULL, '471b146b6d998b4266aadec8ee257a323ac216a6558a75c16b8dcd8920083da0', 'MQW8ta43'),
+(15, 'alicialbt', 'alicia@gmail.com', NULL, 'aaa822e5edd5107043fba7c95548b43e8232e6a252d1d2ac9d64cfc4a21e13d1', 'GQv0iHZY'),
+(16, 'soazoen', 'soafara@gmail.com', NULL, '5a2f909e3f83b015423be5b2f52509c545c217b5ea5599755d3af4019841a7a7', 'n62p75Gi'),
+(17, 'pauldes', 'pau@gmail.com', NULL, 'f4fa0b3ca3a5b830814ebc682f6da1f54a078da31273341952e24fad92359710', 'xazf9pF3'),
+(18, 'iris', 'iris@gmail.com', NULL, 'a43adc65141d6a2817689d9d381160551e91220024a16c86da848dc22f6d8a36', 'FeRCXv5A'),
+(19, 'martin', 'martin@gmail.com', NULL, 'aec1a84648f6999fd6a5dff375d8603d8b96dba255c3bae3d9eccab17e4b7a19', 'nVIk2u4b'),
+(20, 'berenice', 'berenice@gmail.com', NULL, '2e2040968bf626f0a07e545e5fe7dcb1085881d8cbc2f252e7f20f77ac84d21a', 'Ab5gyscS'),
+(21, 'emilie', 'emilie@gmail.com', NULL, 'e5237ca2a35501e6c7753fc49d5888b7247fc2991cfec80649db80e9014fbb98', 'RndtNzWP'),
+(22, 'vincent', 'vincent@gmail.com', NULL, '3bbde9a9ebcf85720b3931ecbd8634e20d9a3c59b83af5215ac83de80855967c', 'x6fPTald');
 
 -- --------------------------------------------------------
 
@@ -186,7 +203,20 @@ INSERT INTO `user_liked_places` (`id_user_liked_place`, `id_user`, `id_place`, `
 (1, 6, 1, 1),
 (2, 6, 8, 1),
 (3, 6, 9, 1),
-(8, 6, 14, 1);
+(8, 6, 14, 1),
+(9, 18, 15, 1),
+(10, 18, 16, 1),
+(11, 19, 16, 1),
+(12, 19, 17, 1),
+(13, 19, 18, 1),
+(14, 20, 17, 1),
+(15, 20, 18, 1),
+(16, 20, 15, 1),
+(17, 20, 19, 1),
+(18, 21, 20, 1),
+(19, 21, 19, 1),
+(20, 22, 17, 1),
+(21, 22, 21, 1);
 
 -- --------------------------------------------------------
 
@@ -335,71 +365,86 @@ ALTER TABLE `user_used_place_tag`
 --
 ALTER TABLE `event`
   MODIFY `id_event` mediumint(9) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `event_cat`
 --
 ALTER TABLE `event_cat`
   MODIFY `id_event_cat` smallint(6) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `event_tag`
 --
 ALTER TABLE `event_tag`
   MODIFY `id_event_tag` smallint(6) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `event_tag_belongs_to_cat`
 --
 ALTER TABLE `event_tag_belongs_to_cat`
   MODIFY `id_event_tag_bel_to_cat` smallint(6) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `places`
 --
 ALTER TABLE `places`
-  MODIFY `id_place` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_place` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
 --
 -- AUTO_INCREMENT for table `place_tag`
 --
 ALTER TABLE `place_tag`
   MODIFY `id_place_tag` smallint(6) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `place_tag_belongs_to_cat`
 --
 ALTER TABLE `place_tag_belongs_to_cat`
   MODIFY `id_place_tag_bel_to_cat` smallint(6) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `pro`
 --
 ALTER TABLE `pro`
   MODIFY `id_pro` mediumint(9) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `userx`
 --
 ALTER TABLE `userx`
-  MODIFY `id_user` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_user` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
 --
 -- AUTO_INCREMENT for table `user_interested_event`
 --
 ALTER TABLE `user_interested_event`
   MODIFY `id_user_intd_event` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `user_liked_places`
 --
 ALTER TABLE `user_liked_places`
-  MODIFY `id_user_liked_place` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_user_liked_place` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
 --
 -- AUTO_INCREMENT for table `user_recommendations`
 --
 ALTER TABLE `user_recommendations`
   MODIFY `id_user_recommendation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `user_used_event_tag`
 --
 ALTER TABLE `user_used_event_tag`
   MODIFY `id_user_used_event_tag` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `user_used_place_tag`
 --
 ALTER TABLE `user_used_place_tag`
   MODIFY `id_user_used_place_tag` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
