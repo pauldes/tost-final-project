@@ -29,4 +29,15 @@ cur.execute("SELECT * FROM user_liked_places")
 for row in cur.fetchall():
     print('User #',row[1],' liked place #',row[2],' with score ',row[3])
 
+'''
+insert_stmt = (
+  "INSERT INTO employees (emp_no, first_name, last_name, hire_date) "
+  "VALUES (%s, %s, %s, %s)"
+)
+data = (2, 'Jane', 'Doe', datetime.date(2012, 3, 23))
+cursor.execute(insert_stmt, data)
+'''
+
 db.close()
+
+
