@@ -1,9 +1,15 @@
 <ons-page id="genius">
     <p style="text-align: center;">
+
         Recherche genius
         <br><br>
-        <ons-button tappable onclick="ons.notification.toast({message: 'Pas encore disponible', timeout: 2000})">
-            Trouve-moi un endroit
+
+        <ons-button tappable onclick="getGeniusRecommendation()">
+            <ons-icon icon="md-search-replace"></ons-icon>
         </ons-button>
+        <br><br>
+
+        <div id="recommendation"></div>
+
     </p>
 </ons-page>

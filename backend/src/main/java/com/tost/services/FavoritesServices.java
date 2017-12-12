@@ -7,7 +7,7 @@ import java.util.List;
 
 public class FavoritesServices {
 
-    public static String addToFavorites(String place_name,String google_place_id){
+    public static String addToFavorites(String username,String placeName,String googlePlaceId){
 
         //1. Check if exists in db
         //2. Add to db if necessary
@@ -26,8 +26,7 @@ public class FavoritesServices {
         //Get places with these ids
 
         List<Place> places = Place.findAll();
-        JSONObject jsonData = new JSONObject();
-        return jsonData;
+        return new JSONObject();
     }
 
 }

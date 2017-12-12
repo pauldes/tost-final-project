@@ -2,7 +2,9 @@ package com.tost.serv;
 
 import com.tost.services.ConnectionServices;
 import com.tost.services.FavoritesServices;
+import com.tost.services.GeniusServices;
 import org.json.JSONObject;
+
 import javax.servlet.http.HttpServlet;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -10,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/api")
 public class HomeServlet extends HttpServlet {
 
-    String userId = null;
+    static String userId = null;
 
     @GET
     public String testConnection()
@@ -37,7 +39,7 @@ public class HomeServlet extends HttpServlet {
             String[]returns = ConnectionServices.checkCredentials(username,password).split("__");
             if(returns.length>1){
                 userId = returns[1];
-                System.out.println(userId);
+                System.out.println("User "+userId+" ("+username+")"+" connected");
             }
             return returns[0];
         }
@@ -78,9 +80,9 @@ public class HomeServlet extends HttpServlet {
         else
         {
             String username = jsonData.getString("username");
-            String password = jsonData.getString("password");
-            String mail = jsonData.getString("mail");
-            return FavoritesServices.createUser(mail,username,password);
+            String placeName = jsonData.getString("place_name");
+            String googlePlaceId = jsonData.getString("google_place_id");
+            return FavoritesServices.addToFavorites(username,placeName,googlePlaceId);
         }
     }
 
@@ -88,9 +90,22 @@ public class HomeServlet extends HttpServlet {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject getFavs(String data)
+    public String getFavs(String data)
     {
         JSONObject jsonData = new JSONObject(data);
-        return FavoritesServices.getFavorites();
+        return FavoritesServices.getFavorites().toString();
     }
+
+    @Path("/genius/get")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getGenius(String data)
+    {
+        if(userId==null)
+            return "ERROR";
+        else
+            return GeniusServices.getRecommendation(userId).toString();
+    }
+
 }
