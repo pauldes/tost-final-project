@@ -149,35 +149,42 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
     }
 }
 
-function postNewFav(){
-    console.log(currentPlace);
-    var currentPlaceName = currentPlace.name;
-    var currentPlaceId = currentPlace.place_id;
-    var currentPlaceCategories ="";
-    if($('#check-bar').checked){
-        currentPlaceCategories+='Bar,';
-    }if($('#check-cafe').checked){
-        currentPlaceCategories+='Café,';
-    }if($('#check-brunch').checked){
-        currentPlaceCategories+='Brunch,';
-    }
+function postNewFav() {
 
-    theAxios().post('/favorites/add', {
-        place_name: currentPlaceName,
-        google_place_id: currentPlaceId,
-        place_categories: currentPlaceCategories
-    })
-        .then(function (response) {
-            console.log(response);
-            if(response.data===serverMessages['OK']){
-                pushThePage("main.html");
-            } else {
-                ons.notification.toast({message:serverMessages[response.data],timeout:2000});
-            }
+    if ($('#check-bar').checked || $('#check-cafe').checked || $('#check-brunch').checked) {
+
+        console.log(currentPlace);
+        var currentPlaceName = currentPlace.name;
+        var currentPlaceId = currentPlace.place_id;
+        var currentPlaceCategories = "";
+        if ($('#check-bar').checked) {
+            currentPlaceCategories += 'Bar,';
+        }
+        if ($('#check-cafe').checked) {
+            currentPlaceCategories += 'Café,';
+        }
+        if ($('#check-brunch').checked) {
+            currentPlaceCategories += 'Brunch,';
+        }
+        //Remove last coma
+        currentPlaceCategories = currentPlaceCategories.slice(0, -1);
+
+        theAxios().post('/favorites/add', {
+            place_name: currentPlaceName,
+            google_place_id: currentPlaceId,
+            place_categories: currentPlaceCategories
         })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function (response) {
+                console.log(response);
+                if (response.data === serverMessages['OK']) {
+                    pushThePage("main.html");
+                } else {
+                    ons.notification.toast({message: serverMessages[response.data], timeout: 2000});
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
-
+    }
 }

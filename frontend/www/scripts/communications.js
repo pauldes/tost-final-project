@@ -13,6 +13,7 @@ var username = "";
 function theAxios() {
     var instance = axios.create({
         baseURL: 'http://localhost:8080/api',
+        //baseURL: 'http://192.168.0.16:8080/api',
         timeout: 1000,
         headers: {'Content-Type': 'application/json'}
     });
