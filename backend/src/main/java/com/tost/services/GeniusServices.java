@@ -31,7 +31,7 @@ public class GeniusServices {
         }
         recom.put("google_place_id",recommendedPlace.get("google_place_id"));
         recom.put("place_name",recommendedPlace.get("place_name"));
-        recom.put("category","Bars"); //TODO
+        recom.put("categories",recommendedPlace.get("place_categories"));
 
         DatabaseServices.closeDB();
         return recom;

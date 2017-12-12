@@ -5,15 +5,20 @@ uid = raw_input("Please enter user ID: ")
 
 # TODO: Make predictions according to date, location, tags ?
 # for now, genius result is based only on the higher estimated rating
-max_rating = 0
+unrated_item=[]
 
 with open('tost/u.results', "rb") as csv_file:
     reader = csv.reader(csv_file, delimiter=';')
     for line in reader:
         if (line[0] == uid and line[3]=='False'):
-            if line[2] > max_rating:
-                print line[2], max_rating
-                max_rating = line[2]
-                genius_res = line
+            print line
+            unrated_item.append(line)
 
-print genius_res
+unrated_item=sorted(unrated_item, key=lambda x: x[2])
+sorted_items=[i[1] for i in unrated_item]
+
+print "Sorted items tuple: ", unrated_item
+print "Sorted items list: ", sorted_items
+
+
+

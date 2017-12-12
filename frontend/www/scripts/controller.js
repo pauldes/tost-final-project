@@ -3,16 +3,7 @@ function pushThePage(page){
     document.querySelector('#globalNavigator').pushPage('./html/'+page);
 }
 
-var favs = {
-    'Aejnkjsdf6zd':
-    {
-        'name':'Oslow','price':2,'address':'2 rue du Pape','category':'Bars'
-    },
-    '8cdsqcpdf6zd':
-    {
-        'name':'Brasserie Georges','price':3,'address':'3 rue Saint Georges','category':'Brunchs'
-    }
-}
+var favs = {}
 
 function fillMyFavs(category){
 
@@ -46,8 +37,6 @@ function fillMyFavs(category){
     }
 }
 
-
-
 var placeSearch, autocomplete, geocoder;
 
 function initAutocomplete() {
@@ -67,11 +56,25 @@ function initAutocomplete() {
 }
 
 function fillInAddress() {
+
+    var div =$('#placenameaddfav');
+    div.innerHTML = "<h2><ons-icon icon='caret-up'></ons-icon>";
+
     var place = autocomplete.getPlace();
-    alert(place.place_id);
-    console.log(place);
-    window.open(place.photos[0].getUrl({'maxWidth': 640, 'maxHeight': 640}));
-    codeAddress(document.getElementById('autocomplete').value);
+    currentPlace = place;
+
+    //alert(place.place_id);
+    //window.open(place.photos[0].getUrl({'maxWidth': 640, 'maxHeight': 640}));
+    //codeAddress(document.getElementById('autocomplete').value);
+
+    var div =$('#placenameaddfav');
+    div.innerHTML = "<h2>"+place.name+"</h2>";
+
+    $('#cbbar').disabled = false;
+    $('#cbbrunch').disabled = false;
+    $('#cbcafe').disabled = false;
+    $('#validfav').disabled = false;
+
 }
 
 function codeAddress(address) {
@@ -88,21 +91,22 @@ function onError(error) {
     alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 }
 
-
 function getGeniusRecommendation(){
 
     theAxios().post('/genius/get', {
         username: username
     })
         .then(function (response) {
-            drawGeniusRecommendation(response.data.place_name,response.data.google_place_id);
+            drawGeniusRecommendation(response.data.place_name,response.data.categories,response.data.google_place_id);
         })
         .catch(function (error) {
             console.log(error);
         });
 }
 
-function drawGeniusRecommendation(place_name,google_place_id){
+var currentPlace;
+
+function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
 
     service = new google.maps.places.PlacesService(document.createElement('div'));
     service.getDetails({placeId: google_place_id}, callback);
@@ -111,32 +115,69 @@ function drawGeniusRecommendation(place_name,google_place_id){
 
         if (status == google.maps.places.PlacesServiceStatus.OK) {
 
-            console.log(place);
-
+            console.log(currentPlace);
             var recommendationDiv = $('#recommendation');
             recommendationDiv.innerHTML = "";
 
             var address = place.formatted_address;
-            var priceIcons = '€€€';
+
+            var googleDirectionLink = "\"" + place.url + "\"";
+            var formatted_place_categories = place_categories.replace(",", " | ");
+            formatted_place_categories = "<div style='color:lightgray'>" + formatted_place_categories + "</div>";
+
 
             var innerRecommendationDiv = document.createElement('div');
             innerRecommendationDiv.className = 'row';
             innerRecommendationDiv.innerHTML = "" +
-                "<ons-card> " +
-                "<img src="
-                +place.photos[0].getUrl({'maxWidth': 640, 'maxHeight': 640})
-                +" alt='Illustration' style='width: 100%'> " +
+                "<ons-card> <img src=" +
+                place.photos[0].getUrl({'maxWidth': 640, 'maxHeight': 640}) +
+                " alt='Illustration' style='width: 100%'> " +
                 "<div class='title'> " +
                 place_name +
                 "</div> " +
+                formatted_place_categories +
                 "<div class='content'>" +
                 address +
                 "<br>" +
-                priceIcons +
-                "</div> " +
-                "</ons-card>";
+                "<ons-button modifier='quiet' style='font-size:inherit;padding-left:0' onclick='window.open(" +
+                googleDirectionLink +
+                ");'>Y aller</ons-button>" +
+                "</div></ons-card>";
+
             recommendationDiv.appendChild(innerRecommendationDiv);
         }
     }
+}
+
+function postNewFav(){
+    console.log(currentPlace);
+    var currentPlaceName = currentPlace.name;
+    var currentPlaceId = currentPlace.place_id;
+    var currentPlaceCategories ="";
+    if($('#check-bar').checked){
+        currentPlaceCategories+='Bar,';
+    }if($('#check-cafe').checked){
+        currentPlaceCategories+='Café,';
+    }if($('#check-brunch').checked){
+        currentPlaceCategories+='Brunch,';
+    }
+
+    theAxios().post('/favorites/add', {
+        place_name: currentPlaceName,
+        google_place_id: currentPlaceId,
+        place_categories: currentPlaceCategories
+    })
+        .then(function (response) {
+            console.log(response);
+            if(response.data===serverMessages['OK']){
+                pushThePage("main.html");
+            } else {
+                ons.notification.toast({message:serverMessages[response.data],timeout:2000});
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
 
 }

@@ -9,14 +9,24 @@
         <div class="center">Tøst!</div>
     </ons-toolbar>
 
-    <input style="text-align: center;">
+    <div style="text-align: center;">
 
-        <ons-search-input style="width:100%"
-                material float transparent input-id="autocomplete"
-                placeholder="Bar, brunch ou café">
+        <ons-search-input style="width:100%;line-height:2em;height:2em"
+                material float input-id="autocomplete"
+                placeholder="Bar, café ou brunch">
         </ons-search-input>
 
         <script>initAutocomplete()</script>
 
-    </p>
+        <br><br><br><br>
+        <div id="placenameaddfav"><h2><ons-icon icon="caret-up"></ons-icon></h2></div>
+        <br>
+        <ons-checkbox disabled id="cbbar" float modifier='material' input-id="check-bar">Bar</ons-checkbox>
+        <ons-checkbox disabled id="cbcafe" float modifier='material' input-id="check-cafe">Café</ons-checkbox>
+        <ons-checkbox disabled id="cbbrunch" float modifier='material' input-id="check-brunch">Brunch</ons-checkbox>
+        <br><br><br>
+        <ons-button id="validfav" onclick="postNewFav()" disabled modifier="large--material--flat">Valider <ons-icon icon="md-favorite"></ons-icon> </ons-button>
+
+    </div>
+
 </ons-page>
