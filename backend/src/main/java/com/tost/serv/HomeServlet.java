@@ -70,18 +70,7 @@ public class HomeServlet extends HttpServlet {
     @Produces(MediaType.TEXT_PLAIN)
     public String addToFavs(String data)
     {
-        JSONObject jsonData = new JSONObject(data);
-        if(!jsonData.has("username") || !jsonData.has("password") || !jsonData.has("mail"))
-        {
-            return "INVALID_POST";
-        }
-        else
-        {
-            String username = jsonData.getString("username");
-            String password = jsonData.getString("password");
-            String mail = jsonData.getString("mail");
-            return FavoritesServices.createUser(mail,username,password);
-        }
+        return "hey";
     }
 
     @Path("/favorites/get")
