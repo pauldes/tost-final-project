@@ -8,6 +8,8 @@ var serverMessages ={
     'EXISTING_MAIL'     : 'Un compte a déjà été créé avec cette adresse mail!'
 }
 
+var username = "";
+
 function theAxios() {
     var instance = axios.create({
         baseURL: 'http://localhost:8080/api',
@@ -43,6 +45,7 @@ function signin(){
             console.log(response);
             if(response.data===serverMessages['OK']){
                 ons.notification.toast({message: 'Connecté avec succès!', timeout: 500});
+                username = $("#signin_usr").value;
                 pushThePage("main.html");
             } else {
                 ons.notification.toast({message:serverMessages[response.data],timeout:2000});

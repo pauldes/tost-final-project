@@ -46,14 +46,7 @@ function fillMyFavs(category){
     }
 }
 
-function getFromGoogleImages(query){
-    /*
-    var search_keyword=str_replace(' ','+',$search_keyword);
-    $newhtml =file_get_html("https://www.google.com/search?q=".$search_keyword."&tbm=isch");
-    $result_image_source = $newhtml->find('img', 0)->src;
-    */
 
-}
 
 var placeSearch, autocomplete, geocoder;
 
@@ -95,6 +88,55 @@ function onError(error) {
     alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 }
 
-function getGenius() {
+
+function getGeniusRecommendation(){
+
+    theAxios().post('/genius/get', {
+        username: username
+    })
+        .then(function (response) {
+            drawGeniusRecommendation(response.data.place_name,response.data.google_place_id);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+function drawGeniusRecommendation(place_name,google_place_id){
+
+    service = new google.maps.places.PlacesService(document.createElement('div'));
+    service.getDetails({placeId: google_place_id}, callback);
+
+    function callback(place, status) {
+
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+            console.log(place);
+
+            var recommendationDiv = $('#recommendation');
+            recommendationDiv.innerHTML = "";
+
+            var address = place.formatted_address;
+            var priceIcons = '€€€';
+
+            var innerRecommendationDiv = document.createElement('div');
+            innerRecommendationDiv.className = 'row';
+            innerRecommendationDiv.innerHTML = "" +
+                "<ons-card> " +
+                "<img src="
+                +place.photos[0].getUrl({'maxWidth': 640, 'maxHeight': 640})
+                +" alt='Illustration' style='width: 100%'> " +
+                "<div class='title'> " +
+                place_name +
+                "</div> " +
+                "<div class='content'>" +
+                address +
+                "<br>" +
+                priceIcons +
+                "</div> " +
+                "</ons-card>";
+            recommendationDiv.appendChild(innerRecommendationDiv);
+        }
+    }
 
 }

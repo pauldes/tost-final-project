@@ -29,7 +29,7 @@ org.javalite:activejdbc-instrumentation:1.4.13:instrument
 ```
 
 Run Jetty (backend) with 
-* path:           /api
+* path:           /
 * port:           8080
 * classes folder: backend\target\classes
 * webApp folder : backend\src\webapp
