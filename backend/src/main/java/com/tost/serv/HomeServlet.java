@@ -73,16 +73,16 @@ public class HomeServlet extends HttpServlet {
     public String addToFavs(String data)
     {
         JSONObject jsonData = new JSONObject(data);
-        if(!jsonData.has("username") || !jsonData.has("password") || !jsonData.has("mail"))
+        if(!jsonData.has("google_place_id") || !jsonData.has("place_name") || !jsonData.has("place_categories"))
         {
             return "INVALID_POST";
         }
         else
         {
-            String username = jsonData.getString("username");
+            String placeCategories = jsonData.getString("place_categories");
             String placeName = jsonData.getString("place_name");
             String googlePlaceId = jsonData.getString("google_place_id");
-            return FavoritesServices.addToFavorites(username,placeName,googlePlaceId);
+            return FavoritesServices.addToFavorites(placeName,googlePlaceId,placeCategories,userId);
         }
     }
 
