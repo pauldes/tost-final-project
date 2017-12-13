@@ -73,6 +73,9 @@ function fillInAddress() {
     $('#cbbar').disabled = false;
     $('#cbbrunch').disabled = false;
     $('#cbcafe').disabled = false;
+    $('#rhate').disabled = false;
+    $('#rlike').disabled = false;
+    $('#rlove').disabled = false;
     $('#validfav').disabled = false;
 
 }
@@ -151,28 +154,36 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
 
 function postNewFav() {
 
-    if ($('#check-bar').checked || $('#check-cafe').checked || $('#check-brunch').checked) {
+    if ($('#cbbar').checked || $('#cbcafe').checked || $('#cbbrunch').checked) {
 
         console.log(currentPlace);
         var currentPlaceName = currentPlace.name;
         var currentPlaceId = currentPlace.place_id;
         var currentPlaceCategories = "";
-        if ($('#check-bar').checked) {
+        var userScore = 1.0;
+        if ($('#cbbar').checked) {
             currentPlaceCategories += 'Bar,';
         }
-        if ($('#check-cafe').checked) {
+        if ($('#cbcafe').checked) {
             currentPlaceCategories += 'Café,';
         }
-        if ($('#check-brunch').checked) {
+        if ($('#cbbrunch').checked) {
             currentPlaceCategories += 'Brunch,';
         }
+        if ($('#rhate').checked) {
+            userScore = -1.0
+        } else if ($('#rlove').checked) {
+            userScore = 3.0
+        }
+
         //Remove last coma
         currentPlaceCategories = currentPlaceCategories.slice(0, -1);
 
         theAxios().post('/favorites/add', {
             place_name: currentPlaceName,
             google_place_id: currentPlaceId,
-            place_categories: currentPlaceCategories
+            place_categories: currentPlaceCategories,
+            user_like: userScore
         })
             .then(function (response) {
                 console.log(response);

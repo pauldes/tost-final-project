@@ -21,9 +21,13 @@
         <br><br><br><br>
         <div id="placenameaddfav"><h2><ons-icon icon="caret-up"></ons-icon></h2></div>
         <br>
-        <ons-checkbox disabled id="cbbar" float modifier='material' input-id="check-bar">Bar</ons-checkbox>
-        <ons-checkbox disabled id="cbcafe" float modifier='material' input-id="check-cafe">Café</ons-checkbox>
-        <ons-checkbox disabled id="cbbrunch" float modifier='material' input-id="check-brunch">Brunch</ons-checkbox>
+        <ons-checkbox disabled id="cbbar" float modifier='material'>Bar</ons-checkbox>
+        <ons-checkbox disabled id="cbcafe" float modifier='material'>Café</ons-checkbox>
+        <ons-checkbox disabled id="cbbrunch" float modifier='material'>Brunch</ons-checkbox>
+        <br><br><br>
+        <ons-radio name="user_like" disabled id="rhate" float modifier='material'>Je n'aime pas</ons-radio>
+        <ons-radio name="user_like" disabled id="rlike" float modifier='material' checked>J'aime</ons-radio>
+        <ons-radio name="user_like" disabled id="rlove" float modifier='material'>J'adore</ons-radio>
         <br><br><br>
         <ons-button id="validfav" onclick="postNewFav()" disabled modifier="large--material--flat">Valider <ons-icon icon="md-favorite"></ons-icon> </ons-button>
 

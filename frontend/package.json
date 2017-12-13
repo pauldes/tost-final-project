@@ -1,25 +1,25 @@
 {
-  "name": "innovative-project",
-  "version": "1.0.0",
-  "private": true,
-  "dependencies": {
-    "cordova-android": "6.2.2",
-    "cordova-browser": "^5.0.1",
-    "cordova-ios": "4.2.0",
-    "cordova-plugin-network-information": "^1.3.3",
-    "cordova-plugin-whitelist": "^1.2.2",
-    "cordova-windows": "4.4.2"
-  },
-  "cordova": {
-    "platforms": [
-      "android",
-      "browser",
-      "ios",
-      "windows"
-    ],
-    "plugins": {
-      "cordova-plugin-whitelist": {},
-      "cordova-plugin-network-information": {}
+    "name": "innovative-project",
+    "version": "1.0.0",
+    "private": true,
+    "dependencies": {
+        "cordova-android": "6.2.2",
+        "cordova-browser": "^5.0.1",
+        "cordova-ios": "4.2.0",
+        "cordova-plugin-network-information": "^1.3.3",
+        "cordova-plugin-whitelist": "^1.2.2",
+        "cordova-windows": "4.4.2"
+    },
+    "cordova": {
+        "platforms": [
+            "android",
+            "browser",
+            "ios",
+            "windows"
+        ],
+        "plugins": {
+            "cordova-plugin-whitelist": {},
+            "cordova-plugin-network-information": {}
+        }
     }
-  }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class FavoritesServices {
 
-    public static String addToFavorites(String placeName, String googlePlaceId, String placeCategories, String userId){
+    public static String addToFavorites(String placeName, String googlePlaceId, String placeCategories, Double userLike, String userId){
 
         DatabaseServices.openDB();
 
@@ -23,9 +23,9 @@ public class FavoritesServices {
             newPlace.set("place_categories",placeCategories);
             newPlace.saveIt();
             newPlace = Place.findFirst("place_name=?",placeName);
-            idPlace = Integer.parseInt(newPlace.get("id_place").toString());
+            idPlace = Integer.parseInt(newPlace.getId().toString());
         } else {
-            idPlace = Integer.parseInt(hypotheticPlace.get("id_place").toString());
+            idPlace = Integer.parseInt(hypotheticPlace.getId().toString());
         }
 
         // Add a link if no exist
@@ -34,8 +34,11 @@ public class FavoritesServices {
             UserLikedPlace newLink = new UserLikedPlace();
             newLink.set("id_user",userId);
             newLink.set("id_place",idPlace);
-            newLink.set("user_like",1);
+            newLink.set("user_like",userLike);
             newLink.saveIt();
+        } else {
+            hypotheticLink.set("user_like", userLike);
+            hypotheticLink.saveIt();
         }
 
         DatabaseServices.closeDB();
