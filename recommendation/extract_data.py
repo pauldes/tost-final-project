@@ -40,15 +40,4 @@ with open('tost/u.data', "wb") as csv_file:
         print('User #',row[1],' liked place #',row[2],' with score ',row[3])
         writer.writerow([row[1], row[2], row[3]])
 
-'''
-insert_stmt = (
-  "INSERT INTO employees (emp_no, first_name, last_name, hire_date) "
-  "VALUES (%s, %s, %s, %s)"
-)
-data = (2, 'Jane', 'Doe', datetime.date(2012, 3, 23))
-cursor.execute(insert_stmt, data)
-'''
-
 db.close()
-
-
