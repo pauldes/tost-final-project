@@ -15,6 +15,7 @@ public class GeniusServices {
 
         UserRecommendation myRecs = UserRecommendation.findFirst("id_user=?",Integer.parseInt(userId));
         if(myRecs==null){
+            System.out.println("Bug1");
             return recom;
         }
 
@@ -25,8 +26,9 @@ public class GeniusServices {
         int recommendedPlaceId = Integer.parseInt(myRecsIds[recommendedPlaceRank]);
         recommendedPlaceRank++;
 
-        Place recommendedPlace = Place.findFirst("id_place=?",recommendedPlaceId);
+        Place recommendedPlace = Place.findById(recommendedPlaceId);
         if(recommendedPlace==null){
+            System.out.println("Bug2");
             return recom;
         }
         recom.put("google_place_id",recommendedPlace.get("google_place_id"));

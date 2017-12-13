@@ -100,6 +100,8 @@ function getGeniusRecommendation(){
         username: username
     })
         .then(function (response) {
+            console.log("RESPONSE ");
+            console.log(response.data);
             drawGeniusRecommendation(response.data.place_name,response.data.categories,response.data.google_place_id);
         })
         .catch(function (error) {
