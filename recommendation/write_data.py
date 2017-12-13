@@ -12,12 +12,12 @@ cur = db.cursor()
 
 # TODO: Make predictions according to date, location, tags ?
 # for now, genius result is based only on the higher estimated rating
-unrated_item=[]
 
 with open('tost/u.user', 'rb') as users:
     user_reader = csv.reader(users, delimiter=";")
     for user in user_reader:
         uid=user[0]
+        unrated_item=[]
 
         with open('tost/u.results', "rb") as csv_file:
             reader = csv.reader(csv_file, delimiter=';')
@@ -25,7 +25,7 @@ with open('tost/u.user', 'rb') as users:
                 if (line[0] == uid and line[3]=='False'):
                     unrated_item.append(line)
 
-        unrated_item=sorted(unrated_item, key=lambda x: x[2])
+        unrated_item=sorted(unrated_item, key=lambda x: x[2], reverse=True)
         sorted_items=[i[1] for i in unrated_item]
         sorted_items=','.join(sorted_items)
 
