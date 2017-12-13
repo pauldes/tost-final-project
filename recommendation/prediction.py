@@ -33,22 +33,27 @@ ratings = vars(data).get('raw_ratings')
 with open('tost/u.results', "wb") as csv_file:
     writer = csv.writer(csv_file, delimiter=';')
 
-    for i in range(7):
-        uid=str(i+1)
+    with open('tost/u.user', 'rb') as users:
+        user_reader = csv.reader(users, delimiter=";")
+        for user in user_reader:
+            uid=user[0]
 
-        for j in range(9):
-            iid=str(j+1)
-            rating = 0
-            user_rating = False             #true if user has already rated the place
-            for tup in ratings:
-                if (tup[0]==uid and tup[1]==iid):
-                    rating = tup[2]
-                    user_rating = True
+            with open('tost/u.item', 'rb') as items:
+                item_reader = csv.reader(items, delimiter=";")
+                for item in item_reader:
+                    iid=item[0]
 
-            pred = algo.predict(uid, iid, rating, verbose=True)
-            pred_rating = vars(pred)["est"]         #get the value of the estimated rating
+                    rating = 0
+                    user_rating = False             #true if user has already rated the place
+                    for tup in ratings:
+                        if (tup[0]==uid and tup[1]==iid):
+                            rating = tup[2]
+                            user_rating = True
 
-            #Write results in u.results file
-            line = [uid, iid, pred_rating, user_rating]
-            writer.writerow(line)
+                    pred = algo.predict(uid, iid, rating, verbose=True)
+                    pred_rating = vars(pred)["est"]         #get the value of the estimated rating
+
+                    #Write results in u.results file
+                    line = [uid, iid, pred_rating, user_rating]
+                    writer.writerow(line)
 
