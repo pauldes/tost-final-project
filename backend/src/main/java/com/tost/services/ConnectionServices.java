@@ -61,8 +61,6 @@ public class ConnectionServices {
                 .hashString(hashSimple+salt, Charsets.UTF_8)
                 .toString();
 
-        System.out.print(hashDouble);
-        System.out.print(myMan.get("user_pwd"));
         if(hashDouble.equals( myMan.get("user_pwd"))) {
             String id = myMan.getId().toString();
             DatabaseServices.closeDB();
