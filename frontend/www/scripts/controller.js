@@ -5,34 +5,77 @@ function pushThePage(page){
 
 var favs = {}
 
-function fillMyFavs(category){
+function getFavs() {
+
+    theAxios().post('/favorites/get', {
+        username: username
+    })
+        .then(function (response) {
+            console.log(response.data);
+            favs = response.data;
+            fillMyFavs("Bar");
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+function fillMyFavs(category) {
 
     var myfavsdiv = $('#myfavs');
     myfavsdiv.innerHTML = "";
 
-    for (placeid in favs) {
 
-        if (favs[placeid]['category'] == category){
+    for (i = 0; i < favs.length; i++) {
 
-            var name = favs[placeid]['name'];
-            var address = favs[placeid]['address'];
-            var priceIcons = Array(favs[placeid]['price']).join("€");
+        if (favs[i].place_categories.indexOf(category) !==-1 ) {
 
-            var currentfavdiv = document.createElement('div');
-            currentfavdiv.className = 'row';
-            currentfavdiv.innerHTML = "" +
-                "<ons-card> " +
-                "<img src='http://www.gqmagazine.fr/uploads/images/thumbs/201512/57/hipster_sait_faire_un_bon_caf___5108.jpeg_north_640x425_transparent.jpg' alt='Onsen UI' style='width: 100%'> " +
-                "<div class='title'> " +
-                name +
-                "</div> " +
-                "<div class='content'>" +
-                address +
-                "<br>" +
-                priceIcons +
-                "</div> " +
-                "</ons-card>";
-            myfavsdiv.appendChild(currentfavdiv);
+            var place_name = favs[i].place_name;
+            var google_place_id = favs[i].google_place_id;
+            var place_categories = favs[i].place_categories;
+
+            service = new google.maps.places.PlacesService(document.createElement('div'));
+            service.getDetails({placeId: google_place_id}, callback);
+
+            function callback(place, status) {
+
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+                    console.log(place);
+
+                    var address = place.formatted_address;
+                    var googleDirectionLink = "\"" + place.url + "\"";
+                    var formatted_place_categories = place_categories.replace(",", " | ");
+                    var placeName = place.name;
+
+                    formatted_place_categories = "<div style='color:lightgray'>" + formatted_place_categories + "</div>";
+
+                    //var currentFavDiv = document.createElement('div');
+                    //currentFavDiv.className = 'row';
+
+                    //currentFavDiv.innerHTML =
+                    myfavsdiv.innerHTML +=
+                        "<ons-card> " +
+                        //"<img src=" +
+                        //place.photos[0].getUrl({'maxWidth': 640, 'maxHeight': 320}) +
+                        //" alt='Illustration' style='width: 100%'> " +
+                        "<div class='title'> " +
+                        placeName +
+                        "</div> " +
+                        formatted_place_categories +
+                        "<div class='content'>" +
+                        address +
+                        "<br>" +
+                        "<ons-button modifier='quiet' style='font-size:inherit;padding-left:0' onclick='window.open(" +
+                        googleDirectionLink +
+                        ");'>Y aller</ons-button>" +
+                        "</div></ons-card>";
+
+                    //myfavsdiv.appendChild(currentFavDiv);
+
+                }
+
+            }
         }
     }
 }
@@ -197,6 +240,9 @@ function postNewFav() {
             .catch(function (error) {
                 console.log(error);
             });
-
     }
+}
+
+function drawProfilePage(){
+    $('#profilename').innerText = username;
 }

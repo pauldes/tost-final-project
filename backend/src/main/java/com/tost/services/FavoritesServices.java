@@ -48,14 +48,36 @@ public class FavoritesServices {
         return "";
     }
 
-    public static JSONObject getFavorites(){
+    public static String getFavorites(String userId){
 
-        //Get user
-        //Get id of places liked by user
-        //Get places with these ids
+        JSONObject myFavsJson = new JSONObject();
+        String myFavsStr = "[";
+        DatabaseServices.openDB();
 
-        List<Place> places = Place.findAll();
-        return new JSONObject();
+        // Get likes by user
+        List <UserLikedPlace> allLikes = UserLikedPlace.where("id_user=?",userId);
+
+        // Get places for each like
+        int counter=0;
+        for(UserLikedPlace like: allLikes){
+            String placeId = like.get("id_place").toString();
+            Place place = Place.findById(placeId);
+            if(place!=null) {
+                String currentPlace = place.toJson(false);
+                //myFavsJson.put(counter, currentPlace);
+
+                if(counter>0){
+                    myFavsStr+=", ";
+                }
+                //myFavsStr += counter + " : " + currentPlace;
+                myFavsStr += currentPlace;
+                counter++;
+            }
+        }
+        DatabaseServices.closeDB();
+        myFavsStr+="]";
+        System.out.println(myFavsStr);
+        return myFavsStr;
     }
 
 }
