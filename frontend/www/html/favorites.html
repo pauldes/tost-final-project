@@ -1,15 +1,15 @@
 ﻿<ons-page id="favorites">
     <p style="text-align: center;">
-        Liste de vos favoris
-        <br>
-        <br>
 
-        <script>fillMyFavs('Bars')</script>
+        Mes favoris
+        <br><br>
 
-        <ons-segment style="width:300px">
-                    <button onclick="fillMyFavs('Bars')" active> Bars    </button>
-                    <button onclick="fillMyFavs('Cafés')">       Cafés   </button>
-                    <button onclick="fillMyFavs('Brunchs')">     Brunchs </button>
+        <script>getFavs()</script>
+
+        <ons-segment id="segmentfavs" style="width:250px;">
+                    <button active onclick="fillMyFavs('Bar');  $('#segmentfavs').setActiveButton(0)" >     Bars    </button>
+                    <button onclick="fillMyFavs('Café');        $('#segmentfavs').setActiveButton(1)">      Cafés   </button>
+                    <button onclick="fillMyFavs('Brunch');      $('#segmentfavs').setActiveButton(2)">      Brunchs </button>
         </ons-segment>
 
         <div id="myfavs"></div>

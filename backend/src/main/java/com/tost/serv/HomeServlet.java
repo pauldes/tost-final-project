@@ -94,7 +94,10 @@ public class HomeServlet extends HttpServlet {
     public String getFavs(String data)
     {
         JSONObject jsonData = new JSONObject(data);
-        return FavoritesServices.getFavorites().toString();
+        if(userId==null)
+            return "ERROR";
+        else
+            return FavoritesServices.getFavorites(userId).toString();
     }
 
     @Path("/genius/get")
