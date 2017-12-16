@@ -1,0 +1,14 @@
+.coffee-card-container {
+  margin: 1em;
+  width: 20em;
+  background-color: rgba(227, 227, 227, 0.4);
+  border-radius: 30px; }
+  .coffee-card-container .coffee-card-thumbnail {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden; }
+  .coffee-card-container .coffee-card-title {
+    position: absolute;
+    left: 20px;
+    color: #fff; }
