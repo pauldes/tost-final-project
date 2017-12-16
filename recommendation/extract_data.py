@@ -16,7 +16,7 @@ cur.execute("SELECT * FROM places")
 with open('tost/u.item', "wb") as csv_file:
     writer = csv.writer(csv_file, delimiter=';')
     for row in cur.fetchall():
-        print('Place #',row[0],' is ',row[1])
+        print('Place # ',row[0],' is ',row[1])
         writer.writerow([row[0], row[1]])
 
 
