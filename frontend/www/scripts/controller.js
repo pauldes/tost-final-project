@@ -246,3 +246,58 @@ function postNewFav() {
 function drawProfilePage(){
     $('#profilename').innerText = username;
 }
+
+var autocompletedUsers = {};
+var selectedUsers = [];
+
+function addToGroup(userId){
+    if(!selectedUsers.includes(userId)){
+        selectedUsers.push(userId);
+        var pseudo = autocompletedUsers[userId];
+        $('#users-in-the-group').innerText += pseudo+", ";
+    }
+}
+
+function autocompletePseudo(){
+    var letters = $('#autocomplete-pseudo').value;
+
+    theAxios().post('/groups/autocomplete', {
+        input: letters
+    })
+        .then(function (response) {
+            console.log(response.data);
+            autocompletedUsers = response.data;
+            drawAutocompletedUsers(autocompletedUsers);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+function drawAutocompletedUsers(jsonUsers){
+    $('#autocomplete-pseudo-results').innerHTML = "";
+    for(userId in autocompletedUsers) {
+        userPseudo = autocompletedUsers[userId];
+        var line = "<ons-list-item onclick='addToGroup("+userId+")'>"+userPseudo+"</ons-list-item>";
+        $('#autocomplete-pseudo-results').innerHTML += line;
+    }
+}
+
+function postNewGroup(){
+
+    theAxios().post('/groups/create', {
+        members: selectedUsers,
+        name : "El Famoso Grupo"
+    })
+        .then(function (response) {
+            console.log(response.data);
+            if (response.data === serverMessages['OK']) {
+                pushThePage("main.html");
+            } else {
+                ons.notification.toast({message: serverMessages[response.data], timeout: 2000});
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}

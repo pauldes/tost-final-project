@@ -3,6 +3,7 @@ package com.tost.serv;
 import com.tost.services.ConnectionServices;
 import com.tost.services.FavoritesServices;
 import com.tost.services.GeniusServices;
+import com.tost.services.GroupsServices;
 import org.json.JSONObject;
 
 import javax.servlet.http.HttpServlet;
@@ -110,6 +111,50 @@ public class HomeServlet extends HttpServlet {
             return "ERROR";
         else
             return GeniusServices.getRecommendation(userId).toString();
+    }
+
+    @Path("/groups/autocomplete")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAutocomplete(String data)
+    {
+        JSONObject jsonData = new JSONObject(data);
+        if(!jsonData.has("input") )
+        {
+            return "INVALID_POST";
+        }
+        else if(userId==null) {
+            return "ERROR";
+        }
+        else {
+            String input = jsonData.getString("input");
+            if(input.equals(""))
+                return "";
+            else
+                return GroupsServices.getAutocompletePseudos(input).toString();
+        }
+    }
+
+    @Path("/groups/create")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String createGroup(String data)
+    {
+        System.out.println(data);
+        JSONObject jsonData = new JSONObject(data);
+
+        if(!jsonData.has("members") || !jsonData.has("name") )
+        {
+            return "INVALID_POST";
+        }
+        else if(userId==null)
+            return "ERROR";
+        else
+            //TODO
+            return "OK";
+
     }
 
 }
