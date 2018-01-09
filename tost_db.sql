@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 13, 2017 at 05:53 PM
+-- Generation Time: Jan 09, 2018 at 11:11 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -101,7 +101,9 @@ INSERT INTO `places` (`id`, `place_name`, `google_place_id`, `place_categories`)
 (18, 'Slake Coffee House', 'ChIJzTyCSFTq9EcRvLMegp9RRFA', 'Café,'),
 (19, 'The GentleCat - Bar cats', 'ChIJW7u1RrPr9EcRLgkNWC-LFYI', 'Café,'),
 (20, 'Le Bieristan', 'ChIJKaAdPS7A9EcRfPHngQl7wNo', 'Bar,'),
-(21, 'Candy Cookie Boulevard', 'ChIJAcvZsf_q9EcRXrSoUV0bPAQ', 'Café,');
+(21, 'Candy Cookie Boulevard', 'ChIJAcvZsf_q9EcRXrSoUV0bPAQ', 'Café,'),
+(22, 'Puzzle Cafe', 'ChIJ5VH_Xv_q9EcRXJ8zq7oOPkE', 'Café'),
+(23, 'COMME A LA MAISON Coffee Shop', 'ChIJMy0DYUbq9EcRIfg-CYIQ2fg', 'Café,Brunch');
 
 -- --------------------------------------------------------
 
@@ -113,6 +115,59 @@ CREATE TABLE `place_tag` (
   `id` smallint(6) NOT NULL,
   `place_tag_name` varchar(63) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `place_tag`
+--
+
+INSERT INTO `place_tag` (`id`, `place_tag_name`) VALUES
+(42, 'Afterworks'),
+(16, 'Atmosphère intime'),
+(26, 'Bar à shooter'),
+(25, 'Bar bières'),
+(27, 'Bar dansant'),
+(11, 'Bières locales'),
+(15, 'Bio'),
+(37, 'Boissons à volonté'),
+(45, 'Brunch à volonté'),
+(35, 'Bubble Tea'),
+(7, 'Cadre insolite'),
+(46, 'Café-théâtre'),
+(24, 'Cave à vin'),
+(47, 'CB sans minimum'),
+(36, 'Chaï Latte'),
+(44, 'Chocolat chaud réputé'),
+(23, 'Cocktails originaux'),
+(19, 'Déco branchée'),
+(33, 'Dégustation de rhum'),
+(34, 'Dégustation de whisky'),
+(21, 'Diffusion de matchs'),
+(3, 'Etudier et travailler'),
+(41, 'Family-friendly'),
+(18, 'Forfait à la durée'),
+(43, 'Happy hours'),
+(22, 'Irish Pub'),
+(32, 'Lait de soja ou d\'avoine'),
+(17, 'Latino et Salsa'),
+(29, 'Lunch'),
+(5, 'Music Live et Concerts'),
+(30, 'Pâtisseries'),
+(8, 'Péniche'),
+(31, 'Petit-déjeuner'),
+(38, 'Planches apéro'),
+(4, 'Pour amateurs de café'),
+(2, 'Prises'),
+(9, 'Rooftop'),
+(13, 'Sans gluten'),
+(39, 'Self-service'),
+(10, 'Smoothies et jus de fruit pressés'),
+(40, 'Tapas'),
+(20, 'Terrasse'),
+(28, 'Underground'),
+(12, 'Vegan'),
+(14, 'Végétarien'),
+(6, 'Vue de qualité'),
+(1, 'Wifi');
 
 -- --------------------------------------------------------
 
@@ -168,7 +223,8 @@ INSERT INTO `userx` (`id`, `user_pseudo`, `user_mail`, `user_avatar`, `user_pwd`
 (19, 'martin', 'martin@gmail.com', NULL, 'aec1a84648f6999fd6a5dff375d8603d8b96dba255c3bae3d9eccab17e4b7a19', 'nVIk2u4b'),
 (20, 'berenice', 'berenice@gmail.com', NULL, '2e2040968bf626f0a07e545e5fe7dcb1085881d8cbc2f252e7f20f77ac84d21a', 'Ab5gyscS'),
 (21, 'emilie', 'emilie@gmail.com', NULL, 'e5237ca2a35501e6c7753fc49d5888b7247fc2991cfec80649db80e9014fbb98', 'RndtNzWP'),
-(22, 'vincent', 'vincent@gmail.com', NULL, '3bbde9a9ebcf85720b3931ecbd8634e20d9a3c59b83af5215ac83de80855967c', 'x6fPTald');
+(22, 'vincent', 'vincent@gmail.com', NULL, '3bbde9a9ebcf85720b3931ecbd8634e20d9a3c59b83af5215ac83de80855967c', 'x6fPTald'),
+(23, 'razvan', 'razvan@gmail.com', NULL, '61dc0eef7b2c544198240c3d0053552e95282acd273837f4b5f54e5aa183723d', 'nohPkKiV');
 
 -- --------------------------------------------------------
 
@@ -221,7 +277,10 @@ INSERT INTO `user_liked_places` (`id`, `id_user`, `id_place`, `user_like`) VALUE
 (23, 15, 16, -1),
 (24, 18, 1, -1),
 (25, 18, 20, -1),
-(26, 21, 9, -1);
+(26, 21, 9, -1),
+(27, 15, 22, 3),
+(28, 23, 1, 1),
+(29, 15, 23, 1);
 
 -- --------------------------------------------------------
 
@@ -240,15 +299,16 @@ CREATE TABLE `user_recommendations` (
 --
 
 INSERT INTO `user_recommendations` (`id`, `id_user`, `id_places`) VALUES
-(1, 6, '15,16,19,2,17,18,21,20'),
+(1, 6, '15,16,19,2,17,18,21,22,23,20'),
 (2, 15, '15,18,17,2,8,9,14,19,1,20'),
-(3, 16, '1,2,8,9,14,15,16,17,18,19,20,21'),
-(4, 17, '1,2,8,9,14,15,16,17,18,19,20,21'),
-(5, 18, '18,8,14,21,17,19,2,9'),
-(6, 19, '15,19,21,2,8,9,14,1,20'),
-(7, 20, '16,21,2,8,14,20,1,9'),
-(8, 21, '18,8,14,16,15,17,2,21,1'),
-(9, 22, '18,15,19,1,2,8,9,14,20,16');
+(3, 16, '1,2,8,9,14,15,16,17,18,19,20,21,22,23'),
+(4, 17, '1,2,8,9,14,15,16,17,18,19,20,21,22,23'),
+(5, 18, '22,18,8,14,21,23,17,19,2,9'),
+(6, 19, '22,23,15,19,21,2,8,9,14,1,20'),
+(7, 20, '16,21,2,8,14,22,23,20,1,9'),
+(8, 21, '18,8,14,16,15,17,2,21,22,23,1'),
+(9, 22, '22,18,15,19,23,1,2,8,9,14,20,16'),
+(10, 23, '15,16,8,9,14,2,17,18,19,21,22,23,20');
 
 -- --------------------------------------------------------
 
@@ -401,13 +461,13 @@ ALTER TABLE `event_tag_belongs_to_cat`
 -- AUTO_INCREMENT for table `places`
 --
 ALTER TABLE `places`
-  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `place_tag`
 --
 ALTER TABLE `place_tag`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `place_tag_belongs_to_cat`
@@ -425,7 +485,7 @@ ALTER TABLE `pro`
 -- AUTO_INCREMENT for table `userx`
 --
 ALTER TABLE `userx`
-  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `user_interested_event`
@@ -437,13 +497,13 @@ ALTER TABLE `user_interested_event`
 -- AUTO_INCREMENT for table `user_liked_places`
 --
 ALTER TABLE `user_liked_places`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `user_recommendations`
 --
 ALTER TABLE `user_recommendations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user_used_event_tag`

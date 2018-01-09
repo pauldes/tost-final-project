@@ -1,6 +1,6 @@
 
-function pushThePage(page){
-    document.querySelector('#globalNavigator').pushPage('./html/'+page);
+function pushThePage(page, options){
+    document.querySelector('#globalNavigator').pushPage('./html/'+page, options);
 }
 
 var favs = {}
@@ -55,7 +55,7 @@ function fillMyFavs(category) {
 
                     //currentFavDiv.innerHTML =
                     myfavsdiv.innerHTML +=
-                        "<ons-card> " +
+                        "<ons-card onclick=\"pushThePage('onefavorite.html', {data : {title: 'aaa'}})\"> " +
                         //"<img src=" +
                         //place.photos[0].getUrl({'maxWidth': 640, 'maxHeight': 320}) +
                         //" alt='Illustration' style='width: 100%'> " +
