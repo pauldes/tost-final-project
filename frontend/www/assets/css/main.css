@@ -1,6 +1,13 @@
 ons-page {
   text-align: center; }
 
+.toolbar__title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5em; }
+
+.get-genius-button {
+  text-align: center; }
+
 .coffee-card-container {
   margin: 1em;
   width: 20em;
@@ -16,9 +23,8 @@ ons-page {
     left: 20px;
     color: #fff; }
 
-.toolbar__title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5em; }
-
-.get-genius-button {
-  text-align: center; }
+#tagsCheckbox {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 1em; }

@@ -55,7 +55,7 @@ function fillMyFavs(category) {
 
                     //currentFavDiv.innerHTML =
                     myfavsdiv.innerHTML +=
-                        "<ons-card onclick=\"pushThePage('onefavorite.html', {data : {title: 'aaa'}})\"> " +
+                        "<ons-card onclick=\"pushThePage('onefavorite.html')\"> " +
                         //"<img src=" +
                         //place.photos[0].getUrl({'maxWidth': 640, 'maxHeight': 320}) +
                         //" alt='Illustration' style='width: 100%'> " +
@@ -113,6 +113,9 @@ function fillInAddress() {
     var div =$('#placenameaddfav');
     div.innerHTML = "<h2>"+place.name+"</h2>";
 
+    var p = $('#tag_phrase');
+    p.style.color = "#000";
+
     $('#cbbar').disabled = false;
     $('#cbbrunch').disabled = false;
     $('#cbcafe').disabled = false;
@@ -120,7 +123,38 @@ function fillInAddress() {
     $('#rlike').disabled = false;
     $('#rlove').disabled = false;
     $('#validfav').disabled = false;
+    $('#cbtag0').disabled = false;
+    $('#cbtag1').disabled = false;
+    $('#cbtag2').disabled = false;
+    $('#cbtag3').disabled = false;
+    $('#cbtag4').disabled = false;
+    $('#cbtag5').disabled = false;
+    $('#cbtag6').disabled = false;
+    $('#cbtag7').disabled = false;
+    $('#cbtag8').disabled = false;
 
+}
+
+function createTagsCheckbox() {
+    var div = $('#tagsCheckbox');
+    div.innerHTML = '';
+
+    theAxios().get('/randomtags/get')
+        .then(function (response) {
+            console.log(response.data);
+            for (i=0; i<response.data.length; i++) {
+                console.log(response.data[i]['place_tag_name']);
+                div.innerHTML +=
+                    "<ons-checkbox disabled id=\"cbtag" +
+                    i +
+                    "\" float modifier='material'>" +
+                    response.data[i]['place_tag_name'] +
+                    "</ons-checkbox>";
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 }
 
 function codeAddress(address) {
@@ -143,7 +177,6 @@ function getGeniusRecommendation(){
         username: username
     })
         .then(function (response) {
-            console.log(response.data);
             drawGeniusRecommendation(response.data.place_name,response.data.categories,response.data.google_place_id);
         })
         .catch(function (error) {
@@ -161,8 +194,6 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
     function callback(place, status) {
 
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-
-            console.log(currentPlace);
             var recommendationDiv = $('#recommendation');
             recommendationDiv.innerHTML = "";
 
@@ -199,8 +230,6 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
 function postNewFav() {
 
     if ($('#cbbar').checked || $('#cbcafe').checked || $('#cbbrunch').checked) {
-
-        console.log(currentPlace);
         var currentPlaceName = currentPlace.name;
         var currentPlaceId = currentPlace.place_id;
         var currentPlaceCategories = "";

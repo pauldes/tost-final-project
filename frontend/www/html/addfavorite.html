@@ -17,6 +17,7 @@
         </ons-search-input>
 
         <script>initAutocomplete()</script>
+        <script>createTagsCheckbox()</script>
 
         <br><br><br><br>
         <div id="placenameaddfav"><h2><ons-icon icon="caret-up"></ons-icon></h2></div>
@@ -28,6 +29,11 @@
         <ons-radio name="user_like" disabled id="rhate" float modifier='material'>Je n'aime pas</ons-radio>
         <ons-radio name="user_like" disabled id="rlike" float modifier='material' checked>J'aime</ons-radio>
         <ons-radio name="user_like" disabled id="rlove" float modifier='material'>J'adore</ons-radio>
+        <br><br><br>
+
+        <p id="tag_phrase" style="color: #9B9B9F">Quels tags correspondent le mieux à cet endroit ?</p>
+        <div id="tagsCheckbox"></div>
+
         <br><br><br>
         <ons-button id="validfav" onclick="postNewFav()" disabled modifier="large--material--flat">Valider <ons-icon icon="md-favorite"></ons-icon> </ons-button>
 

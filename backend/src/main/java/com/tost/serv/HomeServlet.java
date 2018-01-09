@@ -3,6 +3,7 @@ package com.tost.serv;
 import com.tost.services.ConnectionServices;
 import com.tost.services.FavoritesServices;
 import com.tost.services.GeniusServices;
+import com.tost.services.TagsServices;
 import org.json.JSONObject;
 
 import javax.servlet.http.HttpServlet;
@@ -112,4 +113,11 @@ public class HomeServlet extends HttpServlet {
             return GeniusServices.getRecommendation(userId).toString();
     }
 
+    @Path("/randomtags/get")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getRandomTags(String data)
+    {
+        return TagsServices.getRandomTags();
+    }
 }
