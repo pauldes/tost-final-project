@@ -1,3 +1,6 @@
+ons-page {
+  text-align: center; }
+
 .coffee-card-container {
   margin: 1em;
   width: 20em;
@@ -12,3 +15,10 @@
     position: absolute;
     left: 20px;
     color: #fff; }
+
+.toolbar__title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5em; }
+
+.get-genius-button {
+  text-align: center; }
