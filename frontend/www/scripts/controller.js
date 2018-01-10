@@ -320,22 +320,29 @@ function drawAutocompletedUsers(jsonUsers){
 
 function postNewGroup(){
 
-    theAxios().post('/groups/create', {
-        members: selectedUsers,
-        name : "El Famoso Grupo"
-    })
-        .then(function (response) {
-            console.log(response.data);
-            if (response.data === serverMessages['OK']) {
-                pushThePage("main.html");
-                getGroups();
-            } else {
-                ons.notification.toast({message: serverMessages[response.data], timeout: 2000});
-            }
+    chosenName = $('#group-name').value;
+
+    if(chosenName=="" || chosenName==undefined){
+        console.log("name empty")
+    } else {
+
+        theAxios().post('/groups/create', {
+            members: selectedUsers,
+            name: chosenName
         })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function (response) {
+                console.log(response.data);
+                if (response.data === serverMessages['OK']) {
+                    pushThePage("main.html");
+                    getGroups();
+                } else {
+                    ons.notification.toast({message: serverMessages[response.data], timeout: 2000});
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 }
 
 function getGroups(){
@@ -363,11 +370,30 @@ function getGroups(){
                     "</ons-button><br>" +
                     */
                     "</div>" +
-
                     "</ons-card>";
             }
+            drawGeniusGroup(response.data)
         })
         .catch(function (error) {
             console.log(error);
         });
+}
+
+function drawGeniusGroup(groups){
+
+    var selector = $("#genius-selector");
+    var selector= document.getElementById("genius-selector");
+    selector.options.length = 0;
+
+    var newoption = document.createElement("option");
+    newoption.text = "moi";
+    newoption.value = 0;
+    selector.add(newoption);
+
+    for (i = 0; i < groups.length; i++) {
+        var newoption = document.createElement("option");
+        newoption.text = groups[i].group_name;
+        newoption.value = groups[i].id;
+        selector.add(newoption);
+    }
 }
