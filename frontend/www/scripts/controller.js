@@ -31,7 +31,6 @@ function fillMyFavs(category) {
     var myfavsdiv = $('#myfavs');
     myfavsdiv.innerHTML = "";
 
-
     for (i = 0; i < favs.length; i++) {
 
         if (favs[i].place_categories.indexOf(category) !==-1 ) {
@@ -47,7 +46,7 @@ function fillMyFavs(category) {
 
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
 
-                    console.log(place);
+                    //console.log(place);
 
                     var address = place.formatted_address;
                     var googleDirectionLink = "\"" + place.url + "\"";
@@ -352,8 +351,43 @@ function postNewGroup(){
             console.log(response.data);
             if (response.data === serverMessages['OK']) {
                 pushThePage("main.html");
+                getGroups();
             } else {
                 ons.notification.toast({message: serverMessages[response.data], timeout: 2000});
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+function getGroups(){
+    theAxios().get('/groups/get')
+        .then(function (response) {
+
+            var div = $('#mygroups');
+            div.innerHTML = '';
+
+            for (i=0; i<response.data.length; i++) {
+                div.innerHTML +=
+
+                    "<ons-card>" +
+
+                    "<div class='title'> " +
+                    response.data[i].group_name +
+                    "</div>" +
+
+                    "<div class='content'> " +
+                    response.data[i].members_name +
+                    /*
+                    "<br><ons-button modifier='quiet' style='padding: 0;'>" +
+                        "<ons-icon icon='ion-ios-trash' style='color:crimson'>" +
+                        "</ons-icon>" +
+                    "</ons-button><br>" +
+                    */
+                    "</div>" +
+
+                    "</ons-card>";
             }
         })
         .catch(function (error) {

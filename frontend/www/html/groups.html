@@ -1,20 +1,13 @@
 <ons-page id="groups">
 
-    <div style="text-align: center">
-
-        <br>
-        Mon nom est
-        <h1>
-            <div id="profilename"></div>
-        </h1>
-        et voici mes groupes d'amis
+    <div style="text-align:center;margin:2em">
+            Mes groupes
     </div>
 
-    <ons-list id="mygroups">
-        <!-- TODO -->
-    </ons-list>
+    <div id="mygroups">
+    </div>
 
-    <script>drawProfilePage()</script>
+    <script>getGroups()</script>
 
     <ons-fab mini position="bottom right" onclick="pushThePage('addgroup.html')">
         <ons-icon icon="md-plus"></ons-icon>
