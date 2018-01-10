@@ -1,10 +1,7 @@
 package com.tost.serv;
 
-import com.tost.services.ConnectionServices;
-import com.tost.services.FavoritesServices;
-import com.tost.services.GeniusServices;
-import com.tost.services.GroupsServices;
-import com.tost.services.TagsServices;
+import com.tost.services.*;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.http.HttpServlet;
@@ -152,10 +149,31 @@ public class HomeServlet extends HttpServlet {
         }
         else if(userId==null)
             return "ERROR";
-        else
-            //TODO
-            return "OK";
+        else {
+            String groupName = jsonData.getString("name");
+            JSONArray membersJson = jsonData.getJSONArray("members");
+            int memberCount = membersJson.length();
+            System.out.println("Got "+memberCount);
+            String members = "";
+            for(int i=0; i<memberCount; i++){
+                if(i>0)
+                    members+=",";
+                members += membersJson.get(i).toString();
+            }
+            return GroupsServices.createGroup(userId,groupName,members);
+        }
 
+    }
+
+    @Path("groups/get")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getGroups()
+    {
+        if(userId==null)
+            return "ERROR";
+        else
+            return GroupsServices.getMyGroups(userId);
     }
 
     @Path("/randomtags/get")
