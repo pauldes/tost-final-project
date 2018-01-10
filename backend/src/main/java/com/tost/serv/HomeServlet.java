@@ -3,6 +3,8 @@ package com.tost.serv;
 import com.tost.services.ConnectionServices;
 import com.tost.services.FavoritesServices;
 import com.tost.services.GeniusServices;
+import com.tost.services.GroupsServices;
+import com.tost.services.TagsServices;
 import org.json.JSONObject;
 
 import javax.servlet.http.HttpServlet;
@@ -73,7 +75,7 @@ public class HomeServlet extends HttpServlet {
     public String addToFavs(String data)
     {
         JSONObject jsonData = new JSONObject(data);
-        if(!jsonData.has("google_place_id") || !jsonData.has("place_name") || !jsonData.has("place_categories"))
+        if(!jsonData.has("google_place_id") || !jsonData.has("place_name") || !jsonData.has("place_categories") || !jsonData.has("user_like"))
         {
             return "INVALID_POST";
         }
@@ -82,7 +84,8 @@ public class HomeServlet extends HttpServlet {
             String placeCategories = jsonData.getString("place_categories");
             String placeName = jsonData.getString("place_name");
             String googlePlaceId = jsonData.getString("google_place_id");
-            return FavoritesServices.addToFavorites(placeName,googlePlaceId,placeCategories,userId);
+            Double userLike = jsonData.getDouble("user_like");
+            return FavoritesServices.addToFavorites(placeName,googlePlaceId,placeCategories, userLike, userId);
         }
     }
 
@@ -93,7 +96,10 @@ public class HomeServlet extends HttpServlet {
     public String getFavs(String data)
     {
         JSONObject jsonData = new JSONObject(data);
-        return FavoritesServices.getFavorites().toString();
+        if(userId==null)
+            return "ERROR";
+        else
+            return FavoritesServices.getFavorites(userId).toString();
     }
 
     @Path("/genius/get")
@@ -108,4 +114,56 @@ public class HomeServlet extends HttpServlet {
             return GeniusServices.getRecommendation(userId).toString();
     }
 
+    @Path("/groups/autocomplete")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAutocomplete(String data)
+    {
+        JSONObject jsonData = new JSONObject(data);
+        if(!jsonData.has("input") )
+        {
+            return "INVALID_POST";
+        }
+        else if(userId==null) {
+            return "ERROR";
+        }
+        else {
+            String input = jsonData.getString("input");
+            if(input.equals(""))
+                return "";
+            else
+                return GroupsServices.getAutocompletePseudos(input).toString();
+        }
+    }
+
+    @Path("/groups/create")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String createGroup(String data)
+    {
+        System.out.println(data);
+        JSONObject jsonData = new JSONObject(data);
+
+        if(!jsonData.has("members") || !jsonData.has("name") )
+        {
+            return "INVALID_POST";
+        }
+        else if(userId==null)
+            return "ERROR";
+        else
+            //TODO
+            return "OK";
+
+    }
+
+    @Path("/randomtags/get")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getRandomTags(String data)
+    {
+
+        return TagsServices.getRandomTags();
+    }
 }

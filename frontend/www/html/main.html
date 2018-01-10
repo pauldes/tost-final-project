@@ -3,7 +3,7 @@
     <ons-toolbar>
         <div class="left">
             <ons-toolbar-button onclick="pushThePage('profile.html')">
-                <ons-icon icon="md-face"></ons-icon>
+                <ons-icon icon="ion-ios-person-outline"></ons-icon>
             </ons-toolbar-button>
         </div>
         <div class="center">
@@ -11,20 +11,24 @@
         </div>
         <div class="right">
             <ons-toolbar-button onclick="pushThePage('addfavorite.html')">
-                <ons-icon icon="md-favorite"></ons-icon>
+                <ons-icon icon="ion-ios-plus-outline"></ons-icon>
             </ons-toolbar-button>
         </div>
     </ons-toolbar>
 
     <ons-tabbar swipeable position="auto">
         <!-- position="auto" la met en haut sur Adnroid-->
-        <ons-tab page="html/homepage.html" label="Accueil" active>
+        <ons-tab page="html/homepage.html" icon="ion-ios-home" active>
         </ons-tab>
-        <ons-tab page="html/genius.html" label="Genius">
+        <ons-tab page="html/genius.html" icon="ion-wand">
         </ons-tab>
-        <ons-tab page="html/events.html" label="Evénements">
+        <!--
+        <ons-tab page="html/events.html" icon="ion-ios-calendar">
         </ons-tab>
-        <ons-tab page="html/favorites.html" label="Favoris">
+        -->
+        <ons-tab page="html/favorites.html" icon="ion-ios-heart">
+        </ons-tab>
+        <ons-tab page="html/groups.html" icon="ion-ios-people">
         </ons-tab>
     </ons-tabbar>
 

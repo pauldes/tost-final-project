@@ -1,0 +1,40 @@
+<ons-page id="addgroup">
+
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button>
+                Retour
+            </ons-back-button>
+        </div>
+        <div class="center">Tøst!</div>
+    </ons-toolbar>
+
+    <div style="text-align: center;">
+
+        <ons-search-input
+                style="width:100%" material float input-id="autocomplete-pseudo" placeholder="Pseudo"
+                onkeyup="autocompletePseudo()">
+        </ons-search-input>
+
+        <ons-list id="autocomplete-pseudo-results">
+
+            <!--
+            <ons-list-item onclick='addToGroup(1)'>Paul Désigaud</ons-list-item>
+            <ons-list-item onclick="addToGroup(2)">Paul Choisel</ons-list-item>
+            <ons-list-item onclick="addToGroup(3)">Paul Busi</ons-list-item>
+            -->
+        </ons-list>
+
+
+        <br><br><br>
+        <h2>Présents dans ce groupe</h2>
+        <div id="users-in-the-group"></div>
+
+        <br><br><br>
+
+        <ons-button id="validgroup" onclick="postNewGroup()" modifier="large--material--flat">Valider <ons-icon icon="ion-ios-people"></ons-icon> </ons-button>
+
+
+    </div>
+
+</ons-page>

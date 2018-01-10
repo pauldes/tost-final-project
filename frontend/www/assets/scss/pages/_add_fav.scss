@@ -1,0 +1,17 @@
+.tags-cb-container {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 1em;
+
+  .tag-cb {
+    background-color: $color-blue-light;
+    padding: 0.5em 1em;
+    margin: 0.25em 0;
+    border-radius: 20px;
+
+    &.selected {
+      background-color: lighten($color-blue-light, .3);
+    }
+  }
+}

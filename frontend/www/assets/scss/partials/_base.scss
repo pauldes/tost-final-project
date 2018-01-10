@@ -1,13 +1,15 @@
 //Colors
 
-$color-blue: #6ed3cf;
-$color-purple: #9068be;
-$color-red: #e62739;
-$color-grey: #e1e8f0;
+$color-blue-light: #9ad3de;
+$color-blue-dark: #89bdd3;
+$color-grey-light: #e3e3e3;
+$color-grey-dark: #c9c9c9;
 $color-white: #fff;
-
 
 //Fonts
 
-//Default styles
+//Align Text on center
+ons-page {
+  text-align: center;
+}
 

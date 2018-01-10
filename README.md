@@ -44,6 +44,20 @@ Run Cordova (frontend) with
 * http://localhost:8080/api/ should show a welcome message from the server
 * http://localhost:8000      should show the mobile app
 
+### Install the gulp and sass dependencies
+
+Install dependencies 
+
+```
+npm install gulp
+npm install gulp-sass --save-dev
+```
+
+Run Gulp configuration with :
+
+* gulpfile: _path-to-gulpfile.js_
+* tasks: sass
+
 ### Built With
 
 * [Onsen UI 2](https://onsen.io/) - UI framework and components for HTML5 hybrid mobile app

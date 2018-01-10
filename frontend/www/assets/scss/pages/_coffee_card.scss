@@ -1,7 +1,7 @@
 .coffee-card-container {
   margin: 1em;
   width: 20em;
-  background-color: transparentize($color-grey, .6);
+  background-color: transparentize($color-grey-light, .6);
   border-radius: 30px;
 
   .coffee-card-thumbnail {

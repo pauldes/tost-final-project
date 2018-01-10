@@ -94,7 +94,6 @@ freeline_project_description.json
 # Logs and databases #
 ######################
 *.log
-*.sql
 *.sqlite
 
 # OS generated files #
@@ -467,3 +466,4 @@ plugins/
 platforms/
 simulation/
 
+*.properties

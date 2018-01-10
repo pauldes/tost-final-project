@@ -11,8 +11,14 @@ var serverMessages ={
 var username = "";
 
 function theAxios() {
+
+    var serverIP = 'localhost';
+    //serverIP = '192.168.0.16'; //Paul's home
+    //Use ipconfig or ifconfig to get the right IP
+
     var instance = axios.create({
-        baseURL: 'http://localhost:8080/api',
+        // Browser :
+        baseURL: 'http://'+serverIP+':8080/api',
         timeout: 1000,
         headers: {'Content-Type': 'application/json'}
     });

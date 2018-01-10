@@ -1,38 +1,80 @@
-
-function pushThePage(page){
-    document.querySelector('#globalNavigator').pushPage('./html/'+page);
+function pushThePage(page, options){
+    document.querySelector('#globalNavigator').pushPage('./html/'+page, options);
 }
 
 var favs = {}
 
-function fillMyFavs(category){
+function getFavs() {
+
+    theAxios().post('/favorites/get', {
+        username: username
+    })
+        .then(function (response) {
+            console.log(response.data);
+            favs = response.data;
+            fillMyFavs("Bar");
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+function fillMyFavs(category) {
 
     var myfavsdiv = $('#myfavs');
     myfavsdiv.innerHTML = "";
 
-    for (placeid in favs) {
 
-        if (favs[placeid]['category'] == category){
+    for (i = 0; i < favs.length; i++) {
 
-            var name = favs[placeid]['name'];
-            var address = favs[placeid]['address'];
-            var priceIcons = Array(favs[placeid]['price']).join("€");
+        if (favs[i].place_categories.indexOf(category) !==-1 ) {
 
-            var currentfavdiv = document.createElement('div');
-            currentfavdiv.className = 'row';
-            currentfavdiv.innerHTML = "" +
-                "<ons-card> " +
-                "<img src='http://www.gqmagazine.fr/uploads/images/thumbs/201512/57/hipster_sait_faire_un_bon_caf___5108.jpeg_north_640x425_transparent.jpg' alt='Onsen UI' style='width: 100%'> " +
-                "<div class='title'> " +
-                name +
-                "</div> " +
-                "<div class='content'>" +
-                address +
-                "<br>" +
-                priceIcons +
-                "</div> " +
-                "</ons-card>";
-            myfavsdiv.appendChild(currentfavdiv);
+            var place_name = favs[i].place_name;
+            var google_place_id = favs[i].google_place_id;
+            var place_categories = favs[i].place_categories;
+
+            service = new google.maps.places.PlacesService(document.createElement('div'));
+            service.getDetails({placeId: google_place_id}, callback);
+
+            function callback(place, status) {
+
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+                    console.log(place);
+
+                    var address = place.formatted_address;
+                    var googleDirectionLink = "\"" + place.url + "\"";
+                    var formatted_place_categories = place_categories.replace(",", " | ");
+                    var placeName = place.name;
+
+                    formatted_place_categories = "<div style='color:lightgray'>" + formatted_place_categories + "</div>";
+
+                    //var currentFavDiv = document.createElement('div');
+                    //currentFavDiv.className = 'row';
+
+                    //currentFavDiv.innerHTML =
+                    myfavsdiv.innerHTML +=
+                        "<ons-card onclick=\"pushThePage('onefavorite.html')\"> " +
+                        //"<img src=" +
+                        //place.photos[0].getUrl({'maxWidth': 640, 'maxHeight': 320}) +
+                        //" alt='Illustration' style='width: 100%'> " +
+                        "<div class='title'> " +
+                        placeName +
+                        "</div> " +
+                        formatted_place_categories +
+                        "<div class='content'>" +
+                        address +
+                        "<br>" +
+                        "<ons-button modifier='quiet' style='font-size:inherit;padding-left:0' onclick='window.open(" +
+                        googleDirectionLink +
+                        ");'>Y aller</ons-button>" +
+                        "</div></ons-card>";
+
+                    //myfavsdiv.appendChild(currentFavDiv);
+
+                }
+
+            }
         }
     }
 }
@@ -70,10 +112,55 @@ function fillInAddress() {
     var div =$('#placenameaddfav');
     div.innerHTML = "<h2>"+place.name+"</h2>";
 
+    var p = $('#which_tags');
+    p.style.color = "#000";
+
     $('#cbbar').disabled = false;
     $('#cbbrunch').disabled = false;
     $('#cbcafe').disabled = false;
+    $('#rhate').disabled = false;
+    $('#rlike').disabled = false;
+    $('#rlove').disabled = false;
     $('#validfav').disabled = false;
+    $('#cbtag0').disabled = false;
+    $('#cbtag1').disabled = false;
+    $('#cbtag2').disabled = false;
+    $('#cbtag3').disabled = false;
+    $('#cbtag4').disabled = false;
+    $('#cbtag5').disabled = false;
+    $('#cbtag6').disabled = false;
+    $('#cbtag7').disabled = false;
+    $('#cbtag8').disabled = false;
+
+}
+
+function createTagsCheckbox() {
+    var div = $('#tags_checkbox');
+    div.innerHTML = '';
+
+    theAxios().get('/randomtags/get')
+        .then(function (response) {
+            for (i=0; i<response.data.length; i++) {
+                div.innerHTML +=
+                    "<ons-checkbox class=\"tag-cb\" disabled id=\"cbtag" +
+                    i +
+                    "\" float modifier='material'>" +
+                    response.data[i]['place_tag_name'] +
+                    "</ons-checkbox>";
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+    //Add 'selected' class name when cb is checked
+
+    for (i=0; i<8; i++) {
+        var cb = $('#cbtag'+i+'');
+        if (cb.checked) {
+            console.log(cb);
+        }
+    }
 
 }
 
@@ -114,8 +201,6 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
     function callback(place, status) {
 
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-
-            console.log(currentPlace);
             var recommendationDiv = $('#recommendation');
             recommendationDiv.innerHTML = "";
 
@@ -149,35 +234,106 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
     }
 }
 
-function postNewFav(){
-    console.log(currentPlace);
-    var currentPlaceName = currentPlace.name;
-    var currentPlaceId = currentPlace.place_id;
-    var currentPlaceCategories ="";
-    if($('#check-bar').checked){
-        currentPlaceCategories+='Bar,';
-    }if($('#check-cafe').checked){
-        currentPlaceCategories+='Café,';
-    }if($('#check-brunch').checked){
-        currentPlaceCategories+='Brunch,';
-    }
+function postNewFav() {
 
-    theAxios().post('/favorites/add', {
-        place_name: currentPlaceName,
-        google_place_id: currentPlaceId,
-        place_categories: currentPlaceCategories
+    if ($('#cbbar').checked || $('#cbcafe').checked || $('#cbbrunch').checked) {
+        var currentPlaceName = currentPlace.name;
+        var currentPlaceId = currentPlace.place_id;
+        var currentPlaceCategories = "";
+        var userScore = 1.0;
+        if ($('#cbbar').checked) {
+            currentPlaceCategories += 'Bar,';
+        }
+        if ($('#cbcafe').checked) {
+            currentPlaceCategories += 'Café,';
+        }
+        if ($('#cbbrunch').checked) {
+            currentPlaceCategories += 'Brunch,';
+        }
+        if ($('#rhate').checked) {
+            userScore = -1.0
+        } else if ($('#rlove').checked) {
+            userScore = 3.0
+        }
+
+        //Remove last coma
+        currentPlaceCategories = currentPlaceCategories.slice(0, -1);
+
+        theAxios().post('/favorites/add', {
+            place_name: currentPlaceName,
+            google_place_id: currentPlaceId,
+            place_categories: currentPlaceCategories,
+            user_like: userScore
+        })
+            .then(function (response) {
+                console.log(response);
+                if (response.data === serverMessages['OK']) {
+                    pushThePage("main.html");
+                } else {
+                    ons.notification.toast({message: serverMessages[response.data], timeout: 2000});
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+}
+
+function drawProfilePage(){
+    $('#profilename').innerText = username;
+}
+
+var autocompletedUsers = {};
+var selectedUsers = [];
+
+function addToGroup(userId){
+    if(!selectedUsers.includes(userId)){
+        selectedUsers.push(userId);
+        var pseudo = autocompletedUsers[userId];
+        $('#users-in-the-group').innerText += pseudo+", ";
+    }
+}
+
+function autocompletePseudo(){
+    var letters = $('#autocomplete-pseudo').value;
+
+    theAxios().post('/groups/autocomplete', {
+        input: letters
     })
         .then(function (response) {
-            console.log(response);
-            if(response.data===serverMessages['OK']){
+            console.log(response.data);
+            autocompletedUsers = response.data;
+            drawAutocompletedUsers(autocompletedUsers);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+function drawAutocompletedUsers(jsonUsers){
+    $('#autocomplete-pseudo-results').innerHTML = "";
+    for(userId in autocompletedUsers) {
+        userPseudo = autocompletedUsers[userId];
+        var line = "<ons-list-item onclick='addToGroup("+userId+")'>"+userPseudo+"</ons-list-item>";
+        $('#autocomplete-pseudo-results').innerHTML += line;
+    }
+}
+
+function postNewGroup(){
+
+    theAxios().post('/groups/create', {
+        members: selectedUsers,
+        name : "El Famoso Grupo"
+    })
+        .then(function (response) {
+            console.log(response.data);
+            if (response.data === serverMessages['OK']) {
                 pushThePage("main.html");
             } else {
-                ons.notification.toast({message:serverMessages[response.data],timeout:2000});
+                ons.notification.toast({message: serverMessages[response.data], timeout: 2000});
             }
         })
         .catch(function (error) {
             console.log(error);
         });
-
-
 }
