@@ -8,7 +8,9 @@
 # Java class files
 *.class
 
-
+# Other
+backend/target/classes/activejdbc_models.properties
+backend/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 
 # Generated files
 bin/
