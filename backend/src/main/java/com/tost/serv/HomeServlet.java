@@ -191,7 +191,7 @@ public class HomeServlet extends HttpServlet {
     public String addTagToPlace(String data)
     {
         JSONObject jsonData = new JSONObject(data);
-        if(!jsonData.has("place_tag_name") || !jsonData.has("place_id") || !jsonData.has("score"))
+        if(!jsonData.has("place_tag_name") || !jsonData.has("place_id"))
         {
             return "INVALID_POST";
         }
@@ -200,6 +200,23 @@ public class HomeServlet extends HttpServlet {
             String placeTagName = jsonData.getString("place_tag_name");
             String placeId = jsonData.getString("place_id");
             return TagsServices.addToTagUsedForPlace(placeTagName, placeId);
+        }
+    }
+
+    @Path("/usertag/add")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String addTagToUser(String data) {
+        JSONObject jsonData = new JSONObject(data);
+        if(!jsonData.has("place_tag_name"))
+        {
+            return "INVALID_POST";
+        }
+        else
+        {
+            String placeTagName = jsonData.getString("place_tag_name");
+            return TagsServices.addToUserUsedTag(placeTagName, userId);
         }
     }
 }

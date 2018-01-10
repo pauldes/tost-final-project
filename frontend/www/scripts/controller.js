@@ -213,6 +213,7 @@ function postNewFav() {
         var currentPlaceId = currentPlace.place_id;
         var currentPlaceCategories = "";
         var userScore = 1.0;
+        var addedAll = true;
         if ($('#cbbar').checked) {
             currentPlaceCategories += 'Bar,';
         }
@@ -239,9 +240,8 @@ function postNewFav() {
         })
             .then(function (response) {
                 //console.log(response);
-                if (response.data === serverMessages['OK']) {
-                    pushThePage("main.html");
-                } else {
+                if (response.data !== serverMessages['OK']) {
+                    addedAll = false;
                     ons.notification.toast({message: serverMessages[response.data], timeout: 2000});
                 }
             })
@@ -251,30 +251,44 @@ function postNewFav() {
 
         //Add tag count in database
         var tagsContainer = $('#tags_checkbox');
-        var score = 1;
         for (i=0; i<8; i++) {
             tag = tagsContainer.childNodes[i];
             var currentTagName = tag.innerText;
 
             if (tag.checked) {
-                console.log("Checked!");
+                //Fill table "Tag used for place"
                 theAxios().post('/placetag/add', {
                     place_tag_name: currentTagName,
-                    place_id: currentPlaceId,
-                    score: score
+                    place_id: currentPlaceId
                 })
                     .then(function(res) {
-                        console.log(res);
-                        if (res.data === serverMessages['OK']) {
-                            pushThePage("main.html");
-                        } else {
-                            ons.notification.toast({message: serverMessages[res.data], timeout: 2000});
+                        if (response.data !== serverMessages['OK']) {
+                            addedAll = false;
+                            ons.notification.toast({message: serverMessages[response.data], timeout: 2000});
+                        }
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                    });
+                //Fill the table "User used tag"
+                theAxios().post('/usertag/add', {
+                    place_tag_name: currentTagName
+                })
+                    .then(function(res) {
+                        if (response.data !== serverMessages['OK']) {
+                            addedAll = false;
+                            ons.notification.toast({message: serverMessages[response.data], timeout: 2000});
                         }
                     })
                     .catch(function(err) {
                         console.log(err);
                     });
             }
+        }
+        if (addedAll === true) {
+            pushThePage("main.html");
+        } else {
+        ons.notification.toast({message: serverMessages[res.data], timeout: 2000});
         }
     }
 }

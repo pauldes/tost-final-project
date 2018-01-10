@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 10, 2018 at 06:33 PM
+-- Generation Time: Jan 10, 2018 at 07:06 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -103,7 +103,9 @@ INSERT INTO `places` (`id`, `place_name`, `google_place_id`, `place_categories`)
 (20, 'Le Bieristan', 'ChIJKaAdPS7A9EcRfPHngQl7wNo', 'Bar,'),
 (21, 'Candy Cookie Boulevard', 'ChIJAcvZsf_q9EcRXrSoUV0bPAQ', 'Café,'),
 (22, 'Puzzle Cafe', 'ChIJ5VH_Xv_q9EcRXJ8zq7oOPkE', 'Café'),
-(23, 'COMME A LA MAISON Coffee Shop', 'ChIJMy0DYUbq9EcRIfg-CYIQ2fg', 'Café,Brunch');
+(23, 'COMME A LA MAISON Coffee Shop', 'ChIJMy0DYUbq9EcRIfg-CYIQ2fg', 'Café,Brunch'),
+(27, 'Barge, La Marquise', 'ChIJ3X0PI1rq9EcR3cfk3kuxhns', 'Bar'),
+(28, 'Comme à La Maison', 'ChIJaYeQikbq9EcRKlTEnM3YwR4', 'Café,Brunch');
 
 -- --------------------------------------------------------
 
@@ -213,7 +215,15 @@ CREATE TABLE `tag_used_for_places` (
 --
 
 INSERT INTO `tag_used_for_places` (`id`, `id_place_tag`, `id_place`, `score`) VALUES
-(1, 11, 22, '2');
+(1, 11, 22, '2'),
+(2, 43, 27, '1'),
+(3, 6, 27, '1'),
+(4, 3, 28, '1'),
+(5, 4, 28, '1'),
+(6, 2, 28, '1'),
+(7, 30, 28, '1'),
+(8, 31, 28, '1'),
+(9, 1, 28, '1');
 
 -- --------------------------------------------------------
 
@@ -244,8 +254,7 @@ INSERT INTO `userx` (`id`, `user_pseudo`, `user_mail`, `user_avatar`, `user_pwd`
 (20, 'berenice', 'berenice@gmail.com', NULL, '2e2040968bf626f0a07e545e5fe7dcb1085881d8cbc2f252e7f20f77ac84d21a', 'Ab5gyscS'),
 (21, 'emilie', 'emilie@gmail.com', NULL, 'e5237ca2a35501e6c7753fc49d5888b7247fc2991cfec80649db80e9014fbb98', 'RndtNzWP'),
 (22, 'vincent', 'vincent@gmail.com', NULL, '3bbde9a9ebcf85720b3931ecbd8634e20d9a3c59b83af5215ac83de80855967c', 'x6fPTald'),
-(23, 'razvan', 'razvan@gmail.com', NULL, '61dc0eef7b2c544198240c3d0053552e95282acd273837f4b5f54e5aa183723d', 'nohPkKiV'),
-(24, 'poubelle', 'pu@gmail.com', NULL, 'a61e4e650c64cb17d942a79d50af1f368cdda939729d878c6c94dbe1f934b49e', 'nyNSMjzc');
+(23, 'razvan', 'razvan@gmail.com', NULL, '61dc0eef7b2c544198240c3d0053552e95282acd273837f4b5f54e5aa183723d', 'nohPkKiV');
 
 -- --------------------------------------------------------
 
@@ -302,7 +311,8 @@ INSERT INTO `user_liked_places` (`id`, `id_user`, `id_place`, `user_like`) VALUE
 (27, 15, 22, 1),
 (28, 23, 1, 1),
 (29, 15, 23, 1),
-(34, 24, 22, 1);
+(35, 15, 27, 1),
+(36, 15, 28, 3);
 
 -- --------------------------------------------------------
 
@@ -357,6 +367,15 @@ CREATE TABLE `user_used_place_tag` (
   `id_place_tag` smallint(6) NOT NULL,
   `score` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_used_place_tag`
+--
+
+INSERT INTO `user_used_place_tag` (`id`, `id_user`, `id_place_tag`, `score`) VALUES
+(1, 15, 31, '1'),
+(2, 15, 30, '1'),
+(3, 15, 1, '1');
 
 --
 -- Indexes for dumped tables
@@ -489,7 +508,7 @@ ALTER TABLE `event_tag_belongs_to_cat`
 -- AUTO_INCREMENT for table `places`
 --
 ALTER TABLE `places`
-  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `place_tag`
@@ -513,7 +532,7 @@ ALTER TABLE `pro`
 -- AUTO_INCREMENT for table `tag_used_for_places`
 --
 ALTER TABLE `tag_used_for_places`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `userx`
@@ -531,7 +550,7 @@ ALTER TABLE `user_interested_event`
 -- AUTO_INCREMENT for table `user_liked_places`
 --
 ALTER TABLE `user_liked_places`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `user_recommendations`
@@ -549,7 +568,7 @@ ALTER TABLE `user_used_event_tag`
 -- AUTO_INCREMENT for table `user_used_place_tag`
 --
 ALTER TABLE `user_used_place_tag`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
