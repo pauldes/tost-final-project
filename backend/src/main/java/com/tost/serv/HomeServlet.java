@@ -4,6 +4,7 @@ import com.tost.services.ConnectionServices;
 import com.tost.services.FavoritesServices;
 import com.tost.services.GeniusServices;
 import com.tost.services.GroupsServices;
+import com.tost.services.TagsServices;
 import org.json.JSONObject;
 
 import javax.servlet.http.HttpServlet;
@@ -157,4 +158,11 @@ public class HomeServlet extends HttpServlet {
 
     }
 
+    @Path("/randomtags/get")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getRandomTags(String data)
+    {
+        return TagsServices.getRandomTags();
+    }
 }

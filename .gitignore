@@ -466,3 +466,4 @@ plugins/
 platforms/
 simulation/
 
+*.properties
