@@ -161,9 +161,27 @@ public class HomeServlet extends HttpServlet {
     @Path("/randomtags/get")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getRandomTags(String data)
+    public String getRandomTags()
     {
-
         return TagsServices.getRandomTags();
+    }
+
+    @Path("/placetag/add")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String addTagToPlace(String data)
+    {
+        JSONObject jsonData = new JSONObject(data);
+        if(!jsonData.has("place_tag_name") || !jsonData.has("place_id") || !jsonData.has("score"))
+        {
+            return "INVALID_POST";
+        }
+        else
+        {
+            String placeTagName = jsonData.getString("place_tag_name");
+            String placeId = jsonData.getString("place_id");
+            return TagsServices.addToTagUsedForPlace(placeTagName, placeId);
+        }
     }
 }

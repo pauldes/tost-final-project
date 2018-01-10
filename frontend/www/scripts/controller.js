@@ -4,6 +4,13 @@ function pushThePage(page, options){
 
 var favs = {}
 
+var currentPlace;
+
+var autocompletedUsers = {};
+var selectedUsers = [];
+
+var placeSearch, autocomplete, geocoder;
+
 function getFavs() {
 
     theAxios().post('/favorites/get', {
@@ -79,8 +86,6 @@ function fillMyFavs(category) {
     }
 }
 
-var placeSearch, autocomplete, geocoder;
-
 function initAutocomplete() {
 
     // What about using Places instead of Maps?
@@ -134,36 +139,6 @@ function fillInAddress() {
 
 }
 
-function createTagsCheckbox() {
-    var div = $('#tags_checkbox');
-    div.innerHTML = '';
-
-    theAxios().get('/randomtags/get')
-        .then(function (response) {
-            for (i=0; i<response.data.length; i++) {
-                div.innerHTML +=
-                    "<ons-checkbox class=\"tag-cb\" disabled id=\"cbtag" +
-                    i +
-                    "\" float modifier='material'>" +
-                    response.data[i]['place_tag_name'] +
-                    "</ons-checkbox>";
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-
-    //Add 'selected' class name when cb is checked
-
-    for (i=0; i<8; i++) {
-        var cb = $('#cbtag'+i+'');
-        if (cb.checked) {
-            console.log(cb);
-        }
-    }
-
-}
-
 function codeAddress(address) {
     geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == 'OK') {
@@ -190,8 +165,6 @@ function getGeniusRecommendation(){
             console.log(error);
         });
 }
-
-var currentPlace;
 
 function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
 
@@ -266,7 +239,7 @@ function postNewFav() {
             user_like: userScore
         })
             .then(function (response) {
-                console.log(response);
+                //console.log(response);
                 if (response.data === serverMessages['OK']) {
                     pushThePage("main.html");
                 } else {
@@ -276,15 +249,65 @@ function postNewFav() {
             .catch(function (error) {
                 console.log(error);
             });
+
+        //Add tag count in database
+        var tagsContainer = $('#tags_checkbox');
+        var score = 1;
+        for (i=0; i<8; i++) {
+            tag = tagsContainer.childNodes[i];
+            var currentTagName = tag.innerText;
+
+            if (tag.checked) {
+                console.log("Checked!");
+                theAxios().post('/placetag/add', {
+                    place_tag_name: currentTagName,
+                    place_id: currentPlaceId,
+                    score: score
+                })
+                    .then(function(res) {
+                        console.log(res);
+                        if (res.data === serverMessages['OK']) {
+                            pushThePage("main.html");
+                        } else {
+                            ons.notification.toast({message: serverMessages[res.data], timeout: 2000});
+                        }
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                    });
+            }
+        }
     }
+}
+
+function createTagsCheckbox() {
+    var div = $('#tags_checkbox');
+    div.innerHTML = '';
+
+    theAxios().get('/randomtags/get')
+        .then(function (response) {
+
+            for (i=0; i<response.data.length; i++) {
+                var placeTagName = response.data[i]['place_tag_name'];
+                //Display nine randomly chosen tags
+                div.innerHTML +=
+                    "<ons-checkbox class=\"tag-cb\" disabled id=\"cbtag" +
+                    i +
+                    "\" float modifier='material'>" +
+                    placeTagName +
+                    "</ons-checkbox>";
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+    //TODO : Add 'selected' class name when cb is checked
 }
 
 function drawProfilePage(){
     $('#profilename').innerText = username;
 }
-
-var autocompletedUsers = {};
-var selectedUsers = [];
 
 function addToGroup(userId){
     if(!selectedUsers.includes(userId)){
