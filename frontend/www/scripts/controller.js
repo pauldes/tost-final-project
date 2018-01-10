@@ -1,4 +1,3 @@
-
 function pushThePage(page, options){
     document.querySelector('#globalNavigator').pushPage('./html/'+page, options);
 }
@@ -113,7 +112,7 @@ function fillInAddress() {
     var div =$('#placenameaddfav');
     div.innerHTML = "<h2>"+place.name+"</h2>";
 
-    var p = $('#tag_phrase');
+    var p = $('#which_tags');
     p.style.color = "#000";
 
     $('#cbbar').disabled = false;
@@ -136,16 +135,14 @@ function fillInAddress() {
 }
 
 function createTagsCheckbox() {
-    var div = $('#tagsCheckbox');
+    var div = $('#tags_checkbox');
     div.innerHTML = '';
 
     theAxios().get('/randomtags/get')
         .then(function (response) {
-            console.log(response.data);
             for (i=0; i<response.data.length; i++) {
-                console.log(response.data[i]['place_tag_name']);
                 div.innerHTML +=
-                    "<ons-checkbox disabled id=\"cbtag" +
+                    "<ons-checkbox class=\"tag-cb\" disabled id=\"cbtag" +
                     i +
                     "\" float modifier='material'>" +
                     response.data[i]['place_tag_name'] +
@@ -155,6 +152,16 @@ function createTagsCheckbox() {
         .catch(function (error) {
             console.log(error);
         });
+
+    //Add 'selected' class name when cb is checked
+
+    for (i=0; i<8; i++) {
+        var cb = $('#cbtag'+i+'');
+        if (cb.checked) {
+            console.log(cb);
+        }
+    }
+
 }
 
 function codeAddress(address) {
