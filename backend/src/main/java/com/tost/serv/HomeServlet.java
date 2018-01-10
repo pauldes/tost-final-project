@@ -163,6 +163,7 @@ public class HomeServlet extends HttpServlet {
     @Produces(MediaType.APPLICATION_JSON)
     public String getRandomTags(String data)
     {
+
         return TagsServices.getRandomTags();
     }
 }
