@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\Paul\GitHub\innovative-project\backend\src\main\java\com\tost\services\GeniusServices.java
 C:\Users\Paul\GitHub\innovative-project\backend\src\main\java\com\tost\models\UserLikedPlace.java
 C:\Users\Paul\GitHub\innovative-project\backend\src\main\java\com\tost\models\User.java
@@ -11,3 +12,20 @@ C:\Users\Paul\GitHub\innovative-project\backend\src\main\java\com\tost\models\Us
 C:\Users\Paul\GitHub\innovative-project\backend\src\main\java\com\tost\services\GroupsServices.java
 C:\Users\Paul\GitHub\innovative-project\backend\src\main\java\com\tost\services\ConnectionServices.java
 C:\Users\Paul\GitHub\innovative-project\backend\src\main\java\com\tost\services\DatabaseServices.java
+=======
+/Users/alicialebreton/Documents/GitHub/innovative-project/backend/src/main/java/com/tost/models/User.java
+/Users/alicialebreton/Documents/GitHub/innovative-project/backend/src/main/java/com/tost/models/UserUsedTag.java
+/Users/alicialebreton/Documents/GitHub/innovative-project/backend/src/main/java/com/tost/models/UserGroup.java
+/Users/alicialebreton/Documents/GitHub/innovative-project/backend/src/main/java/com/tost/models/Place.java
+/Users/alicialebreton/Documents/GitHub/innovative-project/backend/src/main/java/com/tost/models/UserLikedPlace.java
+/Users/alicialebreton/Documents/GitHub/innovative-project/backend/src/main/java/com/tost/services/ConnectionServices.java
+/Users/alicialebreton/Documents/GitHub/innovative-project/backend/src/main/java/com/tost/services/GroupsServices.java
+/Users/alicialebreton/Documents/GitHub/innovative-project/backend/src/main/java/com/tost/models/TagUsedForPlace.java
+/Users/alicialebreton/Documents/GitHub/innovative-project/backend/src/main/java/com/tost/models/Tag.java
+/Users/alicialebreton/Documents/GitHub/innovative-project/backend/src/main/java/com/tost/services/GeniusServices.java
+/Users/alicialebreton/Documents/GitHub/innovative-project/backend/src/main/java/com/tost/services/FavoritesServices.java
+/Users/alicialebreton/Documents/GitHub/innovative-project/backend/src/main/java/com/tost/models/UserRecommendation.java
+/Users/alicialebreton/Documents/GitHub/innovative-project/backend/src/main/java/com/tost/services/TagsServices.java
+/Users/alicialebreton/Documents/GitHub/innovative-project/backend/src/main/java/com/tost/services/DatabaseServices.java
+/Users/alicialebreton/Documents/GitHub/innovative-project/backend/src/main/java/com/tost/serv/HomeServlet.java
+>>>>>>> origin/master
