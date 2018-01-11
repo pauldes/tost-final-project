@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jan 10, 2018 at 07:06 PM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.11
+-- Host: 127.0.0.1
+-- Generation Time: Jan 11, 2018 at 12:17 AM
+-- Server version: 5.7.14
+-- PHP Version: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -259,6 +257,26 @@ INSERT INTO `userx` (`id`, `user_pseudo`, `user_mail`, `user_avatar`, `user_pwd`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_groups`
+--
+
+CREATE TABLE `user_groups` (
+  `id` int(11) NOT NULL,
+  `owner_id` int(11) NOT NULL,
+  `group_name` varchar(63) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `members_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_groups`
+--
+
+INSERT INTO `user_groups` (`id`, `owner_id`, `group_name`, `members_id`) VALUES
+(1, 6, 'Les amis', '17,19');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_interested_event`
 --
 
@@ -446,6 +464,12 @@ ALTER TABLE `userx`
   ADD UNIQUE KEY `user_mail` (`user_mail`);
 
 --
+-- Indexes for table `user_groups`
+--
+ALTER TABLE `user_groups`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user_interested_event`
 --
 ALTER TABLE `user_interested_event`
@@ -485,92 +509,81 @@ ALTER TABLE `user_used_place_tag`
 --
 ALTER TABLE `event`
   MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `event_cat`
 --
 ALTER TABLE `event_cat`
   MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `event_tag`
 --
 ALTER TABLE `event_tag`
   MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `event_tag_belongs_to_cat`
 --
 ALTER TABLE `event_tag_belongs_to_cat`
   MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `places`
 --
 ALTER TABLE `places`
   MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
-
 --
 -- AUTO_INCREMENT for table `place_tag`
 --
 ALTER TABLE `place_tag`
   MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
-
 --
 -- AUTO_INCREMENT for table `place_tag_belongs_to_cat`
 --
 ALTER TABLE `place_tag_belongs_to_cat`
   MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `pro`
 --
 ALTER TABLE `pro`
   MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `tag_used_for_places`
 --
 ALTER TABLE `tag_used_for_places`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
 --
 -- AUTO_INCREMENT for table `userx`
 --
 ALTER TABLE `userx`
   MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
+--
+-- AUTO_INCREMENT for table `user_groups`
+--
+ALTER TABLE `user_groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user_interested_event`
 --
 ALTER TABLE `user_interested_event`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `user_liked_places`
 --
 ALTER TABLE `user_liked_places`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
-
 --
 -- AUTO_INCREMENT for table `user_recommendations`
 --
 ALTER TABLE `user_recommendations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
 -- AUTO_INCREMENT for table `user_used_event_tag`
 --
 ALTER TABLE `user_used_event_tag`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `user_used_place_tag`
 --
 ALTER TABLE `user_used_place_tag`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
