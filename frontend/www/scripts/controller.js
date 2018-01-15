@@ -4,6 +4,13 @@ function pushThePage(page, options){
 
 var favs = {}
 
+var currentPlace;
+
+var autocompletedUsers = {};
+var selectedUsers = [];
+
+var placeSearch, autocomplete, geocoder;
+
 function getFavs() {
 
     theAxios().post('/favorites/get', {
@@ -78,8 +85,6 @@ function fillMyFavs(category) {
     }
 }
 
-var placeSearch, autocomplete, geocoder;
-
 function initAutocomplete() {
 
     // What about using Places instead of Maps?
@@ -133,36 +138,6 @@ function fillInAddress() {
 
 }
 
-function createTagsCheckbox() {
-    var div = $('#tags_checkbox');
-    div.innerHTML = '';
-
-    theAxios().get('/randomtags/get')
-        .then(function (response) {
-            for (i=0; i<response.data.length; i++) {
-                div.innerHTML +=
-                    "<ons-checkbox class=\"tag-cb\" disabled id=\"cbtag" +
-                    i +
-                    "\" float modifier='material'>" +
-                    response.data[i]['place_tag_name'] +
-                    "</ons-checkbox>";
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-
-    //Add 'selected' class name when cb is checked
-
-    for (i=0; i<8; i++) {
-        var cb = $('#cbtag'+i+'');
-        if (cb.checked) {
-            console.log(cb);
-        }
-    }
-
-}
-
 function codeAddress(address) {
     geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == 'OK') {
@@ -189,8 +164,6 @@ function getGeniusRecommendation(){
             console.log(error);
         });
 }
-
-var currentPlace;
 
 function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
 
@@ -240,6 +213,7 @@ function postNewFav() {
         var currentPlaceId = currentPlace.place_id;
         var currentPlaceCategories = "";
         var userScore = 1.0;
+        var addedAll = true;
         if ($('#cbbar').checked) {
             currentPlaceCategories += 'Bar,';
         }
@@ -265,25 +239,88 @@ function postNewFav() {
             user_like: userScore
         })
             .then(function (response) {
-                console.log(response);
-                if (response.data === serverMessages['OK']) {
-                    pushThePage("main.html");
-                } else {
+                //console.log(response);
+                if (response.data !== serverMessages['OK']) {
+                    addedAll = false;
                     ons.notification.toast({message: serverMessages[response.data], timeout: 2000});
                 }
             })
             .catch(function (error) {
                 console.log(error);
             });
+
+        //Add tag count in database
+        var tagsContainer = $('#tags_checkbox');
+        for (i=0; i<8; i++) {
+            tag = tagsContainer.childNodes[i];
+            var currentTagName = tag.innerText;
+
+            if (tag.checked) {
+                //Fill table "Tag used for place"
+                theAxios().post('/placetag/add', {
+                    place_tag_name: currentTagName,
+                    place_id: currentPlaceId
+                })
+                    .then(function(res) {
+                        if (response.data !== serverMessages['OK']) {
+                            addedAll = false;
+                            ons.notification.toast({message: serverMessages[response.data], timeout: 2000});
+                        }
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                    });
+                //Fill the table "User used tag"
+                theAxios().post('/usertag/add', {
+                    place_tag_name: currentTagName
+                })
+                    .then(function(res) {
+                        if (response.data !== serverMessages['OK']) {
+                            addedAll = false;
+                            ons.notification.toast({message: serverMessages[response.data], timeout: 2000});
+                        }
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                    });
+            }
+        }
+        if (addedAll === true) {
+            pushThePage("main.html");
+        } else {
+        ons.notification.toast({message: serverMessages[res.data], timeout: 2000});
+        }
     }
+}
+
+function createTagsCheckbox() {
+    var div = $('#tags_checkbox');
+    div.innerHTML = '';
+
+    theAxios().get('/randomtags/get')
+        .then(function (response) {
+
+            for (i=0; i<response.data.length; i++) {
+                var placeTagName = response.data[i]['place_tag_name'];
+                //Display nine randomly chosen tags
+                div.innerHTML +=
+                    "<ons-checkbox class=\"tag-cb\" disabled id=\"cbtag" +
+                    i +
+                    "\" float modifier='material'>" +
+                    placeTagName +
+                    "</ons-checkbox>";
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+    //TODO : Add 'selected' class name when cb is checked
 }
 
 function drawProfilePage(){
     $('#profilename').innerText = username;
 }
-
-var autocompletedUsers = {};
-var selectedUsers = [];
 
 function addToGroup(userId){
     if(!selectedUsers.includes(userId)){
@@ -320,22 +357,29 @@ function drawAutocompletedUsers(jsonUsers){
 
 function postNewGroup(){
 
-    theAxios().post('/groups/create', {
-        members: selectedUsers,
-        name : "El Famoso Grupo"
-    })
-        .then(function (response) {
-            console.log(response.data);
-            if (response.data === serverMessages['OK']) {
-                pushThePage("main.html");
-                getGroups();
-            } else {
-                ons.notification.toast({message: serverMessages[response.data], timeout: 2000});
-            }
+    chosenName = $('#group-name').value;
+
+    if(chosenName=="" || chosenName==undefined){
+        console.log("name empty")
+    } else {
+
+        theAxios().post('/groups/create', {
+            members: selectedUsers,
+            name: chosenName
         })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function (response) {
+                console.log(response.data);
+                if (response.data === serverMessages['OK']) {
+                    pushThePage("main.html");
+                    getGroups();
+                } else {
+                    ons.notification.toast({message: serverMessages[response.data], timeout: 2000});
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 }
 
 function getGroups(){
@@ -363,11 +407,30 @@ function getGroups(){
                     "</ons-button><br>" +
                     */
                     "</div>" +
-
                     "</ons-card>";
             }
+            drawGeniusGroup(response.data)
         })
         .catch(function (error) {
             console.log(error);
         });
+}
+
+function drawGeniusGroup(groups){
+
+    var selector = $("#genius-selector");
+    var selector= document.getElementById("genius-selector");
+    selector.options.length = 0;
+
+    var newoption = document.createElement("option");
+    newoption.text = "moi";
+    newoption.value = 0;
+    selector.add(newoption);
+
+    for (i = 0; i < groups.length; i++) {
+        var newoption = document.createElement("option");
+        newoption.text = groups[i].group_name;
+        newoption.value = groups[i].id;
+        selector.add(newoption);
+    }
 }

@@ -55,13 +55,27 @@ public class GroupsServices {
 
         int counter = 0;
         for(UserGroup group: allGroups){
-            String groupName = group.get("group_name").toString();
+
             String groupMembers = group.get("members_id").toString();
-            String groupId = group.getId().toString();
+            String [] groupMembersArr = groupMembers.split(",");
+            String groupMembersStr = "";
+            for(int i=0; i<groupMembersArr.length; i++){
+                System.out.println("Looking for user with id "+groupMembersArr[i]);
+                User u = User.findById(groupMembersArr[i]);
+                if(u!=null){
+                    System.out.println("Found !");
+                    if(i>0)
+                        groupMembersStr += ",";
+                    groupMembersStr+=u.get("user_pseudo");
+                } else {
+                    System.out.println("NOT found !");
+                }
+            }
+
 
             String groupStr = group.toJson(false);
             JSONObject groupJson = new JSONObject(groupStr);
-            groupJson.put("members_name","Laura, Juliette");
+            groupJson.put("members_name",groupMembersStr);
             groupStr = groupJson.toString();
 
             if(counter>0){

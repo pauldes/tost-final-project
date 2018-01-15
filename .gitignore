@@ -469,3 +469,8 @@ platforms/
 simulation/
 
 *.properties
+backend/target/classes/activejdbc_models.properties
+*.lst
+backend/target/classes/activejdbc_models.properties
+backend/target/classes/activejdbc_models.properties
+backend/target/classes/activejdbc_models.properties

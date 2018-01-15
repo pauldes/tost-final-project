@@ -2,7 +2,10 @@
 -- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
-
+-- Host: 127.0.0.1
+-- Generation Time: Jan 11, 2018 at 12:17 AM
+-- Server version: 5.7.14
+-- PHP Version: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -89,14 +92,6 @@ INSERT INTO `places` (`id`, `place_name`, `google_place_id`, `place_categories`)
 (2, 'Oslow', 'ChIJAQCwF17q9EcRN817GaJoojg', 'Café,Brunch'),
 (8, 'Aloha', 'ChIJ6_hMo__q9EcRhJhSxH47Y64', 'Bar'),
 (9, 'Brasserie Georges', 'ChIJ9_SKPUvq9EcRsvhxDZsc158', 'Café'),
-(14, 'Athina', 'ChIJgzfjCPzq9EcRO1sx6eTW3U4', 'Café,Brunch'),
-(15, 'Mademoiselle Rêve', 'ChIJgyqsLVzq9EcR3BSQelHZ0m8', 'Bar'),
-(16, 'Le MoMa', 'ChIJfc4loP_q9EcR-a496XWLZ90', 'Bar'),
-(17, 'Café J\'adore', 'ChIJacwKnf3q9EcR3ey_K-pyAWs', 'Café'),
-(18, 'Slake Coffee House', 'ChIJzTyCSFTq9EcRvLMegp9RRFA', 'Café'),
-(19, 'The GentleCat - Bar cats', 'ChIJW7u1RrPr9EcRLgkNWC-LFYI', 'Café'),
-(20, 'Le Bieristan', 'ChIJKaAdPS7A9EcRfPHngQl7wNo', 'Bar'),
-(21, 'Candy Cookie Boulevard', 'ChIJAcvZsf_q9EcRXrSoUV0bPAQ', 'Café');
 (14, 'Athina', 'ChIJgzfjCPzq9EcRO1sx6eTW3U4', 'Café,Brunch,'),
 (15, 'Mademoiselle Rêve', 'ChIJgyqsLVzq9EcR3BSQelHZ0m8', 'Bar,'),
 (16, 'Le MoMa', 'ChIJfc4loP_q9EcR-a496XWLZ90', 'Bar,'),
@@ -106,7 +101,9 @@ INSERT INTO `places` (`id`, `place_name`, `google_place_id`, `place_categories`)
 (20, 'Le Bieristan', 'ChIJKaAdPS7A9EcRfPHngQl7wNo', 'Bar,'),
 (21, 'Candy Cookie Boulevard', 'ChIJAcvZsf_q9EcRXrSoUV0bPAQ', 'Café,'),
 (22, 'Puzzle Cafe', 'ChIJ5VH_Xv_q9EcRXJ8zq7oOPkE', 'Café'),
-(23, 'COMME A LA MAISON Coffee Shop', 'ChIJMy0DYUbq9EcRIfg-CYIQ2fg', 'Café,Brunch');
+(23, 'COMME A LA MAISON Coffee Shop', 'ChIJMy0DYUbq9EcRIfg-CYIQ2fg', 'Café,Brunch'),
+(27, 'Barge, La Marquise', 'ChIJ3X0PI1rq9EcR3cfk3kuxhns', 'Bar'),
+(28, 'Comme à La Maison', 'ChIJaYeQikbq9EcRKlTEnM3YwR4', 'Café,Brunch');
 
 -- --------------------------------------------------------
 
@@ -201,6 +198,34 @@ CREATE TABLE `pro` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tag_used_for_places`
+--
+
+CREATE TABLE `tag_used_for_places` (
+  `id` int(11) NOT NULL,
+  `id_place_tag` smallint(6) NOT NULL,
+  `id_place` mediumint(9) NOT NULL,
+  `score` decimal(10,0) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tag_used_for_places`
+--
+
+INSERT INTO `tag_used_for_places` (`id`, `id_place_tag`, `id_place`, `score`) VALUES
+(1, 11, 22, '2'),
+(2, 43, 27, '1'),
+(3, 6, 27, '1'),
+(4, 3, 28, '1'),
+(5, 4, 28, '1'),
+(6, 2, 28, '1'),
+(7, 30, 28, '1'),
+(8, 31, 28, '1'),
+(9, 1, 28, '1');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `userx`
 --
 
@@ -241,6 +266,13 @@ CREATE TABLE `user_groups` (
   `group_name` varchar(63) COLLATE utf8mb4_unicode_ci NOT NULL,
   `members_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_groups`
+--
+
+INSERT INTO `user_groups` (`id`, `owner_id`, `group_name`, `members_id`) VALUES
+(1, 6, 'Les amis', '17,19');
 
 -- --------------------------------------------------------
 
@@ -294,9 +326,11 @@ INSERT INTO `user_liked_places` (`id`, `id_user`, `id_place`, `user_like`) VALUE
 (24, 18, 1, -1),
 (25, 18, 20, -1),
 (26, 21, 9, -1),
-(27, 15, 22, 3),
+(27, 15, 22, 1),
 (28, 23, 1, 1),
-(29, 15, 23, 1);
+(29, 15, 23, 1),
+(35, 15, 27, 1),
+(36, 15, 28, 3);
 
 -- --------------------------------------------------------
 
@@ -353,6 +387,15 @@ CREATE TABLE `user_used_place_tag` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `user_used_place_tag`
+--
+
+INSERT INTO `user_used_place_tag` (`id`, `id_user`, `id_place_tag`, `score`) VALUES
+(1, 15, 31, '1'),
+(2, 15, 30, '1'),
+(3, 15, 1, '1');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -405,6 +448,12 @@ ALTER TABLE `place_tag_belongs_to_cat`
 -- Indexes for table `pro`
 --
 ALTER TABLE `pro`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tag_used_for_places`
+--
+ALTER TABLE `tag_used_for_places`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -479,14 +528,12 @@ ALTER TABLE `event_tag_belongs_to_cat`
 -- AUTO_INCREMENT for table `places`
 --
 ALTER TABLE `places`
-  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
+  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `place_tag`
 --
 ALTER TABLE `place_tag`
   MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
-
 --
 -- AUTO_INCREMENT for table `place_tag_belongs_to_cat`
 --
@@ -498,16 +545,20 @@ ALTER TABLE `place_tag_belongs_to_cat`
 ALTER TABLE `pro`
   MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `tag_used_for_places`
+--
+ALTER TABLE `tag_used_for_places`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
 -- AUTO_INCREMENT for table `userx`
 --
 ALTER TABLE `userx`
-  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `user_groups`
 --
 ALTER TABLE `user_groups`
-  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user_interested_event`
 --
@@ -517,7 +568,7 @@ ALTER TABLE `user_interested_event`
 -- AUTO_INCREMENT for table `user_liked_places`
 --
 ALTER TABLE `user_liked_places`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `user_recommendations`
 --
@@ -532,7 +583,7 @@ ALTER TABLE `user_used_event_tag`
 -- AUTO_INCREMENT for table `user_used_place_tag`
 --
 ALTER TABLE `user_used_place_tag`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
