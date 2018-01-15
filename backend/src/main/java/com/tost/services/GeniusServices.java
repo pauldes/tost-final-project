@@ -23,6 +23,9 @@ public class GeniusServices {
         }
 
         String[] myRecsIds = myRecs.get("id_places").toString().split(",");
+
+        myRecsIds = sortRecommendations(myRecsIds);
+
         if(recommendedPlaceRank+1>myRecsIds.length){
             recommendedPlaceRank = 0;
         }
@@ -115,5 +118,8 @@ public class GeniusServices {
         return recom;
     }
 
-    //public static fetchRecommendation() {}
+    private static String[] sortRecommendations(String[] inputIds) {
+        //TODO
+        return inputIds;
+    }
 }
