@@ -87,8 +87,6 @@ function fillMyFavs(category) {
 
 function initAutocomplete() {
 
-    // What about using Places instead of Maps?
-
     navigator.geolocation.getCurrentPosition(function(position){
         var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     }, onError);
