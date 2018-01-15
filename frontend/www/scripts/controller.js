@@ -314,8 +314,6 @@ function createTagsCheckbox() {
         .catch(function (error) {
             console.log(error);
         });
-
-    //TODO : Add 'selected' class name when cb is checked
 }
 
 function drawProfilePage(){
