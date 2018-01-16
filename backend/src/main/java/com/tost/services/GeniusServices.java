@@ -27,13 +27,12 @@ public class GeniusServices {
         }
 
         String[] myRecsIds = myRecs.get("id_places").toString().split(",");
-
         myRecsIds = sortRecommendations(myRecsIds);
 
         // Reopen DB (security)
         DatabaseServices.openDB();
 
-        if(recommendedPlaceRank+1>myRecsIds.length){
+        if(recommendedPlaceRank+1>=myRecsIds.length){
             recommendedPlaceRank = 0;
         }
 
@@ -51,67 +50,52 @@ public class GeniusServices {
         LocalDateTime currentTime = LocalDateTime.now();
         DayOfWeek currentDay = currentTime.getDayOfWeek();
 
+        System.out.println("Time is "+currentTime.toString());
+        System.out.println("Day is "+currentDay.toString());
+
         LocalDateTime fiveAm = LocalDateTime.now().withHour(5).withMinute(0);
         LocalDateTime eightAm = LocalDateTime.now().withHour(8).withMinute(0);
         LocalDateTime twoPm = LocalDateTime.now().withHour(14).withMinute(0);
         LocalDateTime sixPm = LocalDateTime.now().withHour(18).withMinute(0);
 
-        System.out.println(placeCategories);
+        System.out.println("Found categories are : "+placeCategories);
 
         if(currentTime.isAfter(sixPm) && currentTime.isBefore(fiveAm)) {
             //Bar
+            System.out.println("We are looking for a bar");
             if (!placeCategories.contains("Bar")) {
-                System.out.println("Searching for a bar");
+                System.out.println("Not a bar. Next...");
                 recommendedPlaceRank++;
-                recommendedPlaceId = Integer.parseInt(myRecsIds[recommendedPlaceRank]);
-                recommendedPlace = Place.findById(recommendedPlaceId);
-                if(recommendedPlace==null){
-                    System.out.println("Bug2");
-                    return recom;
-                }
+                return getRecommendation(userId);
             }
         } else if (currentDay.toString().equals("SUNDAY") &&
                 currentTime.isAfter(eightAm) && currentTime.isBefore(twoPm))
         {
             //Brunch
+            System.out.println("We are looking for a brunch");
             if (!placeCategories.contains("Brunch")) {
-                System.out.println("Searching for a brunch");
+                System.out.println("Not a brunch. Next...");
                 recommendedPlaceRank++;
-                recommendedPlaceId = Integer.parseInt(myRecsIds[recommendedPlaceRank]);
-                recommendedPlace = Place.findById(recommendedPlaceId);
-                if(recommendedPlace==null){
-                    System.out.println("Bug2");
-                    return recom;
-                }
+                return getRecommendation(userId);
             }
         } else if (currentDay.toString().equals("SUNDAY") &&
                 (currentTime.isAfter(fiveAm) && currentTime.isBefore(eightAm)) ||
                 (currentTime.isAfter(twoPm) && currentTime.isBefore(sixPm)))
         {
             //Café
+            System.out.println("We are looking for a caffé");
             if (!placeCategories.contains("Café")) {
-                System.out.println("Searching for a café");
+                System.out.println("Not a café. Next...");
                 recommendedPlaceRank++;
-                recommendedPlaceId = Integer.parseInt(myRecsIds[recommendedPlaceRank]);
-                recommendedPlace = Place.findById(recommendedPlaceId);
-                if(recommendedPlace==null){
-                    System.out.println("Bug2");
-                    return recom;
-                }
+                return getRecommendation(userId);
             }
         } else {
             //Café
+            System.out.println("We are looking for a caffé");
             if (!placeCategories.contains("Café")) {
-                System.out.println("Searching for a cafééé");
+                System.out.println("Not a café (2). Next...");
                 recommendedPlaceRank++;
-                recommendedPlaceId = Integer.parseInt(myRecsIds[recommendedPlaceRank]);
-                recommendedPlace = Place.findById(recommendedPlaceId);
-                if(recommendedPlace==null){
-                    System.out.println("Bug2");
-                    return recom;
-                }
-                System.out.println(recommendedPlace);
-
+                return getRecommendation(userId);
             }
         }
 
@@ -184,7 +168,7 @@ public class GeniusServices {
             }
         }
 
-        System.out.println(idScoreMap);
+        //System.out.println(idScoreMap);
 
         //Close DB
         DatabaseServices.closeDB();
