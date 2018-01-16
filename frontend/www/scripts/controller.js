@@ -133,7 +133,6 @@ function fillInAddress() {
     $('#cbtag6').disabled = false;
     $('#cbtag7').disabled = false;
     $('#cbtag8').disabled = false;
-
 }
 
 function codeAddress(address) {
@@ -185,6 +184,13 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
             var formatted_place_categories = place_categories.replace(",", " | ");
             formatted_place_categories = "<div style='color:lightgray'>" + formatted_place_categories + "</div>";
 
+            var transportMode;
+            if ($('#rpath-feet').checked) {
+                transportMode = "WALKING"
+            } else {
+                transportMode = "BICYCLING"
+            }
+
             //Get current position
             navigator.geolocation.getCurrentPosition(
                 function (position){
@@ -197,7 +203,7 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
                         {
                             origins : [currentPosition],
                             destinations : [place.formatted_address],
-                            travelMode : 'WALKING'
+                            travelMode : transportMode
                         }, distanceCallback);
                 },
                 function (error) {
@@ -241,7 +247,9 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
             $('#genius-card-title').innerHTML = place_name;
             $('#genius-card-categories').innerHTML = formatted_place_categories;
             $('#genius-card-address').innerHTML = address;
-            $('#genius-go-button').onclick = function(){window.open(googleDirectionLink);};
+            $('#genius-go-button').onclick = function(){
+                window.open(googleDirectionLink);
+            };
 
             recommendationDiv.appendChild(innerRecommendationDiv);
         }
