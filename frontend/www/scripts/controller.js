@@ -152,7 +152,7 @@ function onError(error) {
 
 function getGeniusRecommendation(){
 
-    var groupId = $("#genius-selector").value;
+    var groupId = document.getElementById("genius-selector").value;
 
     theAxios().post('/genius/get', {
         group_id: groupId
@@ -448,7 +448,7 @@ function getGroups(){
 
 function drawGeniusGroup(groups){
 
-    var selector = $("#genius-selector");
+    var selector = document.getElementById("genius-selector");
     selector.options.length = 0;
 
     var newoption = document.createElement("option");
