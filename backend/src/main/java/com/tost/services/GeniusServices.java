@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class GeniusServices {
@@ -47,9 +48,6 @@ public class GeniusServices {
         LocalDateTime currentTime = LocalDateTime.now();
         DayOfWeek currentDay = currentTime.getDayOfWeek();
 
-        System.out.println("Time is "+currentTime.toString());
-        System.out.println("Day is "+currentDay.toString());
-
         LocalDateTime fiveAm = LocalDateTime.now().withHour(5).withMinute(0);
         LocalDateTime eightAm = LocalDateTime.now().withHour(8).withMinute(0);
         LocalDateTime twoPm = LocalDateTime.now().withHour(14).withMinute(0);
@@ -57,7 +55,7 @@ public class GeniusServices {
 
         System.out.println("Found categories are : "+placeCategories);
 
-        if(currentTime.isAfter(sixPm) && currentTime.isBefore(fiveAm)) {
+        if(currentTime.isAfter(sixPm) && currentTime.isBefore(fiveAm.plusDays(1))) {
             //Bar
             System.out.println("We are looking for a bar");
             if (!placeCategories.contains("Bar")) {
