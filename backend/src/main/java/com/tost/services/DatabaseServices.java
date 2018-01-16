@@ -15,7 +15,9 @@ public class DatabaseServices {
     }
 
     public static void closeDB(){
-        Base.close();
+        if(Base.hasConnection()) {
+            Base.close();
+        }
     }
 
     public static List<Map> rawSQL(String query){

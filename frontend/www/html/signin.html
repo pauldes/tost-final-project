@@ -11,7 +11,8 @@
         <br><br><br><br>
         <ons-input id="signin_usr" modifier="underbar" placeholder="Pseudo" float></ons-input>
         <br><br>
-        <ons-input id="signin_pwd" type="password" modifier="underbar" placeholder="Mot de passe" float></ons-input>
+        <ons-input id="signin_pwd" type="password" modifier="underbar" placeholder="Mot de passe" float
+                   onkeydown = "if(event.keyCode == 13){signin()}"></ons-input>
         <br><br>
         <ons-button onclick="signin()" modifier="material">Se connecter</ons-button>
         <br><br><br><br><br><br>
