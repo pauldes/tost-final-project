@@ -1,9 +1,6 @@
 package com.tost.services;
 
 import com.google.maps.GeoApiContext;
-import com.google.maps.PlacesApi;
-import com.google.maps.errors.InvalidRequestException;
-import com.google.maps.model.PlaceDetails;
 import com.tost.models.Place;
 import com.tost.models.UserRecommendation;
 import org.json.JSONObject;
@@ -83,6 +80,10 @@ public class GeniusServices {
                 //Get Google details
                 final String currGoogleId = currPlace.get("google_place_id").toString();
 
+                //TODO : make this work
+
+                /*
+
                 try {
 
                     PlaceDetails currDetails = PlacesApi.placeDetails(context,currId).await();
@@ -91,6 +92,8 @@ public class GeniusServices {
                     PlaceDetails currDetails = request.placeId(currId).await();
                     */
 
+                /*
+
                 } catch(InvalidRequestException ire){
                     System.out.println("Exception InvalidRequestException!");
                 } catch (Exception e){
@@ -98,9 +101,10 @@ public class GeniusServices {
                     System.out.println(e.toString());
                 }
 
+                */
+
                 //Compute score
                 currScore=currScore;
-
                 idScoreMap.put(currId,currScore);
             }
         }
