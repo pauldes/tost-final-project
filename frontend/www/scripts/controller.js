@@ -49,7 +49,7 @@ function fillMyFavs(category) {
                     //console.log(place);
 
                     var address = place.formatted_address;
-                    var googleDirectionLink = "\"" + place.url + "\"";
+                    var googleDirectionLink = place.url;
                     var formatted_place_categories = place_categories.replace(",", " | ");
                     var placeName = place.name;
 
@@ -178,7 +178,7 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
 
             var address = place.formatted_address;
 
-            var googleDirectionLink = "\"" + place.url + "\"";
+            var googleDirectionLink = place.url;
             var formatted_place_categories = place_categories.replace(",", " | ");
             formatted_place_categories = "<div style='color:lightgray'>" + formatted_place_categories + "</div>";
 
@@ -231,7 +231,7 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
             $('#genius-card-title').innerHTML = place_name;
             $('#genius-card-categories').innerHTML = formatted_place_categories;
             $('#genius-card-address').innerHTML = address;
-            $('#genius-go-button').onclick = window.open(googleDirectionLink);
+            $('#genius-go-button').onclick = function(){window.open(googleDirectionLink);};
 
             recommendationDiv.appendChild(innerRecommendationDiv);
         }
