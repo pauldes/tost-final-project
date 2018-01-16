@@ -178,6 +178,9 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
 
             var address = place.formatted_address;
 
+            var openNow = place.opening_hours.open_now;
+            console.log(openNow);
+
             var googleDirectionLink = place.url;
             var formatted_place_categories = place_categories.replace(",", " | ");
             formatted_place_categories = "<div style='color:lightgray'>" + formatted_place_categories + "</div>";
@@ -227,6 +230,13 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
             $('#card-image-container').innerHTML = "<img src=" +
             place.photos[0].getUrl({'maxWidth': 640, 'maxHeight': 640}) +
             " style='width: 100%'>"
+
+            $('#open-now').innerHTML =""
+            $('#not-open-now').innerHTML = ""
+            if(openNow)
+                $('#open-now').innerHTML = "<i>Ouvert en ce moment</i>";
+            else
+                $('#not-open-now').innerHTML = "<i>Fermé en ce moment</i>";
 
             $('#genius-card-title').innerHTML = place_name;
             $('#genius-card-categories').innerHTML = formatted_place_categories;
