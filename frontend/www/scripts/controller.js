@@ -152,8 +152,10 @@ function onError(error) {
 
 function getGeniusRecommendation(){
 
+    var groupId = $("#genius-selector").value;
+
     theAxios().post('/genius/get', {
-        username: username
+        group_id: groupId
     })
         .then(function (response) {
             drawGeniusRecommendation(response.data.place_name,response.data.categories,response.data.google_place_id);
