@@ -13,7 +13,8 @@ var username = "";
 function theAxios() {
 
     var serverIP = 'localhost';
-    //serverIP = '192.168.0.16'; //Paul's home
+    //var serverIP = '192.168.0.16'; //Paul's home
+    //var serverIP = '192.168.137.1'; //Paul's shared connection
     //Use ipconfig or ifconfig to get the right IP
 
     var instance = axios.create({
