@@ -105,10 +105,18 @@ public class HomeServlet extends HttpServlet {
     @Produces(MediaType.APPLICATION_JSON)
     public String getGenius(String data)
     {
-        if(userId==null)
+        JSONObject jsonData = new JSONObject(data);
+        if(!jsonData.has("group_id"))
+            return "INVALID_POST";
+        else if(userId==null)
             return "ERROR";
-        else
-            return GeniusServices.getRecommendation(userId).toString();
+        else {
+            String groupId = jsonData.getString("group_id");
+            if(groupId.equals("0"))
+                return GeniusServices.getRecommendation(userId,false,"0").toString();
+            else
+                return GeniusServices.getRecommendation(userId,true,groupId).toString();
+        }
     }
 
     @Path("/groups/autocomplete")

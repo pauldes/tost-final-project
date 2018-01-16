@@ -87,8 +87,6 @@ function fillMyFavs(category) {
 
 function initAutocomplete() {
 
-    // What about using Places instead of Maps?
-
     navigator.geolocation.getCurrentPosition(function(position){
         var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     }, onError);
@@ -154,8 +152,10 @@ function onError(error) {
 
 function getGeniusRecommendation(){
 
+    var groupId = $("#genius-selector").value;
+
     theAxios().post('/genius/get', {
-        username: username
+        group_id: groupId
     })
         .then(function (response) {
             drawGeniusRecommendation(response.data.place_name,response.data.categories,response.data.google_place_id);
