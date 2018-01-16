@@ -184,9 +184,10 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
             var innerRecommendationDiv = document.createElement('div');
             innerRecommendationDiv.className = 'row';
             innerRecommendationDiv.innerHTML = "" +
-                "<ons-card> <img src=" +
+                "<ons-card> " +
+                "<div class=\"card-image-container\"><img src=" +
                 place.photos[0].getUrl({'maxWidth': 640, 'maxHeight': 640}) +
-                " alt='Illustration' style='width: 100%'> " +
+                " alt='Illustration' style='width: 100%'></div>" +
                 "<div class='title'> " +
                 place_name +
                 "</div> " +
@@ -312,8 +313,6 @@ function createTagsCheckbox() {
         .catch(function (error) {
             console.log(error);
         });
-
-    //TODO : Add 'selected' class name when cb is checked
 }
 
 function drawProfilePage(){

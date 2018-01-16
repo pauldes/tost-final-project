@@ -8,6 +8,17 @@ ons-page {
 .get-genius-button {
   text-align: center; }
 
+.card-image-container {
+  width: 100%;
+  height: 230px;
+  position: relative;
+  overflow: hidden; }
+  .card-image-container img {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0; }
+
 .coffee-card-container {
   margin: 1em;
   width: 20em;
