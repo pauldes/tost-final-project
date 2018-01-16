@@ -174,7 +174,7 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
 
         if (status == google.maps.places.PlacesServiceStatus.OK) {
             var recommendationDiv = $('#recommendation');
-            recommendationDiv.innerHTML = "";
+            recommendationDiv.removeAttribute("hidden");
 
             var address = place.formatted_address;
 
@@ -182,25 +182,56 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
             var formatted_place_categories = place_categories.replace(",", " | ");
             formatted_place_categories = "<div style='color:lightgray'>" + formatted_place_categories + "</div>";
 
+            //Get current position
+            navigator.geolocation.getCurrentPosition(
+                function (position){
+                    Latitude = position.coords.latitude;
+                    Longitude = position.coords.longitude;
+                    var currentPosition = new google.maps.LatLng(Latitude, Longitude);
+
+                    var service = new google.maps.DistanceMatrixService();
+                    service.getDistanceMatrix(
+                        {
+                            origins : [currentPosition],
+                            destinations : [place.formatted_address],
+                            travelMode : 'WALKING'
+                        }, distanceCallback);
+                },
+                function (error) {
+                    console.log(error);
+                }, { enableHighAccuracy: true });
+
+            function distanceCallback(res, stat){
+                if (stat == 'OK') {
+                    var origins = res.originAddresses;
+                    var pathTimeDiv = $('#path-time');
+
+                    for (var i = 0; i < origins.length; i++) {
+                        var results = res.rows[i].elements;
+                        for (var j = 0; j < results.length; j++) {
+                            var element = results[j];
+                            var distance = element.distance.text;
+                            var duration = element.duration.text;
+                            pathTimeDiv.innerHTML = "" +
+                                distance +
+                                " | " +
+                                duration;
+                        }
+                    }
+                }
+            };
 
             var innerRecommendationDiv = document.createElement('div');
             innerRecommendationDiv.className = 'row';
-            innerRecommendationDiv.innerHTML = "" +
-                "<ons-card> " +
-                "<div class=\"card-image-container\"><img src=" +
-                place.photos[0].getUrl({'maxWidth': 640, 'maxHeight': 640}) +
-                " alt='Illustration' style='width: 100%'></div>" +
-                "<div class='title'> " +
-                place_name +
-                "</div> " +
-                formatted_place_categories +
-                "<div class='content'>" +
-                address +
-                "<br>" +
-                "<ons-button modifier='quiet' style='font-size:inherit;padding-left:0' onclick='window.open(" +
-                googleDirectionLink +
-                ");'>Y aller</ons-button>" +
-                "</div></ons-card>";
+
+            $('#card-image-container').innerHTML = "<img src=" +
+            place.photos[0].getUrl({'maxWidth': 640, 'maxHeight': 640}) +
+            " style='width: 100%'>"
+
+            $('#genius-card-title').innerHTML = place_name;
+            $('#genius-card-categories').innerHTML = formatted_place_categories;
+            $('#genius-card-address').innerHTML = address;
+            $('#genius-go-button').onclick = window.open(googleDirectionLink);
 
             recommendationDiv.appendChild(innerRecommendationDiv);
         }
@@ -418,7 +449,6 @@ function getGroups(){
 function drawGeniusGroup(groups){
 
     var selector = $("#genius-selector");
-    var selector= document.getElementById("genius-selector");
     selector.options.length = 0;
 
     var newoption = document.createElement("option");

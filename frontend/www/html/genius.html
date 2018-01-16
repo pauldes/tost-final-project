@@ -20,7 +20,39 @@
         </ons-button>
         <br>
 
-        <div id="recommendation"></div>
+        <div id="recommendation" hidden>
+            <ons-card>
+                <div id="card-image-container" class="card-image-container"></div>
 
+                <div id="genius-card-title" class="title"></div>
+
+                <div id="genius-card-categories" class="title"></div>
+
+                <div class="content">
+                    <div id="genius-card-address"></div>
+                    <br>
+                    <ons-button id="genius-go-button" modifier="quiet" style="font-size:inherit;padding-left:0">
+                        Y aller
+                    </ons-button>
+
+                    <div class="go-path">
+                        <div id="path-time"></div>
+                        <label class="center">
+                            <ons-radio name="path-feet" input-id="radio-path-feet" checked></ons-radio>
+                        </label>
+                        <label for="radio-path-feet" class="right">
+                            <ons-icon icon="ion-android-walk"></ons-icon>
+                        </label>
+
+                        <label class="center">
+                            <ons-radio name="path-bike" input-id="radio-path-bike"></ons-radio>
+                        </label>
+                        <label for="radio-path-bike" class="right">
+                            <ons-icon icon="ion-android-bicycle"></ons-icon>
+                        </label>
+                    </div>
+                </div>
+            </ons-card>
+        </div>
     </p>
 </ons-page>
