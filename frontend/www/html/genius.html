@@ -34,17 +34,19 @@
                     <div id="open-now" style="color: darkgreen"></div>
                     <div id="not-open-now" style="color: crimson"></div>
 
-                    <ons-button id="genius-go-button" modifier="quiet" style="font-size:inherit;padding-left:0">
-                        Y aller
-                    </ons-button>
+                    <div class="directions">
+                        <ons-button id="genius-go-button" modifier="quiet" style="font-size:inherit;padding-left:0">
+                            Y aller
+                        </ons-button>
 
-                    <div class="go-path">
-                        <div id="path-time"></div>
-                        <div id="choose-transport">
-                            <ons-radio name="rpath-time" id="rpath-feet" modifier='material' checked></ons-radio>
-                            <ons-icon icon="ion-android-walk"></ons-icon>
-                            <ons-radio name="rpath-time" id="rpath-bike" modifier='material'></ons-radio>
-                            <ons-icon icon="ion-android-bicycle"></ons-icon>
+                        <div class="go-path">
+                            <div class="path-time" id="path-time"></div>
+                            <div id="choose-transport">
+                                <ons-radio name="rpath-time" id="rpath-feet" modifier='material' checked></ons-radio>
+                                <ons-icon size="20px" icon="ion-android-walk"></ons-icon>
+                                <ons-radio name="rpath-time" id="rpath-bike" modifier='material'></ons-radio>
+                                <ons-icon size="20px" icon="ion-android-bicycle"></ons-icon>
+                            </div>
                         </div>
                     </div>
                 </div>

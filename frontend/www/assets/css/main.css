@@ -2,11 +2,12 @@ ons-page {
   text-align: center; }
 
 .toolbar__title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 1.5em; }
 
 .get-genius-button {
-  text-align: center; }
+  text-align: center;
+  background: #89bdd3; }
 
 .card-image-container {
   width: 100%;
@@ -18,6 +19,17 @@ ons-page {
     display: block;
     top: 0;
     left: 0; }
+
+.directions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+  .directions .go-path {
+    display: flex;
+    align-items: center;
+    justify-content: space-around; }
+  .directions .path-time {
+    margin-right: 1em; }
 
 .coffee-card-container {
   margin: 1em;
@@ -40,9 +52,9 @@ ons-page {
   justify-content: space-between;
   margin: 1em; }
   .tags-cb-container .tag-cb {
-    background-color: #9ad3de;
+    background-color: #89bdd3;
     padding: 0.5em 1em;
     margin: 0.25em 0;
     border-radius: 20px; }
     .tags-cb-container .tag-cb.selected {
-      background-color: #9bd4de; }
+      background-color: #8abed3; }
