@@ -4,7 +4,7 @@
         Lieux aimés par mes amis
     </div>
 
-    <ons-carousel swipeable auto-scroll overscrollable id="carousel-friends" item-width="50%">
+    <ons-carousel swipeable auto-scroll overscrollable id="carousel-friends" item-width="48%" item-height="10em">
         <ons-carousel-item>
             <ons-card>
                 <div class="home-card-img-container">
@@ -38,7 +38,7 @@
         Tøst hours
     </div>
 
-    <ons-carousel swipeable auto-scroll overscrollable id="carousel-friends" item-width="50%">
+    <ons-carousel swipeable auto-scroll overscrollable id="carousel-friends" item-width="48%" item-height="10em">
         <ons-carousel-item>
             <ons-card onclick="ons.notification.alert({title:'Code à présenter:',message: '#####'})">
                 <div style="text-align: center">
@@ -49,6 +49,9 @@
                 </div>
                 <div class="title">Moonshine</div>
                 <div class="content" style='color:lightgray;'>Bar</div>
+                <div class="content" style='color:#daad86;'>
+                    <ons-button modifier='quiet' style='font-size:inherit;padding-left:0' onclick="">J'y vais <ons-icon icon="ion-log-out"></ons-icon></ons-button>
+                </div>
             </ons-card>
         </ons-carousel-item>
         <ons-carousel-item>
@@ -61,18 +64,25 @@
                 </div>
                 <div class="title">Le Kitchen Café</div>
                 <div class="content" style='color:lightgray;'>Café</div>
+                <div class="content" style='color:#daad86;'>
+                    <ons-button modifier='quiet' style='font-size:inherit;padding-left:0' onclick="">J'y vais <ons-icon icon="ion-log-out"></ons-icon></ons-button>
+                </div>
             </ons-card>
         </ons-carousel-item>
         <ons-carousel-item>
             <ons-card onclick="ons.notification.alert({title:'Code à présenter:',message: '#####'})">
                 <div style="text-align: center">
-                    <b>-3€ sur les brunchs !</b>
+                    <b>-5€ sur les brunchs !</b>
                 </div>
                 <div class="home-card-img-container">
                     <img src="https://www.oubruncher.com/photos1/2721_1.jpg?v=14908080695a5f408f3eec9">
                 </div>
                 <div class="title">L'Origo</div>
                 <div class="content" style='color:lightgray;'>Brunch | Café</div>
+                <div class="content" style='color:#daad86;'>
+                    <ons-button modifier='quiet' style='font-size:inherit;padding-left:0' onclick="">J'y vais <ons-icon icon="ion-log-out"></ons-icon></ons-button>
+                </div>
+
             </ons-card>
         </ons-carousel-item>
     </ons-carousel>

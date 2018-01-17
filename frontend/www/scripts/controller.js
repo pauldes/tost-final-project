@@ -60,7 +60,7 @@ function fillMyFavs(category) {
 
                     //currentFavDiv.innerHTML =
                     myfavsdiv.innerHTML +=
-                        "<ons-card onclick=\"pushThePage('onefavorite.html')\"> " +
+                        "<ons-card> " +
                         //"<img src=" +
                         //place.photos[0].getUrl({'maxWidth': 640, 'maxHeight': 320}) +
                         //" alt='Illustration' style='width: 100%'> " +
@@ -71,9 +71,9 @@ function fillMyFavs(category) {
                         "<div class='content'>" +
                         address +
                         "<br>" +
-                        "<ons-button modifier='quiet' style='font-size:inherit;padding-left:0' onclick='window.open(" +
+                        "<ons-button modifier='quiet' style='font-size:inherit;padding-left:0' onclick='window.open(\"" +
                         googleDirectionLink +
-                        ");'>Y aller</ons-button>" +
+                        "\");'>J'y vais <ons-icon icon=\"ion-log-out\"></ons-icon></ons-button>" +
                         "</div></ons-card>";
 
                     //myfavsdiv.appendChild(currentFavDiv);
