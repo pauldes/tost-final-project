@@ -2,13 +2,18 @@
 
 $color-blue-light: #89bdd3;
 $color-blue-dark: #39a6d4;
+$color-beige: #daad86;
+$color-purple: #78607b;
 $color-grey-light: #e3e3e3;
 $color-white: #fff;
 
-//Fonts
+.h3 {
+  margin: 1.5em 1em .5em;
+  font-size: 20px;
+  text-align: left;
+}
 
 //Align Text on center
 ons-page {
   text-align: center;
 }
-

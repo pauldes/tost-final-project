@@ -1,15 +1,14 @@
+.h3 {
+  margin: 1.5em 1em .5em;
+  font-size: 20px;
+  text-align: left; }
+
 ons-page {
   text-align: center; }
 
-.checkbox__checkmark:before {
-  background: white; }
-
-:checked + .checkbox__checkmark:before {
-  background: #39a6d4; }
-
 .toolbar__title {
-  font-family: 'Raleway', sans-serif;
-  font-size: 1.5em; }
+  font-family: 'Lobster', cursive;
+  font-size: 2em; }
 
 .get-genius-button {
   text-align: center;
@@ -37,28 +36,11 @@ ons-page {
   .directions .path-time {
     margin-right: 1em; }
 
-.open-now {
-  color: greenyellow;
-  font-size: 80%; }
+#open-now {
+  color: darkgreen; }
 
-.not-open-now {
-  color: orangered;
-  font-size: 80%; }
-
-.coffee-card-container {
-  margin: 1em;
-  width: 20em;
-  background-color: rgba(227, 227, 227, 0.4);
-  border-radius: 30px; }
-  .coffee-card-container .coffee-card-thumbnail {
-    position: relative;
-    width: 100%;
-    height: auto;
-    overflow: hidden; }
-  .coffee-card-container .coffee-card-title {
-    position: absolute;
-    left: 20px;
-    color: #fff; }
+#not-open-now {
+  color: crimson; }
 
 .tags-cb-container {
   display: inline-flex;
@@ -72,3 +54,15 @@ ons-page {
     border-radius: 20px; }
     .tags-cb-container .tag-cb.selected {
       background-color: #8abed3; }
+
+.home-card-img-container {
+  width: 100%;
+  height: 100px;
+  position: relative;
+  overflow: hidden; }
+  .home-card-img-container img {
+    position: absolute;
+    width: 100%;
+    display: block;
+    top: 0;
+    left: 0; }

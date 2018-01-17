@@ -1,8 +1,0 @@
-//Checkbox color
-.checkbox__checkmark:before {
-  background: white;
-}
-
-:checked+.checkbox__checkmark:before {
-  background: $color-blue-dark;
-}
