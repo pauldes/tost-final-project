@@ -1,6 +1,12 @@
 ons-page {
   text-align: center; }
 
+.checkbox__checkmark:before {
+  background: white; }
+
+:checked + .checkbox__checkmark:before {
+  background: #39a6d4; }
+
 .toolbar__title {
   font-family: 'Raleway', sans-serif;
   font-size: 1.5em; }
@@ -58,7 +64,3 @@ ons-page {
     border-radius: 20px; }
     .tags-cb-container .tag-cb.selected {
       background-color: #8abed3; }
-  .tags-cb-container .checkbox__checkmark:before {
-    background: white; }
-  .tags-cb-container :checked + .checkbox__checkmark:before {
-    background: #39a6d4; }
