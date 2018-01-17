@@ -5,7 +5,7 @@
   margin: 1em;
 
   .tag-cb {
-    background-color: $color-blue-light;
+    background-color: $color-grey-light;
     padding: 0.5em 1em;
     margin: 0.25em 0;
     border-radius: 20px;
@@ -13,5 +13,13 @@
     &.selected {
       background-color: lighten($color-blue-light, .3);
     }
+  }
+
+  .checkbox__checkmark:before {
+    background: white;
+  }
+
+  :checked+.checkbox__checkmark:before {
+    background: $color-blue-dark;
   }
 }

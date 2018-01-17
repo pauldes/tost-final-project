@@ -368,7 +368,7 @@ function createTagsCheckbox() {
                 div.innerHTML +=
                     "<ons-checkbox class=\"tag-cb\" disabled id=\"cbtag" +
                     i +
-                    "\" float modifier='material'>" +
+                    "\" float>" +
                     placeTagName +
                     "</ons-checkbox>";
             }

@@ -52,9 +52,13 @@ ons-page {
   justify-content: space-between;
   margin: 1em; }
   .tags-cb-container .tag-cb {
-    background-color: #89bdd3;
+    background-color: #e3e3e3;
     padding: 0.5em 1em;
     margin: 0.25em 0;
     border-radius: 20px; }
     .tags-cb-container .tag-cb.selected {
       background-color: #8abed3; }
+  .tags-cb-container .checkbox__checkmark:before {
+    background: white; }
+  .tags-cb-container :checked + .checkbox__checkmark:before {
+    background: #39a6d4; }
