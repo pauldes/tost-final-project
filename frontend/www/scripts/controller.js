@@ -135,16 +135,6 @@ function fillInAddress() {
     $('#cbtag8').disabled = false;
 }
 
-function codeAddress(address) {
-    geocoder.geocode( { 'address': address}, function(results, status) {
-        if (status == 'OK') {
-            alert(results[0].geometry.location);
-        } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-        }
-    });
-}
-
 function onError(error) {
     alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 }
@@ -157,14 +147,14 @@ function getGeniusRecommendation(){
         group_id: groupId
     })
         .then(function (response) {
-            drawGeniusRecommendation(response.data.place_name,response.data.categories,response.data.google_place_id);
+            drawGeniusRecommendation(response.data.place_name,response.data.categories,response.data.google_place_id, response.data.target_category);
         })
         .catch(function (error) {
             console.log(error);
         });
 }
 
-function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
+function drawGeniusRecommendation(place_name,place_categories,google_place_id,target_category) {
 
     service = new google.maps.places.PlacesService(document.createElement('div'));
     service.getDetails({placeId: google_place_id}, callback);
@@ -174,6 +164,7 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
             var recommendationDiv = $('#recommendation');
             recommendationDiv.removeAttribute("hidden");
+            $('#genius-filters').removeAttribute("hidden");
 
             //Get place attributes
             var address = place.formatted_address;
@@ -219,6 +210,15 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
             $('#genius-go-button').onclick = function(){
                 window.open(googleDirectionLink);
             };
+
+            //Determine which place categories was chosen
+            if (target_category === "bar") {
+                $('#cb-bar-genius').setAttribute("checked");
+            } else if (target_category === "cafe") {
+                $('#cb-cafe-genius').setAttribute("checked");
+            } else if (target_category === "brunch") {
+                $('#cb-brunch-genius').setAttribute("checked");
+            }
 
             recommendationDiv.appendChild(innerRecommendationDiv);
         }

@@ -43,6 +43,7 @@ public class GeniusServices {
         }
 
         String placeCategories = recommendedPlace.getString("place_categories");
+        String targetCategory = "";
 
         //Show place according to the time
         LocalDateTime currentTime = LocalDateTime.now();
@@ -56,7 +57,7 @@ public class GeniusServices {
         System.out.println("Found categories are : "+placeCategories);
 
         if(currentTime.isAfter(sixPm) && currentTime.isBefore(fiveAm.plusDays(1))) {
-            //Bar
+            targetCategory = "bar";
             System.out.println("We are looking for a bar");
             if (!placeCategories.contains("Bar")) {
                 System.out.println("Not a bar. Next...");
@@ -66,7 +67,7 @@ public class GeniusServices {
         } else if (currentDay.toString().equals("SUNDAY") &&
                 currentTime.isAfter(eightAm) && currentTime.isBefore(twoPm))
         {
-            //Brunch
+            targetCategory = "brunch";
             System.out.println("We are looking for a brunch");
             if (!placeCategories.contains("Brunch")) {
                 System.out.println("Not a brunch. Next...");
@@ -77,7 +78,7 @@ public class GeniusServices {
                 (currentTime.isAfter(fiveAm) && currentTime.isBefore(eightAm)) ||
                 (currentTime.isAfter(twoPm) && currentTime.isBefore(sixPm)))
         {
-            //Café
+            targetCategory = "cafe";
             System.out.println("We are looking for a caffé");
             if (!placeCategories.contains("Café")) {
                 System.out.println("Not a café. Next...");
@@ -85,7 +86,7 @@ public class GeniusServices {
                 return getRecommendation(userId,isGroupRecomm,groupId);
             }
         } else {
-            //Café
+            targetCategory = "cafe";
             System.out.println("We are looking for a caffé");
             if (!placeCategories.contains("Café")) {
                 System.out.println("Not a café (2). Next...");
@@ -99,6 +100,7 @@ public class GeniusServices {
         recom.put("google_place_id",recommendedPlace.get("google_place_id"));
         recom.put("place_name",recommendedPlace.get("place_name"));
         recom.put("categories",recommendedPlace.get("place_categories"));
+        recom.put("target_category", targetCategory);
 
         DatabaseServices.closeDB();
         return recom;

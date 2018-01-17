@@ -42,6 +42,14 @@ ons-page {
 #not-open-now {
   color: crimson; }
 
+.genius-filters {
+  text-align: left;
+  margin-left: 1em; }
+  .genius-filters .category-checkbokes {
+    display: flex;
+    justify-content: space-around;
+    margin-top: .5em; }
+
 .tags-cb-container {
   display: inline-flex;
   flex-wrap: wrap;
