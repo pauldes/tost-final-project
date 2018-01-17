@@ -1,5 +1,6 @@
 .get-genius-button {
   text-align: center;
+  background: $color-blue-light;
 }
 
 .card-image-container {
@@ -13,5 +14,21 @@
     display: block;
     top: 0;
     left: 0;
+  }
+}
+
+.directions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .go-path {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .path-time {
+    margin-right: 1em;
   }
 }

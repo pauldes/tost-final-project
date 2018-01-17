@@ -175,64 +175,33 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
             var recommendationDiv = $('#recommendation');
             recommendationDiv.removeAttribute("hidden");
 
+            //Get place attributes
             var address = place.formatted_address;
 
             var openNow = place.opening_hours.open_now;
-            console.log(openNow);
 
             var googleDirectionLink = place.url;
             var formatted_place_categories = place_categories.replace(",", " | ");
             formatted_place_categories = "<div style='color:lightgray'>" + formatted_place_categories + "</div>";
 
-            var transportMode;
-            if ($('#rpath-feet').checked) {
-                transportMode = "WALKING"
-            } else {
-                transportMode = "BICYCLING"
+            //Determine Transport Mode
+            var transportMode = "WALKING";
+            getPathDistance(address, transportMode);
+
+            $('#rpath-bike').onclick = function() {
+                transportMode = "BICYCLING";
+                getPathDistance(address, transportMode);
             }
 
-            //Get current position
-            navigator.geolocation.getCurrentPosition(
-                function (position){
-                    Latitude = position.coords.latitude;
-                    Longitude = position.coords.longitude;
-                    var currentPosition = new google.maps.LatLng(Latitude, Longitude);
-
-                    var service = new google.maps.DistanceMatrixService();
-                    service.getDistanceMatrix(
-                        {
-                            origins : [currentPosition],
-                            destinations : [place.formatted_address],
-                            travelMode : transportMode
-                        }, distanceCallback);
-                },
-                function (error) {
-                    console.log(error);
-                }, { enableHighAccuracy: true });
-
-            function distanceCallback(res, stat){
-                if (stat == 'OK') {
-                    var origins = res.originAddresses;
-                    var pathTimeDiv = $('#path-time');
-
-                    for (var i = 0; i < origins.length; i++) {
-                        var results = res.rows[i].elements;
-                        for (var j = 0; j < results.length; j++) {
-                            var element = results[j];
-                            var distance = element.distance.text;
-                            var duration = element.duration.text;
-                            pathTimeDiv.innerHTML = "" +
-                                distance +
-                                " | " +
-                                duration;
-                        }
-                    }
-                }
-            };
+            $('#rpath-feet').onclick = function() {
+                transportMode = "WALKING";
+                getPathDistance(address, transportMode);
+            }
 
             var innerRecommendationDiv = document.createElement('div');
             innerRecommendationDiv.className = 'row';
 
+            //Fill card with place attributes
             $('#card-image-container').innerHTML = "<img src=" +
             place.photos[0].getUrl({'maxWidth': 640, 'maxHeight': 640}) +
             " style='width: 100%'>"
@@ -254,6 +223,49 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
             recommendationDiv.appendChild(innerRecommendationDiv);
         }
     }
+}
+
+function getPathDistance(destination, transportMode) {
+    $('#path-time').innerHTML = "<ons-icon size='20px' spin icon='ion-load-c'></ons-icon>";
+
+    //Get current position
+    navigator.geolocation.getCurrentPosition(
+        function (position){
+            Latitude = position.coords.latitude;
+            Longitude = position.coords.longitude;
+            var currentPosition = new google.maps.LatLng(Latitude, Longitude);
+
+            var service = new google.maps.DistanceMatrixService();
+            service.getDistanceMatrix(
+                {
+                    origins : [currentPosition],
+                    destinations : [destination],
+                    travelMode : transportMode
+                }, distanceCallback);
+        },
+        function (error) {
+            console.log(error);
+        }, { enableHighAccuracy: true });
+
+    function distanceCallback(res, stat){
+        if (stat == 'OK') {
+            var origins = res.originAddresses;
+            var pathTimeDiv = $('#path-time');
+
+            for (var i = 0; i < origins.length; i++) {
+                var results = res.rows[i].elements;
+                for (var j = 0; j < results.length; j++) {
+                    var element = results[j];
+                    var distance = element.distance.text;
+                    var duration = element.duration.text;
+                    pathTimeDiv.innerHTML = "" +
+                        distance +
+                        "</br>" +
+                        duration;
+                }
+            }
+        }
+    };
 }
 
 function postNewFav() {
