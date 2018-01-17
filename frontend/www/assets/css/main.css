@@ -13,7 +13,7 @@ ons-page {
 
 .get-genius-button {
   text-align: center;
-  background: #89bdd3; }
+  /*background: $color-blue-light*/ }
 
 .card-image-container {
   width: 100%;
@@ -36,6 +36,14 @@ ons-page {
     justify-content: space-around; }
   .directions .path-time {
     margin-right: 1em; }
+
+.open-now {
+  color: greenyellow;
+  font-size: 80%; }
+
+.not-open-now {
+  color: orangered;
+  font-size: 80%; }
 
 .coffee-card-container {
   margin: 1em;

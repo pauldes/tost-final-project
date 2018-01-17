@@ -209,9 +209,9 @@ function drawGeniusRecommendation(place_name,place_categories,google_place_id) {
             $('#open-now').innerHTML =""
             $('#not-open-now').innerHTML = ""
             if(openNow)
-                $('#open-now').innerHTML = "<i>Ouvert en ce moment</i>";
+                $('#open-now').innerHTML = "<i>Ouvert</i>";
             else
-                $('#not-open-now').innerHTML = "<i>Fermé en ce moment</i>";
+                $('#not-open-now').innerHTML = "<i>Fermé</i>";
 
             $('#genius-card-title').innerHTML = place_name;
             $('#genius-card-categories').innerHTML = formatted_place_categories;
