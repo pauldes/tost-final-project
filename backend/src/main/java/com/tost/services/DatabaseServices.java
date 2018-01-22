@@ -10,7 +10,9 @@ public class DatabaseServices {
     public static void openDB(){
         if(!Base.hasConnection()) {
             //Local
-            Base.open("com.mysql.cj.jdbc.Driver", "jdbc:mysql://localhost/tost_db?serverTimezone=UTC&nullNamePatternMatchesAll=true&useSSL=false", "root", "");
+            //Base.open("com.mysql.cj.jdbc.Driver", "jdbc:mysql://localhost/tost_db?serverTimezone=UTC&nullNamePatternMatchesAll=true&useSSL=false", "root", "");
+            //Prod
+            Base.open("com.mysql.cj.jdbc.Driver", "jdbc:mysql://localhost/tost_db?serverTimezone=UTC&nullNamePatternMatchesAll=true&useSSL=false", "tost_app", "P=Fevq]LHPT#");
         }
     }
 
