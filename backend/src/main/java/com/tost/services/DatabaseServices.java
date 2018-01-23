@@ -11,8 +11,10 @@ public class DatabaseServices {
         if(!Base.hasConnection()) {
             //Local
             //Base.open("com.mysql.cj.jdbc.Driver", "jdbc:mysql://localhost/tost_db?serverTimezone=UTC&nullNamePatternMatchesAll=true&useSSL=false", "root", "");
-            //Prod
-            Base.open("com.mysql.cj.jdbc.Driver", "jdbc:mysql://localhost/tost_db?serverTimezone=UTC&nullNamePatternMatchesAll=true&useSSL=false", "tost_app", "P=Fevq]LHPT#");
+            //Helios
+            //Base.open("com.mysql.cj.jdbc.Driver", "jdbc:mysql://localhost/tost_db?serverTimezone=UTC&nullNamePatternMatchesAll=true&useSSL=false", "tost_app", "P=Fevq]LHPT#");
+            //OpenShift
+            Base.open("com.mysql.cj.jdbc.Driver", "jdbc:mysql://mysql:3306/tost_db?serverTimezone=UTC&nullNamePatternMatchesAll=true&useSSL=false", "tost_app", "pIRJAsjiqIt~p3");
         }
     }
 
