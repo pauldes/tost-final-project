@@ -1,7 +1,7 @@
 # Tøst innovative project
 
 Tøst is a mobile application dedicated to discover new places to hang out to, alone or with your friends.
-Tøst knows what you (and your friends) like most and is able to tell you where to go to enjoy life.
+Using data science recommendation algorithms, Tøst knows what you (and your friends) like most and is able to tell you where to go to enjoy life.
 
 This project was realized during our last year at @INSAdeLyon.
 
